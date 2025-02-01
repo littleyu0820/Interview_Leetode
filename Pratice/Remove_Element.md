@@ -6,10 +6,10 @@
 # Code #1(Pointers) //Python
     nums = [1, 2, 3, 4, 5]  /*初始數列*/
     target = 3 /*移除目標*/
-    pointer_fast = 0
-    pointer_slow = 0
+    pointer_fast = 0 /*快指針先跑*/ /*用來找尋要刪除的數值*/ /*如果沒找到，則把當前數值給到慢指針上*/
+    pointer_slow = 0 /*慢指針後跑*/
     size = len(nums)
-    while(pointer_fast < size):
+    while(pointer_fast < size): /*在數列內移動*/
         if(nums[pointer_fast] != target):
             nums[pointer_slow] = nums[pointer_fast]
             pointer_slow += 1
