@@ -21,5 +21,21 @@
            return middle
 
     return -1
-            
+
+
+
+# Code #2([left, right)) //Python
+    nums = [0, 1, 3, 5, 8, 7, 11] /*初始數列*/
+    left, right = 0, len(nums)
+    target = 2 /*目標值*/
+    while(left < right):
+       middle = (left + right)/2 /*取中間值*/
+       if(nums[middle] > target): /*中間值大於目標值，從左區間開始重新尋找*/
+           right = middle /*從將中間值開始重新尋找*/
+       elif(nums[middle] < target) /*中間值小於目標值，從右區間開始重新尋找*/
+           left = middle + 1 /*將中間值往右一格重新尋找*/
+       else: /*中間值與目標值相等，表示找到了*/
+           return middle
+
+    return -1
 
