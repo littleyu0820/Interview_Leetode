@@ -23,12 +23,12 @@
     target = 3 /*移除目標*/
     counter = 0
     size = len(nums)
-    while(counter < size):
-        if(nums[counter] = target):
-            for(i in range(counter+1, size):
+    while(counter < size): /*在數列內移動*/
+        if(nums[counter] = target): /*找到目標值*/
+            for(i in range(counter+1, size): /*覆蓋該元素，其後所有元素向左平移一格*/
                 nums[i-1] = nums[i]
-            counter -= 1
-            size -= 1
+            counter -= 1 /*向左平移*/
+            size -= 1 /*忽略被覆蓋元素*/
         counter += 1
 
     return counter, nums
