@@ -19,6 +19,6 @@
 
 
 # LeetCode:<https://leetcode.com/problems/remove-element/description/>
-# My_LeetCode_Solution:
+# My_LeetCode_Solution:<https://github.com/littleyu0820/LeetCode_Exercises/blob/main/Exercise/Remove_Element.py>
     
     
