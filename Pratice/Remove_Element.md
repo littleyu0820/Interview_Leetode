@@ -7,10 +7,5 @@
     nums = [1, 2, 3, 4, 5]  /*初始數列*/
     target = 3 /*移除目標*/
     counter = 0
-    for temp in nums:
-        if(temp == target):
-            for i in range(counter, len(nums)):
-                nums[i] = nums[i+1]
-        else:
-            counter += 1
+    
     
