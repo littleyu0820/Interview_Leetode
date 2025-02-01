@@ -15,7 +15,7 @@
             pointer_slow += 1
         pointer_fast += 1
 
-    return pointer_slow+1, nums
+    return pointer_slow, nums
 
 
 # Code #2(The Simple method) //Python
@@ -24,7 +24,14 @@
     counter = 0
     size = len(nums)
     while(counter < size):
-        if
+        if(nums[counter] = target):
+            for(i in range(counter+1, size):
+                nums[i-1] = nums[i]
+            counter -= 1
+            size -= 1
+        counter += 1
+
+    return counter, nums
 
 # LeetCode:<https://leetcode.com/problems/remove-element/description/>
 # My_LeetCode_Solution:<https://github.com/littleyu0820/LeetCode_Exercises/blob/main/Exercise/Remove_Element.py>
