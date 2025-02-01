@@ -16,6 +16,9 @@
         pointer_fast += 1
 
     return pointer_slow+1, nums
-    
+
+
+# LeetCode:<https://leetcode.com/problems/remove-element/description/>
+# My_LeetCode_Solution:
     
     
