@@ -15,7 +15,7 @@
        middle = (left + right)/2 /*取中間值*/
        if(nums[middle] > target): /*中間值大於目標值，從左區間開始重新尋找*/
            right = middle - 1 /*將中間值往左一格重新尋找*/
-       elif(nums[middle] < target) /*中間值小於目標值，從右區間開始重新尋找*/
+       elif(nums[middle] < target): /*中間值小於目標值，從右區間開始重新尋找*/
            left = middle + 1 /*將中間值往右一格重新尋找*/
        else: /*中間值與目標值相等，表示找到了*/
            return middle
@@ -32,7 +32,7 @@
        middle = (left + right)/2 /*取中間值*/
        if(nums[middle] > target): /*中間值大於目標值，從左區間開始重新尋找*/
            right = middle /*從將中間值開始重新尋找*/
-       elif(nums[middle] < target) /*中間值小於目標值，從右區間開始重新尋找*/
+       elif(nums[middle] < target): /*中間值小於目標值，從右區間開始重新尋找*/
            left = middle + 1 /*將中間值往右一格重新尋找*/
        else: /*中間值與目標值相等，表示找到了*/
            return middle
