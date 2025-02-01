@@ -12,5 +12,16 @@
     left, right = 0, len(nums)-1
     target = 2 //目標值
     while(left <= right):
-       middle
+       middle = (left + right)/2 //取中間值
+       if(nums[middle] > target): //中間值大於目標值，從左區間開始重新尋找
+           right = middle - 1 //將中間值往左一格重新尋找
+        elif(nums[middle] < target) //中間值小於目標值，從右區間開始重新尋找
+            left = middle + 1 //將中間值往右一格重新尋找
+        else:
+            return middle
+
+
+
+    return -1
+            
 
