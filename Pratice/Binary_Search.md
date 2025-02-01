@@ -8,9 +8,9 @@
 ## 3. 區間不變量:
 ### 表示區間初始設定為左閉右閉，那麼在接下來的執行過程中，就維持左閉右閉;左閉右開亦是如此。
 # Code #1([left, right]) //Python
-    nums = [0, 1, 3, 5, 8, 7, 11] //初始數列
+    nums = [0, 1, 3, 5, 8, 7, 11] /*初始數列*/
     left, right = 0, len(nums)-1
-    target = 2 //目標值
+    target = 2 /*目標值*/
     while(left <= right):
        middle = (left + right)/2 /*取中間值*/
        if(nums[middle] > target): /*中間值大於目標值，從左區間開始重新尋找*/
