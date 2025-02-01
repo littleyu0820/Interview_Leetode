@@ -11,5 +11,5 @@
 ### nums = [0, 1, 3, 5, 8, 7, 11] //初始數列
 ### left, right = 0, len(nums)-1
 ### target = 2 //目標值
-
+while
 
