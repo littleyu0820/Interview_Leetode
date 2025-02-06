@@ -23,5 +23,5 @@
         return new_nums
 
 
-# LeetCode:<[https://leetcode.com/problems/remove-element/description/](https://leetcode.com/problems/squares-of-a-sorted-array/description/)>
-# My_LeetCode_Solution:<https://github.com/littleyu0820/LeetCode_Exercises/blob/main/Exercise/Remove_Element.py>
+# LeetCode:<https://leetcode.com/problems/squares-of-a-sorted-array/>
+# My_LeetCode_Solution:<https://github.com/littleyu0820/LeetCode_Exercises/blob/main/Exercise/Binary_Search.py>
