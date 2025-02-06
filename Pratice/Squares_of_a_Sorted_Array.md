@@ -1,5 +1,5 @@
 # Squares_of_a_Sorted_Array 有序陣列的平方
-##
+## 思考邏輯
 
 
 
