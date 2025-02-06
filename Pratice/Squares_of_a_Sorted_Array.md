@@ -3,7 +3,7 @@
 
 
 
-## Code #1(pointers or sliding window):
+## Code #1(Pointers or Sliding Window) //Python:
         left_point = 0
         right_point = len(nums) - 1
         size = len(nums)
