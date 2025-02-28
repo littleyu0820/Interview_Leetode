@@ -6,7 +6,7 @@
   #### ☁️[迴圈](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#迴圈)
 ## 1 輸入與輸出
 
-```python
+```c++
 /*
 * 函式庫<iostream>的應用
 * istream(cin)/ostream(cout)
@@ -29,15 +29,13 @@ int main()
 ```
 ### 以上面這段程式碼為例子，在C++中，當我們要進行輸入輸出，皆須先引入函式庫iostream。
 ### iostream可以分成兩個部分:istreeam(cin)以及ostream(cout)。
-`python
-int  x = 0;
-`
+`c++ int  x = 0;`
 ### 程式碼解釋:宣告變數x。
-`python
+`c++
 std::cin >> v1;
 `
 ### 程式碼解釋:將輸入的值cin存取到變數x中。
-`python
+`c++
 std::cout << x << endl;
 `
 ### 程式碼解釋:將變數x存到cout中，並且釋放。
@@ -46,7 +44,7 @@ std::cout << x << endl;
 ## 2 迴圈
 ### 一般來說，程式碼皆是順序執行的，但我們也可以通過迴圈的方式來增加特定條件。
 ### while:反覆執行某段程式，直到給定的條件為假(false)。
-```python
+```c++
 #include <iostream>  
 int main()
 {
