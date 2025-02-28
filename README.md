@@ -7,7 +7,6 @@
 ## 1 輸入與輸出
 
 ˋˋˋpython
-
 int main()
 {
 	std::cout << "This is a test!" << std::endl;
