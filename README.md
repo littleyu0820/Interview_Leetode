@@ -3,6 +3,7 @@
 # C++
 ### Table of Contents
   #### 🔵[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md/#輸入與輸出)
+  #### 🔵[迴圈](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md/#迴圈)
 ## 1 輸入與輸出
     /*
     * 函式庫<iostream>的應用
@@ -55,5 +56,5 @@
      }
      
 ### for:為了簡化迴圈內條件變數的增減而專們定義出來的，簡化步驟。
-#### 🔵[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md/#輸入與輸出)
+
 # LeetCode_Exercises
