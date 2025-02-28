@@ -16,5 +16,6 @@
     
     	return 0;
     }
-
+### 以上面這段程式碼為例子，在C++中，當我們要進行輸入輸出，皆須先引入函式庫<iostream>。
+### <iostream>可以分成兩個部分:istreeam(cin)以及ostream(cout)
 # LeetCode_Exercises
