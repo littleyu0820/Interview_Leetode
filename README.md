@@ -2,8 +2,8 @@
 ## 本身是通訊系畢業的學生，在學期間主要使用的語言都是Python，但在求職前打算好好的學習C++，在這裡記錄下學習過程。
 # C++
 ### Table of Contents
-  ##### ☁️[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#輸入與輸出)
-  ##### ☁️[迴圈](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#迴圈)
+  #### ☁️[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#輸入與輸出)
+  #### ☁️[迴圈](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#迴圈)
 ## 1 輸入與輸出
     /*
     * 函式庫<iostream>的應用
