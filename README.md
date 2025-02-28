@@ -2,7 +2,7 @@
 ## 本身是通訊系畢業的學生，在學期間主要使用的語言都是Python，但在求職前打算好好的學習C++，在這裡記錄下學習過程。
 # C++
 ### Table of Contents
-
+▶️[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md)
 ## 1 輸入與輸出
     /*
     * 函式庫<iostream>的應用
@@ -56,5 +56,4 @@
      
 ### for:為了簡化迴圈內條件變數的增減而專們定義出來的，簡化步驟。
 
-[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md)
 # LeetCode_Exercises
