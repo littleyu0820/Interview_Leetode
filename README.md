@@ -44,31 +44,28 @@ int main()
 #include <iostream>  
 int main()
 {
-int sum = 0, val = 1;
-        
-while (val <= 10) //if val is less than or equal to 10 keep running the loop
-{
-        sum += val; // keep adding val to sum
-        ++val; // increment val by 1 each loop
-}
-std::cout << "The sum is: " << sum << std::endl;
-return 0;
+	int sum = 0, val = 1;
+	while (val <= 10) //if val is less than or equal to 10 keep running the loop
+	{
+	        sum += val; // keep adding val to sum
+	        ++val; // increment val by 1 each loop
+	}
+	std::cout << "The sum is: " << sum << std::endl;
+	return 0;
 }
 ```
 ### for:為了簡化迴圈內條件變數的增減而專門定義出來的，簡化步驟。
 ### for(變數初始值;條件;變數增減)
 ### 執行順序:變數初始值➡️條件➡️for內程式碼➡️變數增減➡️條件➡️.....
 ```c++
+#include <iostream>  
 int main()
-{
-	
+{	
 	int sum = 0;
-
 	for (int i = 0; i <= 10; ++i)
 	{
 		sum += i;
 	}
-
 	std::cout << "The sum is: " << sum << std::endl;
 	return 0;
 }
