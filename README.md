@@ -5,6 +5,8 @@
   #### ☁️[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#輸入與輸出)
   #### ☁️[迴圈](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#迴圈)
 ## 1 輸入與輸出
+
+ˋˋˋpython
     /*
     * 函式庫<iostream>的應用
     * istream(cin)/ostream(cout)
@@ -27,6 +29,7 @@
     
     	return 0;
     }
+ˋˋˋ
 ### 以上面這段程式碼為例子，在C++中，當我們要進行輸入輸出，皆須先引入函式庫iostream。
 ### iostream可以分成兩個部分:istreeam(cin)以及ostream(cout)。
     int  x = 0;
