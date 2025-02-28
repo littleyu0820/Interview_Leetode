@@ -71,6 +71,6 @@ int main()
 }
 ```
 
-## 練習題
+## 練習題1
 ### 根據使用者輸入的值求總和
 # LeetCode_Exercises
