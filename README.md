@@ -4,7 +4,7 @@
 
 ## 1 C++的輸入與輸出
     /*
-    *函式庫<iostream>的應用
+    * 函式庫<iostream>的應用
     * istream(cin)/ostream(cout)
     * std::cin >> x;
     * 將輸入的值存取到變數x
