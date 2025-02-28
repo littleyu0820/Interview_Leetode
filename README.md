@@ -47,7 +47,7 @@ int main()
 	int sum = 0, val = 1;
 	while (val <= 10) //if val is less than or equal to 10 keep running the loop
 	{
-	        sum += val; // keep adding val to sum
+		sum += val; // keep adding val to sum
 	        ++val; // increment val by 1 each loop
 	}
 	std::cout << "The sum is: " << sum << std::endl;
