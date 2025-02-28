@@ -70,4 +70,7 @@ int main()
 	return 0;
 }
 ```
+
+## 練習題
+### 根據使用者輸入的值求總和
 # LeetCode_Exercises
