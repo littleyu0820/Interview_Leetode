@@ -55,6 +55,6 @@ std::cout << "Total is: " << sum << std::endl;
 return 0;
 }
 ```
-### for:為了簡化迴圈內條件變數的增減而專們定義出來的，簡化步驟。
+### for:為了簡化迴圈內條件變數的增減而專門定義出來的，簡化步驟。
 
 # LeetCode_Exercises
