@@ -3,7 +3,7 @@
 # C++
 ### Table of Contents
   #### ☁️[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#輸入與輸出)
-  #### ☁️[迴圈](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#迴圈)
+  #### ☁️[迴圈](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#2-%E8%BF%B4%E5%9C%88)
 ## 1 輸入與輸出
 
 ```c++
