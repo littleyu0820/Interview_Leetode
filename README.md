@@ -2,7 +2,7 @@
 ## 本身是通訊系畢業的學生，在學期間主要使用的語言都是Python，但在求職前打算好好的學習C++，在這裡記錄下學習過程。
 # C++
 ### Table of Contents
-*☁️[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#1-%E8%BC%B8%E5%85%A5%E8%88%87%E8%BC%B8%E5%87%BA)
+#### ☁️[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#1-%E8%BC%B8%E5%85%A5%E8%88%87%E8%BC%B8%E5%87%BA)
 #### ☁️[迴圈](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#2-%E8%BF%B4%E5%9C%88)
 #### ☁️[練習題1](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C1)
 ## 1 輸入與輸出
