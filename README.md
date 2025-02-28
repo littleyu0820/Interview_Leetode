@@ -15,6 +15,7 @@
 * std::cout << x << endl;
 * 將變數x的值存到cout並且釋放
 */
+#includ<iostream>
 int main()
 {
 	std::cout << "This is a test!" << std::endl;
