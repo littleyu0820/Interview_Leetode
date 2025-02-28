@@ -7,6 +7,14 @@
 ## 1 輸入與輸出
 
 ```python
+/*
+* 函式庫<iostream>的應用
+* istream(cin)/ostream(cout)
+* std::cin >> x;
+* 將輸入的值存取到變數x
+* std::cout << x << endl;
+* 將變數x的值存到cout並且釋放
+*/
 int main()
 {
 	std::cout << "This is a test!" << std::endl;
