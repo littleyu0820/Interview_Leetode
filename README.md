@@ -40,21 +40,21 @@ int main()
 ## 2 迴圈
 ### 一般來說，程式碼皆是順序執行的，但我們也可以通過迴圈的方式來增加特定條件。
 ### while:反覆執行某段程式，直到給定的條件為假(false)。
-    #include <iostream>
-    
-    int main()
-    {
-        int sum = 0, val = 1;
+```python
+#include <iostream>  
+int main()
+{
+int sum = 0, val = 1;
         
-        while (val <= 10) //if val is less than or equal to 10 keep running the loop
-        {
-        	sum += val; // keep adding val to sum
-        	++val; // increment val by 1 each loop
-        }
-        std::cout << "Total is: " << sum << std::endl;
-        return 0;
-     }
-     
+while (val <= 10) //if val is less than or equal to 10 keep running the loop
+{
+        sum += val; // keep adding val to sum
+        ++val; // increment val by 1 each loop
+}
+std::cout << "Total is: " << sum << std::endl;
+return 0;
+}
+```
 ### for:為了簡化迴圈內條件變數的增減而專們定義出來的，簡化步驟。
 
 # LeetCode_Exercises
