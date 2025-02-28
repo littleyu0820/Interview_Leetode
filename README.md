@@ -4,6 +4,7 @@
 ### Table of Contents
   #### ☁️[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#1-%E8%BC%B8%E5%85%A5%E8%88%87%E8%BC%B8%E5%87%BA)
   #### ☁️[迴圈](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#2-%E8%BF%B4%E5%9C%88)
+   #### ☁️[練習題](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#2-%E8%BF%B4%E5%9C%88)
 ## 1 輸入與輸出
 
 ```c++
