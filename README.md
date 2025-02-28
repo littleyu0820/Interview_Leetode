@@ -29,15 +29,11 @@ int main()
 ```
 ### 以上面這段程式碼為例子，在C++中，當我們要進行輸入輸出，皆須先引入函式庫iostream。
 ### iostream可以分成兩個部分:istreeam(cin)以及ostream(cout)。
-`c++ int  x = 0;`
+	int  x = 0;
 ### 程式碼解釋:宣告變數x。
-`c++
-std::cin >> v1;
-`
+	std::cin >> v1;
 ### 程式碼解釋:將輸入的值cin存取到變數x中。
-`c++
-std::cout << x << endl;
-`
+	std::cout << x << endl;
 ### 程式碼解釋:將變數x存到cout中，並且釋放。
 ### 注:endl是用來將暫存區的內容釋放到顯示器上的。
 
