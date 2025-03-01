@@ -74,4 +74,21 @@ int main()
 
 ## 練習題1
 >根據使用者輸入的值求總和
+### 方法1(暴力解法):
+```c++
+int main()
+{
+
+	int sum = 0, val = 0;
+
+	while (std::cin >> val) //if "ctrl+z"(windows) or ";" is pressed, the loop will break
+	{
+		sum += val;
+	}
+
+	std::cout << "The sum is: " << sum << std::endl;
+	return 0;
+
+}
+```
 # LeetCode_Exercises
