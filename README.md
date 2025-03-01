@@ -180,5 +180,5 @@ std::cin >> book; //read ISBN, numbers of sold, the price of each book
 ```c++
 std::cout << book << std::endl; //write ISBN, numbers of sold, total revenue, the price of each book
 ```
-### 程式碼解釋:與原本的std::cout不同，這裡可以直接得到我們要的所有結果。
+### 程式碼解釋:與原本的std::cout不同，這裡不僅寫出book原本的資料，還可以直接得到我們要的所有結果。
 # LeetCode_Exercises
