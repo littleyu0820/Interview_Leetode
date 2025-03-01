@@ -12,7 +12,8 @@
 >>#### ☁️[讀取/使用Class中的特定資料](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B2%E8%AE%80%E5%8F%96class%E4%B8%AD%E7%9A%84%E7%89%B9%E5%AE%9A%E8%B3%87%E6%96%99)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
->#### ☁️[二分搜尋法(Binary_Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)  
+>#### ☁️[二分搜尋法(Binary_Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
+>#### ☁️[移除元素(Remove_Element)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)  
 
 
 # C++
@@ -257,6 +258,8 @@ if (item1.isbn() == item2.isbn())
 ## ⭐補充:
 ### 1.在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
+
+
 # LeetCode
 ### Exercise 1
 >Binary Search(二分搜尋法):Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
@@ -317,3 +320,9 @@ class Solution:
 ☁️[LeetCode連結](https://leetcode.com/problems/binary-search/description/)
 ☁️[My_LeetCode_Sol](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/Exercise/Binary_Search.py)
 
+### Exercise 2
+>Remove Element(移除元素):Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.
+### 核心概念:
+1. 數列是一個"連續"的類型相近的元素集合。
+2. 所謂移除，並不是刪除，而是對目標元素進行"覆蓋"。
+3. 在各種程式語言中，移除元素後，取其長度(len(nums))，確實會減小，但在實際空間上，其實陣列的整體空間大小不變。
