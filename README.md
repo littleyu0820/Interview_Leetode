@@ -94,4 +94,38 @@ int main()
 
 ## 3 條件式(if)
 ### 當特定條件成立時，才會執行。
+```c++
+#include<iostream>
+
+int main()
+{
+	int counter = 0, val = 0, currentval = 0;
+
+	if (std::cin >> currentval) //if the first input is successful
+	{
+		
+		++counter; //counter is incremented by 1
+		while (std::cin >> val) //if the next input is successful
+		{
+			if (val == currentval) //check if the current input is equal to the previous input or not
+			{
+				++counter;
+			}
+			else
+			{
+				std::cout << "Number" << currentval << "occurs" << counter << "times" << std::endl; //print the previous number
+				currentval = val; //assign the current value to the previous value
+				counter = 1; //reset the counter
+			}
+		}
+		
+		std::cout << "Number" << currentval << "occurs" << counter << "times" << std::endl; //print the last number
+
+	}
+	else
+	{
+		return 0;
+	}
+}
+```
 # LeetCode_Exercises
