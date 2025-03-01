@@ -148,6 +148,6 @@ if (std::cin >> currentval) //if the first input is successful
 ### 從這兩條程式碼，我們就能夠看出，每一次cin結束之後，就是完全結束了，與先前的所有結果都無關。
 
 ## 3 物件導向(Object Oriented):
-### 通過class的方式來定義自己的數據結構詳細資料)
+### 通過class的方式來定義自己的數據結構(詳細資料)
 
 # LeetCode_Exercises
