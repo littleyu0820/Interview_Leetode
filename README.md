@@ -185,4 +185,28 @@ std::cout << book << std::endl; //write ISBN, numbers of sold, total revenue, th
 ### 程式碼解釋:與原本的std::cout不同，這裡不僅寫出book原本的資料，還可以直接得到我們要的所有結果。
 
 ### 程式碼範例2(讀取class中的特定資料):
+```c++
+#include<iostream>
+#include"Sales_item.h"
+
+int main()
+{
+	Sales_item item1, item2;
+	std::cin >> item1 >> item2; //read each data from the input
+	if (item1.isbn() == item2.isbn()) //check if the isbn of the two books are same or not
+	{
+		std::cout << item1 + item2 << std::endl; //print the sum of the two books
+		return 0;
+	}
+	else
+	{
+		std::cerr << "Data must refer to the same ISBN" << std::endl;
+		return -1;
+	}
+}
+```
+```c++
+if (item1.isbn() == item2.isbn())
+```
+### 程式碼解釋:通過".isbn"的方式，調用item1中的isbn值。
 # LeetCode_Exercises
