@@ -33,21 +33,7 @@
 
     return counter, nums
 
-# Code #3(Pointers) //Python
-    nums = [1, 2, 3, 4, 5]  /*初始數列*/
-    target = 3 /*移除目標*/
-    size = len(nums)
-    left_pointer, right_pointer = 0, size-1
-    while left <= right:
-        while left_pointer <= right_pointer and nums[left_pointer] != target:
-            left += 1
-        while left_pointer <= right_pointer and nums[right_pointer] != target:
-            right -= 1
-        if left < right:
-            nums[left_pointer] = nums[right_pointer]
-            left += 1
-            right -= 1
-    return left_pointer, nums
+
 
 # LeetCode:<https://leetcode.com/problems/remove-element/description/>
 # My_LeetCode_Solution:<https://github.com/littleyu0820/LeetCode_Exercises/blob/main/Exercise/Remove_Element.py>
