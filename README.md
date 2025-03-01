@@ -145,4 +145,7 @@ if (std::cin >> currentval) //if the first input is successful
 ### 而其中第四段的while迴圈，則是讓我們判斷"第二次"、"第三次"、....，所輸入的值是否成立。
 ### 從這兩條程式碼，我們就能夠看出，每一次cin結束之後，就是完全結束了，與先前的所有結果都無關。
 
+## 3 物件導向(Object Oriented):
+
+
 # LeetCode_Exercises
