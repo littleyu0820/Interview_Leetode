@@ -80,7 +80,7 @@ int main()
 
 ## 練習題1
 >根據使用者輸入的值求總和
-### 方法1:
+### 方法:
 ```c++
 int main()
 {
@@ -97,7 +97,45 @@ int main()
 
 }
 ```
+## 練習題2
+>根據使用者輸入兩個數，印出其範圍內的所有數值
+### 方法:
+```c++
+/*
+*讓使用者輸入兩個整數，然後印出這兩個數字範圍內的所有數字
+*/
 
+#include<iostream>
+
+int main()
+{
+	int val1 = 0, val2 = 0, currval = 0;
+
+	std::cout << "Please enter two numbers: " << std::endl;
+	std::cin >> val1 >> val2;
+
+	if (val1 > val2) //check if the first number is bigger or not
+	{
+		currval = val2; //the result will start from the smaller one
+		while (currval <= val1) //if the currval is greater than the first number, the loop will break
+		{
+			std::cout << currval << std::endl; //print the result from the smaller one
+			++currval; //increment the result by 1
+		}
+	}
+	else
+	{
+		currval = val1; //the result will start from the smaller one
+		while (currval <= val2) //if the currval is greater than the second number, the loop will break
+		{
+			std::cout << currval << std::endl; //print the result from the smaller one
+			++currval; //increment the result by 1
+		}
+	}
+
+	return 0;
+}
+```
 ## 3 條件式(if)
 ### 當特定條件成立時，才會執行。
 ### 程式碼範例:
