@@ -149,7 +149,7 @@ if (std::cin >> currentval) //if the first input is successful
 
 ## 3 物件導向(Object Oriented):
 ### 通過class的方式來定義自己的數據結構(詳細資料)
-### 程式碼範例1:
+### 程式碼範例:
 ```c++
 #include<iostream>
 #include"Sales_item.h"
