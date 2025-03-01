@@ -149,5 +149,36 @@ if (std::cin >> currentval) //if the first input is successful
 
 ## 3 物件導向(Object Oriented):
 ### 通過class的方式來定義自己的數據結構(詳細資料)
+### 程式碼範例1:
+```c++
+#include<iostream>
+#include"Sales_item.h"
 
+int main()
+{
+	Sales_item book;
+
+	std::cin >> book; //read ISBN, numbers of sold, the price of each book
+	std::cout << book << std::endl; //write ISBN, numbers of sold, total revenue, the price of each book
+
+	return 0;
+}
+```
+```c++
+#include"Sales_item.h"
+```
+### 程式碼解釋:引用標頭檔(Header file)。
+```c++
+Sales_item book;
+```
+### 程式碼解釋:對每一本書進行定義。
+### 這樣說可能有些抽象，用一個簡單的例子來說，當我們在看一個人時，可以通過姓名、性別、年紀、身高體重，甚至式性格，來定義這個人，而上面這段程式碼也是一樣的意思。
+```c++
+std::cin >> book; //read ISBN, numbers of sold, the price of each book
+```
+### 程式碼解釋:可以發現，這裡的std::cin與原本的操作模式有所不同，這裡是用來讀取一連串的數值(書的詳細資料)
+```c++
+std::cout << book << std::endl; //write ISBN, numbers of sold, total revenue, the price of each book
+```
+### 程式碼解釋:與原本的std::cout不同，這裡可以直接得到我們要的所有結果。
 # LeetCode_Exercises
