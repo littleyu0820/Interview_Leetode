@@ -388,3 +388,17 @@ while(left_point <= right_point): #left_point +1 or right_point -1 (moving)
         final -= 1 #save the  results from the last        
     return new_nums
 ```
+```python
+new_nums = [float('inf')] * size # the new array to save the results
+final = size - 1
+```
+### 程式碼解釋:建立一個新陣列用來存取平方後的值，同時存取方向是由後往前。
+```python
+if(nums[left_point]**2 <= nums[right_point]**2):
+	new_nums[final] = nums[right_point]**2
+	right_point -= 1
+else:
+	new_nums[final] = nums[left_point]**2
+	left_point += 1 
+```
+### 程式碼解釋:左有兩端點在迴圈內不斷比較，以此找出最大值，存取到新陣列中。
