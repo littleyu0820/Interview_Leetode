@@ -368,7 +368,7 @@ return counter, nums
 ### Exercise 3
 >Squares of a Sorted Array(有序陣列的平方):Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
 ### 程式碼範例(雙指針法):
-### 思考邏輯:所謂的也序陣列，即代表其最大值與最小值必然會出現在左右兩個端點。在這樣的前提下，如果我們將整個陣列做平方，想當然，最大值也必然會出現在左有兩端。
+### 思考邏輯:所謂的有序陣列，即代表其最大值與最小值必然會出現在左右兩個端點。在這樣的前提下，如果我們將整個陣列做平方，想當然，最大值也必然會出現在左有兩端。
 >Solution:
 ```python
 left_point = 0
@@ -402,3 +402,5 @@ else:
 	left_point += 1 
 ```
 ### 程式碼解釋:左有兩端點在迴圈內不斷比較，以此找出最大值，存取到新陣列中。
+☁️[LeetCode連結](https://leetcode.com/problems/squares-of-a-sorted-array/description/)
+☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Squares_of_a_Sorted_Array.py)
