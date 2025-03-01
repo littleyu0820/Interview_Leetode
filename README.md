@@ -14,7 +14,7 @@
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary_Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
 >#### ☁️[移除元素(Remove_Element)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-2)
->#### ☁️[有序陣列的平方(Squares of a Sorted Array)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-2)  
+>#### ☁️[有序陣列的平方(Squares of a Sorted Array)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-3)  
 
 
 # C++
@@ -367,3 +367,24 @@ return counter, nums
 
 ### Exercise 3
 >Squares of a Sorted Array(有序陣列的平方):Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+### 程式碼範例(雙指針法):
+### 思考邏輯:所謂的也序陣列，即代表其最大值與最小值必然會出現在左右兩個端點。在這樣的前提下，如果我們將整個陣列做平方，想當然，最大值也必然會出現在左有兩端。
+>Solution:
+```python
+left_point = 0
+right_point = len(nums) - 1
+size = len(nums)
+new_nums = [float('inf')] * size # the new array to save the results
+final = size - 1
+
+while(left_point <= right_point): #left_point +1 or right_point -1 (moving)
+	if(nums[left_point]**2 <= nums[right_point]**2):
+		new_nums[final] = nums[right_point]**2
+		right_point -= 1
+	else:
+		new_nums[final] = nums[left_point]**2
+            	left_point += 1
+
+        final -= 1 #save the  results from the last        
+    return new_nums
+```
