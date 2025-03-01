@@ -361,3 +361,5 @@ while(counter < size): /*在數列內移動*/
 
 return counter, nums
 ```
+☁️[LeetCode連結](https://leetcode.com/problems/remove-element/description/)
+☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Remove_Element.py)
