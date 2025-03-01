@@ -401,6 +401,6 @@ else:
 	new_nums[final] = nums[left_point]**2
 	left_point += 1 
 ```
-### 程式碼解釋:左有兩端點在迴圈內不斷比較，以此找出最大值，存取到新陣列中。
+### 程式碼解釋:左右兩端點在迴圈內不斷比較，以此找出最大值，存取到新陣列中。
 ☁️[LeetCode連結](https://leetcode.com/problems/squares-of-a-sorted-array/description/)
 ☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Squares_of_a_Sorted_Array.py)
