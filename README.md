@@ -13,7 +13,7 @@
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary_Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
->#### ☁️[移除元素(Remove_Element)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)  
+>#### ☁️[移除元素(Remove_Element)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-2)  
 
 
 # C++
