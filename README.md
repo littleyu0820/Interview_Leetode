@@ -129,4 +129,19 @@ int main()
 	}
 }
 ```
+### 要記得，當我們每次套用std::cin時，代表的都是一個新的開始，以下面這幾段程式碼(中間內容省略)為例:
+```c++
+if (std::cin >> currentval) //if the first input is successful
+	{		
+		++counter; //counter is incremented by 1
+		while (std::cin >> val) //if the next input is successful
+		{
+			...
+		}
+	}
+```
+### 其中第一段的if條件式，是用來判斷，當我們"第一次"讀取輸入的值時，是否成立，如果成立計數器加一，並且繼續向下執行˙。
+### 而其中第四段的while迴圈，則是讓我們判斷"第二次"、"第三次"、....，所輸入的值是否成立。
+### 從這兩條程式碼，我們就能夠看出，每一次cin結束之後，就是完全結束了，與先前的所有結果都無關。
+
 # LeetCode_Exercises
