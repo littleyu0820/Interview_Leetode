@@ -322,6 +322,19 @@ const int bufSize = 512 //bufSize被固定在512，不能再被改變了。
 ```c++
 extern const int bufSize = 512
 ```
+
+## 7 資料結構(Data Structure):
+### 與class做區別，class為private而struct則是public。
+```c++
+//struct Sales_data //ISBN, numbers of sold, the price of each book
+//{
+//	std::string book_Numbers;
+//	unsigned int numbers_sold = 0;
+//	double price = 0.0;
+//};
+```
+![Structure]()
+### 註:要記得sturcut最後要加上";"
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
