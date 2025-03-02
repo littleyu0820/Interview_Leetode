@@ -333,7 +333,7 @@ extern const int bufSize = 512
 //	double price = 0.0;
 //};
 ```
-![Structure]()
+![Structure](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/structure.png)
 ### 註:要記得sturcut最後要加上";"
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
