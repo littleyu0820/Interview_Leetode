@@ -11,6 +11,7 @@
 >>#### ☁️[Class的應用與介紹](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B1class%E7%9A%84%E7%B2%97%E7%95%A5%E8%A7%A3%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8)
 >>#### ☁️[讀取/使用Class中的特定資料](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B2%E8%AE%80%E5%8F%96class%E4%B8%AD%E7%9A%84%E7%89%B9%E5%AE%9A%E8%B3%87%E6%96%99)
 >### ☁️[基本觀念](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#4-%E5%9F%BA%E6%9C%AC%E8%A7%80%E5%BF%B5)
+>### ☁️[指針](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#4-%E5%9F%BA%E6%9C%AC%E8%A7%80%E5%BF%B5)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary_Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -267,7 +268,7 @@ if (item1.isbn() == item2.isbn())
 ### 在Ｃ++我們可以用關鍵字"extern"來做宣告(用來存取在其他地方就被定義的變數:
 ```c++
 extern int i; //只宣告i，至於i的內容，去外面拿
-int j; //定義且宣告
+int j = 1; //定義且宣告
 ```
 ### 變數只能定義一次，但可以被宣告無數次。
 ### 4. C++的識別字(identifier)必須由字母或底線為開頭，且區分大小寫。
@@ -284,6 +285,33 @@ int &refval = ival;
 ```
 ### 在這裡，我們得到的結果，一樣會是1024，但卻不同於初始化，我們並非是將ival放進refval中，而是將refval繫結(bind)，當然我本身比較喜歡說綁到ival上面。
 ### 當然我們也要注意，做完參考初始化後，就已經綁定了，你無法再將它綁定到其它物件上。
+
+## 5 指標(pointer):
+### 1. 指標是一種對位址(address)的封裝，也就是用來存放另一個物件的位址。同時與參考(references)不同，指標本身就是一個物件(有自己的空間)。
+### 2. 當我們定義指標時，會在變數前面用上"*"。
+```c++
+int *ip1;
+```
+### 3. 如果我們沒有對指標進行初始化，那麼它將會擁有一個不確定的值。
+### 4. 通過"&"來存取目標物件的位址。
+```c++
+int ival = 42; //ival是一個int型別的變數，內容為42
+int *ip1 = &ival; //ip1是一個int的指標。同時，我們將存取ival的位址。
+std::cout << *ip1 << std::endl; //將指標目前位址所存放的內容釋放出來
+```
+### 5. 指標的型別必須與所指的物件相同，但void*卻不用，如下:
+```c++
+double obj = 3.14, *pd;
+*pd = &obj; //obj與pd都是double
+void *pv;
+pv = &obj; //pv是一個void型別的指標，所以可以隨意地指向任意物件。
+```
+### 6. 如果我們前面第一點所說，指標也是一個物件，所以我們可以另一個指標，指向指標，這有點抽象，我們直接看例子:
+```c++
+int ival = 1024;
+int *pi = &ival; //取ival的位址，內容物為1024
+int **ppi = &pi; //取pi的位址，內容物也為1024
+```
 
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
