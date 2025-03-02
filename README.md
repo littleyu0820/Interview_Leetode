@@ -337,7 +337,7 @@ extern const int bufSize = 512
 //};
 ```
 ![Structure](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/structure.png)
-### 註:要記得sturcut最後要加上";"
+### 註:要記得struct最後要加上";"
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
