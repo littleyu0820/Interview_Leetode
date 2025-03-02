@@ -454,7 +454,7 @@ return counter, nums
 ### Exercise 3
 >Squares of a Sorted Array(有序陣列的平方):Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
 ### 程式碼範例(雙指針法):
-### 思考邏輯:所謂的有序陣列，即代表其最大值與最小值必然會出現在左右兩個端點。在這樣的前提下，如果我們將整個陣列做平方，想當然，最大值也必然會出現在左有兩端。
+### 思考邏輯:所謂的有序陣列，即代表其最大值與最小值必然會出現在左右兩個端點。在這樣的前提下，如果我們將整個陣列做平方，想當然，最大值也必然會出現在左右兩端。
 >Solution:
 ```python
 left_point = 0
@@ -491,6 +491,26 @@ else:
 
 ### Exercise 4
 >Minimum Size Subarray Sum(長度最小的子陣列):Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
+### 思考邏輯:通過快指針移動來找出兩根指針的和是否大於等於目標值了。如果找到了，計算長度，同時再將慢指針項又移一格，繼續判斷。
+>Solution:
+```python
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        size = len(nums)
+        left_pointer = 0
+        right_pointer = 0 #right_pointer is the pointer keeps moving
+        sublength = float('inf')
+        cur_sum = 0 
+        while(right_pointer < size):
+            cur_sum += nums[right_pointer]
 
+            while(cur_sum >= target): //checkl whether cur_sum is greater than target or not. sometimes when we minus nums[left_pointer] cur_sum will still be greater than target
+                sublength = min(sublength, right_pointer - left_pointer + 1)
+                cur_sum -= nums[left_pointer]
+                left_pointer += 1
+              
+            right_pointer += 1
+        return sublength if sublength != float('inf') else 0
+```
 ☁️[LeetCode連結](https://leetcode.com/problems/minimum-size-subarray-sum/description/)
 ☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Minimum_Size_Subarray_Sum.py)
