@@ -10,7 +10,7 @@
 >#### ☁️[物件導向](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#3-%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91object-oriented)
 >>#### ☁️[Class的應用與介紹](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B1class%E7%9A%84%E7%B2%97%E7%95%A5%E8%A7%A3%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8)
 >>#### ☁️[讀取/使用Class中的特定資料](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B2%E8%AE%80%E5%8F%96class%E4%B8%AD%E7%9A%84%E7%89%B9%E5%AE%9A%E8%B3%87%E6%96%99)
->### ☁️[基本型別](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#4-%E5%9F%BA%E6%9C%AC%E5%9E%8B%E5%88%A5)
+>### ☁️[基本觀念](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#4-%E5%9F%BA%E6%9C%AC%E5%9E%8B%E5%88%A5)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary_Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -257,11 +257,19 @@ if (item1.isbn() == item2.isbn())
 ```
 ### 程式碼解釋:通過".isbn"的方式，調用item1中的isbn值。
 
-## 4 基本型別:
-### C++是一種靜態的語言，所謂靜態，代表著就是在編譯時，我們就會對所有變數做型別的檢查。
+## 4 基本觀念:
+### 1. C++是一種靜態的語言，所謂靜態，代表著就是在編譯時，我們就會對所有變數做型別的檢查。
 ### 電腦是以bit(0/1)為基本單位做存儲的，而每一個最小記憶體組塊(1byte)則是由8個bit所組成的。
-### 我們還可以對變數做有號(signed)或無號(unsigned)的定義:
+### 2. 我們還可以對變數做有號(signed)或無號(unsigned)的定義:
 ### 有號代表著負、正，甚至是零的數字;而無號則只能表示大於等於零的值。
+### 3. 宣告與定義:用第一點我們所提到的概念來說，C++會明確的要求我們在使用某一變數時，就要先進行宣告了，而所謂宣告即定義，又最簡單的話來講，就是你有沒有說＂清楚＂。　
+### 舉例來說，有一個人叫做老王，但你只知道它叫做老王，不知道他是男是女，他的身高體重、年紀...等，這就是宣告；而定義就是，你明確的被告知，那人就老王，是男的，有多高多重，甚至是幾歲。
+### 在Ｃ++我們可以用關鍵字"extern"來做宣告(用來存取在其他地方就被定義的變數:
+```c++
+extern int i; //只宣告i，至於i的內容，去外面拿
+int j;
+```
+### 變數只能定義一次，但可以被宣告無數次。
 
 
 ## ⭐補充:
