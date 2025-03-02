@@ -302,6 +302,8 @@ int ival = 42; //ival是一個int型別的變數，內容為42
 int *ip1 = &ival; //ip1是一個int的指標。同時，我們將存取ival的位址。
 std::cout << *ip1 << std::endl; //將指標目前位址所存放的內容釋放出來
 ```
+![Pointer](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/pointer.png)
+
 ### 5. 指標的型別必須與所指的物件相同，但void*卻不用，如下:
 ```c++
 double obj = 3.14, *pd;
