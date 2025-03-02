@@ -504,7 +504,7 @@ class Solution:
         while(right_pointer < size):
             cur_sum += nums[right_pointer]
 
-            while(cur_sum >= target): //checkl whether cur_sum is greater than target or not. sometimes when we minus nums[left_pointer] cur_sum will still be greater than target
+            while(cur_sum >= target): #checkl whether cur_sum is greater than target or not. sometimes when we minus nums[left_pointer] cur_sum will still be greater than target
                 sublength = min(sublength, right_pointer - left_pointer + 1)
                 cur_sum -= nums[left_pointer]
                 left_pointer += 1
