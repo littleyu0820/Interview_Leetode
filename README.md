@@ -329,12 +329,12 @@ extern const int bufSize = 512
 ## 7 資料結構(Data Structure):
 ### 與class做區別，class為private而struct則是public。
 ```c++
-//struct Sales_data //ISBN, numbers of sold, the price of each book
-//{
-//	std::string book_Numbers;
-//	unsigned int numbers_sold = 0;
-//	double price = 0.0;
-//};
+struct Sales_data //ISBN, numbers of sold, the price of each book
+{
+	std::string book_Numbers;
+	unsigned int numbers_sold = 0;
+	double price = 0.0;
+};
 ```
 ![Structure](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/structure.png)
 ### 註:要記得struct最後要加上";"
