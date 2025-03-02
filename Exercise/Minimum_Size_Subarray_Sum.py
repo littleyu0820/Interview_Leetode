@@ -2,7 +2,7 @@ class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         size = len(nums)
         left_pointer = 0
-        right_pointer = 0 #j is the pointer keeps moving
+        right_pointer = 0 #right_pointer is the pointer keeps moving
         sublength = float('inf')
         cur_sum = 0 
         result = 0
