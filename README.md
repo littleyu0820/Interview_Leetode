@@ -14,6 +14,7 @@
 >#### ☁️[指標](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#5-%E6%8C%87%E6%A8%99pointer)
 >#### ☁️[限定詞](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#6-%E9%99%90%E5%AE%9A%E8%A9%9Econst)
 >#### ☁️[資料結構](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#7-%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8Bdata-structure)
+>#### ☁️[命名空間](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#7-%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8Bdata-structure)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -338,6 +339,23 @@ struct Sales_data //ISBN, numbers of sold, the price of each book
 	double price = 0.0;
 };
 ```
+## 8 命名空間:
+### 大家可以發現，再我們每次使用cin、cout，又或者是endl時，都會在前面加上"std::"，主要原因在於，它們三個都是存於std這個命名空間裡面的。
+### 舉例來說，你現在想吃水果口味的糖果，但是桌上卻有三包不同種類的糖果，你就必須很明確地告訴別人，你要吃得是哪三種糖果，這樣人家才可以拿出你想要的。
+### 而在這種情況下，我們就會通過"std::"的方式來使用，當然每一次都這麼用確實有些繁雜，所以我們可以通過以下兩種方式來簡化。
+```c++
+using std::cin;
+using std::cout;
+using std::endl;
+```
+### 又或者是直接:
+```c++
+using namespace std;
+```
+### 當然要記得的是，在標頭檔(Header File)中不要使用using的宣告的喔!
+### 題外話，我本身還是習慣使用"std::"的方式來寫程式，算是一種習慣吧，同時如果大家真的要簡化的話，也記得用第一種方式會比較好，這樣你又或者是讀某篇程式碼的人，才會明確得清楚，到底使用了那些宣告了。
+
+
 ![Structure](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/structure.png)
 ### 註:要記得struct最後要加上";"
 ## ⭐補充:
