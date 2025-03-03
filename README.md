@@ -1,6 +1,7 @@
 # 《流雲》程式工程師求職前準備!
 ## 本身是通訊系畢業的學生，在學期間主要使用的語言都是Python，但在求職前打算好好的學習C++以及刷LeetCode，在這裡記錄下學習過程。
 ### 題外話，下方C++的學習心得以及例題，基本上都來自C++Primer 5th這本書，所以可以搭配著看更好喔!
+## ☁️[影片講解-C++學習心得]()  
 ### Table of Contents(C++)
 >#### ☁️[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#1-%E8%BC%B8%E5%85%A5%E8%88%87%E8%BC%B8%E5%87%BA)  
 >#### ☁️[迴圈](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#2-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%BF%B4%E5%9C%88)
