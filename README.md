@@ -587,10 +587,38 @@ int main()
 }
 ```
 ## 10 迭代器(Iterator):
-### 在很多時候，我們並沒有辦法像對待string又或者是vector那要，使用index來存取我們想要的元素，在這種情況下，我們就會使用迭代器。
-
-
-
+### 1. 在很多時候，我們並沒有辦法像對待string又或者是vector那樣，使用index來存取我們想要的元素，在這種情況下，我們就會使用迭代器，如下:
+```c++
+#include<iostream>
+#include<string>
+#include<vector>
+int main()
+{
+	std::string test_string("Hello, World!");
+	for (auto convert_s = test_string.begin(); convert_s != test_string.end(); ++convert_s)
+	{
+		*convert_s = toupper(*convert_s);
+	}
+	std::cout << test_string << std::endl;
+	return 0;
+}
+```
+```c++
+for (auto convert_s = test_string.begin(); convert_s != test_string.end(); ++convert_s)
+```
+### 程式碼解釋:convert_s初始化為test_string的第一個元素，且型別由編譯器判斷，不斷向後移動，直到碰到結尾(最後一個元素的下一個位置，是不存在的)。
+```c++
+*convert_s = toupper(*convert_s);
+```
+### 程式碼解釋:將convert_s所指向位址的字母做大寫轉換，然後替換掉。
+### 2. 迭代器的定義方式:
+```c++
+std::vector<int>::iterator it;
+std::string::iterator it2;
+std::vector<int>::const_iterator it3;
+std::vector<int> v;
+auto it4 = v.cbegin(); //type:std::vector<int>::const_iterator
+```
 
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
