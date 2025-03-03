@@ -3,7 +3,7 @@
 ### 題外話，下方C++的學習心得以及例題，基本上都來自C++Primer 5th這本書，所以可以搭配著看更好喔!
 ### Table of Contents(C++)
 >#### ☁️[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#1-%E8%BC%B8%E5%85%A5%E8%88%87%E8%BC%B8%E5%87%BA)  
->#### ☁️[迴圈](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#2-%E8%BF%B4%E5%9C%88)
+>#### ☁️[迴圈](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#2-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%BF%B4%E5%9C%88)
 >>#### ☁️[練習題1](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C1)
 >>#### ☁️[練習題2](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C2)
 >#### ☁️[條件式](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#3-%E6%A2%9D%E4%BB%B6%E5%BC%8Fif)
