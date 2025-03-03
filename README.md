@@ -16,6 +16,9 @@
 >#### ☁️[資料結構](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#7-%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8Bdata-structure)
 >#### ☁️[命名空間](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#8-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%96%93)
 >#### ☁️[字串](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#8-%E5%AD%97%E4%B8%B2string)
+>>#### ☁️[練習題3](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C1)
+>>#### ☁️[練習題4](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C1)
+>>#### ☁️[練習題5](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C1)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -426,9 +429,78 @@ for (auto test : test_line) //for each character in the test_line
 	std::cout << test << std::endl; 
 }
 ```
-
-
-
+## 練習題3
+>根據使用者輸入的字串，將其全部轉換為大寫
+### 方法:
+```c++
+#include<iostream>
+#include<string>
+int main()
+{
+	std::string user_input;
+	getline(std::cin, user_input); //read the input from the user and store it into the user_input
+	for (auto &change_character : user_input) //for each character in the test_line and remember that change_character is reference
+	{
+		change_character = toupper(change_character); //since change_character is reference, the change will be reflected in the user_input
+	}
+	std::cout << user_input << std::endl;	
+	return 0;
+}
+```
+### 8. 當我們要用index去存取string時，一定要記得判斷該string是否為空。
+## 練習題4
+>根據使用者輸入的字串，將其轉換為大寫，直到碰到空格為止(也就是指轉換第一個單字)。
+### 方法:
+```c++
+#include<iostream>
+#include<string>
+int main()
+{
+	std::string user_input;
+	decltype(user_input.size()) index = 0; 
+	getline(std::cin, user_input); //read the input from the user and store it into the user_input
+	while (index < user_input.size() && !isspace(user_input[index]))
+	{
+		user_input[index] = toupper(user_input[index]); //convert the character to uppercase
+		++index;
+	}
+	std::cout << user_input << std::endl; 	
+	return 0;
+}
+```
+## 練習題5
+>根據使用者輸入的數字，將其轉換為十六進位，同時範圍再零到十五之間，數字與數字間用空格分開。
+### 方法:
+```c++
+#include<iostream>
+#include<string>
+/*
+*Enter the numbers from 0 to 15
+*The output will be converted to hexadecimal
+*/
+int main()
+{
+	const std::string hexdigits = "0123456789ABCDEF"; //possible hex digits
+	std::string result;
+	decltype(hexdigits.size()) index; //std::string::size_type index;
+	//通常就是unsigned
+	std::cout << "Please enter a series of numbers between 0 and 15, separated by spaces. Hit ENTER when finished: " << std::endl;
+	while (std::cin >> index) //read the input
+	{
+		if (index < hexdigits.size()) // check if the input is valid or not
+		{
+			result  = result + " " + hexdigits[index];
+		}
+		else
+		{
+			std::cout << "The input is invalid." << std::endl;
+			return -1;
+		}
+	}
+	std::cout << "The hex number is: " << result << std::endl;	
+	return 0;
+}
+```
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
