@@ -19,6 +19,8 @@
 >>#### ☁️[練習題3](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C3)
 >>#### ☁️[練習題4](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C4)
 >>#### ☁️[練習題5](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C5)
+>>#### ☁️[練習題6](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C5)
+>>#### ☁️[練習題7](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C5)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -539,6 +541,47 @@ int main()
 		std::cout << i << " ";
 	}
 	std::cout << std::endl;
+	return 0;
+}
+```
+## 練習題7
+>輸入一個集合，內容物是分數範圍在0~100，同時我們根據0-9/10-19/.../90-99/100的方式將其分為11個層次。目標是計算出各個層次的人數，同時告訴我們總共有多少學生。
+### 方法:
+```c++
+#include<iostream>
+#include<string>
+#include<vector>
+//Enter the grades from 0 to 100 when you done press Ctrl+Z
+int main()
+{
+	std::vector<unsigned> grades; //in order to store the grade
+	unsigned grade; 
+	std::vector<unsigned> level(11); //in order to store the number of students in each level
+
+	while (std::cin >> grade) //read the grade(input)
+	{
+		if (grade <= 100)
+		{
+			grades.push_back(grade);
+		}
+		else
+		{
+			std::cout << "Invalid input!" << std::endl;
+			return -1;
+		}
+	}
+	for (auto recorded_grade : grades) //take the grade from grades
+	{
+		++level[recorded_grade / 10]; //e.g. 89/10 = 8.9 so the grade will be stored in level[8]
+	}
+	
+	int level_index = 1;
+	for (auto i : level) //check how many students in each level from level 1 to level 11
+	{
+		std::cout << "Level " << level_index << ": " << i << " student(s)." << std::endl;
+		++level_index;
+	}
+	std::cout << "Total students: " << grades.size() << std::endl;
 	return 0;
 }
 ```
