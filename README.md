@@ -24,6 +24,7 @@
 >>#### ☁️[練習題7](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C7)
 >#### ☁️[迭代器](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#10-%E8%BF%AD%E4%BB%A3%E5%99%A8iterator)
 >>#### ☁️[練習題8](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C8)
+>#### ☁️[陣列](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#10-%E8%BF%AD%E4%BB%A3%E5%99%A8iterator)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -674,6 +675,133 @@ int main()
 		std::cout << "The target value " << target << " is not in the array." << std::endl;
 		return -1;
 	}
+}
+```
+## 11 陣列(array):
+### 1. 與vector不同，陣列是有固定大小的，定義方式如下:
+```c++
+unsigned cnt = 42; //not a constant expression
+constexpr unsigned sz = 42; //a constant expression
+int arr[10]; //an array with 10 int
+int *parr[sz]; //an array with 42 int pointers
+string bad[cnt]; //wrong cnt is not a constant expression
+```
+### 2. 陣列的大小被指定完後就不能更改了，其內部所含的元素數量也不能大過其尺寸大小，如下:
+```c++
+const unsigned sz = 3;
+int a1[sz] = {0, 1, 2}; //correct
+int a1[sz] = {}; //correct
+int a2[5] = {0, 1, 2}; //a = {0, 1, 2, 0, 0}
+int a3[2] = {0, 1, 2}; //error 3 > 2
+```
+### 3. 字元陣列是特殊的，因為字串最後會再加上一個null做結尾:
+```c++
+char a4[] = "C++"; //C++\0
+char a5[6] = "Dainel"; //error no space for null
+```
+### 4. 陣列是無法指定的:
+```c++
+int a[] = {0, 1, 2};
+int a2[] = a; //error
+a2 = a; //error
+```
+### 5. 陣列也是一種物件，所以可以使用指標，但要記得陣列沒辦法由參考(reference)組成:
+```c++
+int *ptrs[10]; //an array with 10 int pointers
+int &refs[10]; //error no reference
+int (*parray)[10] = &arr; //point to an array with 10 int
+int (&arrRef)[10] = arr; //bind to an array with 10 int
+```
+### 6. 當我們使用一個陣列時，編譯器通常會將它當成一個指標來用:
+```c++
+string nums[] = {"one", "two", "three"};
+string *p = &nums[0]; //one
+string *p2 = nums; //*p2 = nums[0]
+```
+```c++
+int ia[] = {0, 1, 2, 3, 5, 6};
+auto ia2(ia); //a pointer point to ia[0]
+```
+### 7. 把指標當成迭代器:
+```c++
+int ia[] = {0, 1, 2, 3, 5, 6};
+int *p = ia; //ia[0]
+++p; //ia[1]
+```
+### 8. begin and end:
+```c++
+int ia[] = {0, 1, 2, 3, 5, 6};
+int *b = begin(ia);
+int *e = end(ia);
+```
+### 通過上面這個方法，我們就可以印出陣列中的所有元素:
+```c++
+#include<iostream>
+#include<vector>
+#include<string>
+int main()
+{
+	int ia[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; //array
+	int *beg = std::begin(ia); //pointer to the first element of the array
+	int *last = std::end(ia); //pointer to the last element of the array
+	while (beg < last) //print the array until the last element
+	{
+		std::cout << *beg << std::endl;
+		++beg;
+	}
+	return 0;
+}
+```
+### 9. 字元字串函式:
+```c++
+strlen(p); //the length of p, null is not included
+strcmp(p1, p2); //compare p1, p2
+strcat(p1, p2); //concatenate p1 and p2
+strcpy(p1, p2); //p1 = p2
+```
+### 10. 用陣列來初始化vecotr:
+```c++
+int int_arr[] = {0, 1, 2, 3, 4, 5};
+std::vector<int> ivec(std::begin(int_arr), std::end(int_arr)) //{0, 1, 2, 3, 4, 5};
+std::vector<int> subvec(int_arr + 1, int_arr + 4) //{1, 2, 3};
+```
+## 12 多維陣列:
+### 1. 在C++中並沒有所謂的多維陣列，所謂多維陣列，其實就是由陣列構成的陣列。
+```c++
+int a[3][4] = {{0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11}}
+```
+```c++
+#include<iostream>
+#include<vector>
+#include<string>
+int main()
+{
+	int ia[3][4] = { {0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11} }; //an 3x4 array
+	for (auto &row : ia) //{0-1-2-3}/{4-5-6-7}/{8-9-10-11}
+	{
+		for (auto &col : row) //
+		{
+			std::cout << col << std::endl;
+		}
+	}
+	return 0;
+}
+```
+```c++
+#include<iostream>
+#include<vector>
+#include<string>
+int main()
+{
+	int ia[3][4] = { {0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11} }; //an 3x4 array
+	for (auto p = ia; p != std::end(ia); ++p) //p point to ia
+	{
+		for (auto q = *p; q != std::end(*p); ++q) q point to p
+		{
+			std::cout << *q << std::endl;
+		}
+	}
+	return 0;
 }
 ```
 ## ⭐補充:
