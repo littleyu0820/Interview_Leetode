@@ -15,6 +15,7 @@
 >#### ☁️[限定詞](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#6-%E9%99%90%E5%AE%9A%E8%A9%9Econst)
 >#### ☁️[資料結構](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#7-%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8Bdata-structure)
 >#### ☁️[命名空間](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#8-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%96%93)
+>#### ☁️[字串](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#8-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%96%93)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -356,7 +357,76 @@ using std::endl;
 using namespace std;
 ```
 ### 當然要記得的是，在標頭檔(Header File)中不要使用using的宣告的喔!
-### 題外話，我本身還是習慣使用"std::"的方式來寫程式，算是一種習慣吧，同時如果大家真的要簡化的話，也記得用第一種方式會比較好，這樣你又或者是讀某篇程式碼的人，才會明確得清楚，到底使用了那些宣告了。
+### 題外話，我本身還是習慣使用"std::"的方式來寫程式，同時如果大家真的要簡化的話，也記得用第一種方式會比較好，這樣你又或者是讀某篇程式碼的人，才會明確得清楚，到底使用了那些宣告了。
+
+## 8 字串(string):
+### 1. 對於string的定義，通常有下面幾種方法:
+```c++
+std::string s1; //這是一個空的字串(null)
+std::string s2 = s1; //將s1的值複製到s2中
+std::string s3 = "hiya; //將hiya複製到s3中
+std::string s4(10, 'c'); //cccccccccc
+```
+### 其中第三種方法的複製流程大致如下:
+```c++
+std::string temp = "hiya";
+std::string s3 = temp;
+```
+### 2. 與前面第一章提到的輸入與輸出一樣，當我們在做cin時，是讀取到空白就停止了，如下:
+```c++
+std::string s1;
+std::cin >> s1;
+std::cout << s1 << std::endl;
+```
+### 以上面這段程式碼為例，如果我們輸入的是"hello world"，那最後輸出的結果只會是"hello"，因為cin在碰到hello就結束並回傳了。
+### 3. 當然我們也可以連續輸入，如下:
+```c++
+std::string s1,s2;
+std::cin >> s1 >> s2;
+std::cout << s1 << s2 << std::endl;
+```
+### 如果我們輸入的是"hello跟world"，那最後輸出的結果只會是"helloworld"。
+### 4. 而通常我們在輸入一串句子時，空白是不可避免的，這時候我們就會用getline來實現，如下:
+```c++
+std::string test_line;
+getline(std::cin, test_line); //read the input from the user and store it into the test_line
+std::cout << test_line << std::endl;
+```
+### 5. string中還有一些特殊的函式可以使用，如empty()跟size()，這裡先講empty():
+### empty()如其名，就是用來判斷string是否為空(null)，而判斷與是否，這些字詞就可以馬上讓我們了解到，他回傳的一定就是一個bool值(true/false)。
+### 註記:空格不屬於空喔!
+### 接下來提到的是size()，也是看名字就知道了，size()，就是用來判斷字串大小的，所以無庸置疑的，他一定是一個unsigned，但有一點很重要，size()並非int型，而是string::size_type的型別。
+### 那如果我們每次都要宣告一次string::size_type也太麻煩，所以可以直接用以下方法來宣告:
+```c++
+std::string test_line;
+getline(std::cin, test_line); //read the input from the user and store it into the test_line
+auto len = test_line.size(); //store the size of the test_line into the len
+std::cout << len << std::endl;
+```
+### 通過auto的方式讓編譯器自己提供適當的型別。
+### 註記:因為size()屬於unsigned，所以不要跟int做比較喔!
+### 6. string也可以做相加的，如下:
+### 首先最重要的，兩個string相加還是string，再來"+"兩邊必然要存在一個sring，我們直接看例子。
+```c++
+std::string s1, s2;
+std::string s3 = s1 + s2; //成立，兩邊都是string，不必多說
+std::string s4 = s1 + "test"; //成立，其中一邊為string
+std::string s5 = "test" + s2; //成立，其中一邊為string
+std::string s6 = s1 + "," + "test"; //成立，因為s1 + ","，還是string
+std::string s7 = "hi" + "," + "test"; //不成立，"+"兩邊都沒有string
+std::string s8 = "hi" + "," + s2; //不成立，第一次相加就錯誤了，兩邊都沒有string
+std::string s9 = "hi" + ("," + s2); //成立，因為先做後邊括號內的運算
+```
+### 7. 通常如果我們要處理string的每個字元，都會用for的方式來做:
+```c++
+std::string test_line;
+getline(std::cin, test_line); //read the input from the user and store it into the test_line
+for (auto test : test_line) //for each character in the test_line
+{
+	std::cout << test << std::endl; 
+}
+```
+
 
 
 ## ⭐補充:
