@@ -805,6 +805,25 @@ int main()
 	return 0;
 }
 ```
+### 優化，提高程式可讀性:
+```c++
+#include<iostream>
+#include<vector>
+#include<string>
+int main()
+{
+	int ia[3][4] = { {0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11} }; //an 3x4 array
+	using int_array = int [4];
+	for (int_array *p = std::begin(ia); p != std::end(ia); ++p)
+	{
+		for (int *q = std::begin(*p); q != std::end(*p); ++q)
+		{
+			std::cout << *q << std::endl;
+		}
+	}
+	return 0;
+}
+```
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
