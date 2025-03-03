@@ -23,6 +23,7 @@
 >>#### ☁️[練習題6](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C6)
 >>#### ☁️[練習題7](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C7)
 >#### ☁️[迭代器](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#10-%E8%BF%AD%E4%BB%A3%E5%99%A8iterator)
+>>#### ☁️[練習題8](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C7)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -620,7 +621,61 @@ std::vector<int>::const_iterator it3;
 std::vector<int> v;
 auto it4 = v.cbegin(); //type:std::vector<int>::const_iterator
 ```
-
+## 練習題8
+>輸入九個數字，以及要尋找的數字。
+### 方法:
+```c++
+#include<iostream>
+#include<vector>
+#include<string>
+#include<algorithm>
+int main()
+{
+	std::vector<double> v(9); //sorted array
+	double target = 0; //target value
+	double index = 0;
+	auto begin = v.begin(), end = v.end();
+	auto mid = begin + (end - begin) / 2;
+	std::cout << "Please enter a sorted array: " << std::endl;
+	while (std::cin >> v[index])
+	{
+		
+		if (index != 8)
+		{
+			++index; //keep tracking the index and recording the input
+		}
+		else //after the input is done
+		{
+			std::cout << "Please enter the target value: " << std::endl;
+			std::cin >> target;
+			std::sort(v.begin(), v.end()); //sort the array
+			break;
+		}
+	}
+	while (mid != end && *mid != target) //binary search
+	{
+		if (*mid < target) //check if the mid value is less than the target value or not
+		{
+			begin = mid + 1; //from mid to end(right side)
+		}
+		else
+		{
+			end = mid; //from begin to mid(left side)
+		}
+		mid = begin + (end - begin) / 2;
+	}
+	if (mid != end) //check if the mid value is not equal to the end value since if mid is equal to end, it means the target value is not in the array
+	{
+		std::cout << "The target value " << target << " is at index " << mid - v.begin() << std::endl;
+		return 0;
+	}
+	else
+	{
+		std::cout << "The target value " << target << " is not in the array." << std::endl;
+		return -1;
+	}
+}
+```
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
