@@ -15,7 +15,7 @@
 >#### ☁️[限定詞](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#6-%E9%99%90%E5%AE%9A%E8%A9%9Econst)
 >#### ☁️[資料結構](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#7-%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8Bdata-structure)
 >#### ☁️[命名空間](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#8-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%96%93)
->#### ☁️[字串](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#8-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%96%93)
+>#### ☁️[字串](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#8-%E5%AD%97%E4%B8%B2string)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
