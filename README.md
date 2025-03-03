@@ -501,6 +501,47 @@ int main()
 	return 0;
 }
 ```
+## 9 Vector:
+### Vectir是一個裝滿物件(object)的集合，其中每個物件都有相同的型別，這裡我們直接透過練習題來理解。
+## 練習題6
+>輸入一個集合，範圍在0~9，且最多只能有九個數字，求其所有元素的平方。
+### 方法:
+```c++
+#include<iostream>
+#include<string>
+#include<vector>
+int main()
+{
+	std::vector<int> v(9);
+	int index = 0;
+	while (std::cin >> v[index] && index < v.size()) //0-1 1-2 2-3 3-4 4-5 5-6 6-7 7-8 8-9
+	{
+		if (v[index] <= 9) //check if the input is valid or not
+		{
+			if (index != 8) //limit the input to 9
+			{
+				++index;
+			}
+			else
+			{
+				break;
+			}
+		}
+		else
+		{
+			std::cout << "Invalid input!" << std::endl;
+			return -1;
+		}
+	}	
+	for (auto &i : v)
+	{
+		i *= i;
+		std::cout << i << " ";
+	}
+	std::cout << std::endl;
+	return 0;
+}
+```
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
