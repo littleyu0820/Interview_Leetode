@@ -27,6 +27,7 @@
 >>#### ☁️[練習題8](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C8)
 >#### ☁️[陣列](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#11-%E9%99%A3%E5%88%97array)
 >#### ☁️[多維陣列](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#12-%E5%A4%9A%E7%B6%AD%E9%99%A3%E5%88%97)
+>#### ☁️[運算式](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#12-%E5%A4%9A%E7%B6%AD%E9%99%A3%E5%88%97)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -825,6 +826,20 @@ int main()
 	return 0;
 }
 ```
+
+## 13 運算式(Expression):
+### 1. 估算順序、優先序，結合性:運算元的的估算獨立於優先序和結合性，如下:
+### f() + g() * h() + j() 結合性會保證g()*h() 然後再加到f()，最後再與j()相加。
+### 至於函式的呼叫順序，只要它們都是獨立的，則並不重要。
+### 2. 多用括號來組合，就不會有問題了。
+### 3. 如果你澳更改某個運算元的值，那就別在同一個運算式中使用那個運算元，如下:
+```c++
+int i = 0;
+std::cout << i << ++i << std::endl; //error
+```
+### 算術運算子，如圖::
+
+
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
