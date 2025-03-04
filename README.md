@@ -877,8 +877,17 @@ int main()
 	return 0;
 }
 ```
-
-
+### 8. 條件運算子:
+### condtition ? expression1 : expression2，當condition成立時，執行expression1，否則就執行expression2。
+### 9. 成員存取運算子:
+```c++
+std::string s1 = "a string";
+std::string *p = &s1;
+auto n = s1.size(); //定義型別
+n = (*p).size(); 
+n = p->size(); //與上式一樣
+std::cout << n << std::endl;
+```
 
 
 
