@@ -169,14 +169,11 @@ int main()
 ### 程式碼範例:
 ```c++
 #include<iostream>
-
 int main()
 {
 	int counter = 0, val = 0, currentval = 0;
-
 	if (std::cin >> currentval) //if the first input is successful
-	{
-		
+	{	
 		++counter; //counter is incremented by 1
 		while (std::cin >> val) //if the next input is successful
 		{
@@ -186,19 +183,22 @@ int main()
 			}
 			else
 			{
-				std::cout << "Number" << currentval << "occurs" << counter << "times" << std::endl; //print the previous number
+				std::cout << "The past number " << currentval << " occurs " << counter << " times." << std::endl; //print the previous number
+				std::cout << "And the current value is: " << val << std::endl;
 				currentval = val; //assign the current value to the previous value
 				counter = 1; //reset the counter
 			}
-		}
-		
-		std::cout << "Number" << currentval << "occurs" << counter << "times" << std::endl; //print the last number
-
+		}		
+		std::cout << "The past number " << currentval << " occurs " << counter << " times." << std::endl; //print the previous number
+		std::cout << "And the current value is: " << val << std::endl;
+		return 0;
 	}
 	else
 	{
-		return 0;
+		std::cout << "Invalid input." << std::endl;
+		return -1;
 	}
+}
 }
 ```
 ### 要記得，當我們每次套用std::cin時，代表的都是一個新的開始，以下面這幾段程式碼(中間內容省略)為例:
