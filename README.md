@@ -28,7 +28,7 @@
 >#### ☁️[陣列](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#11-%E9%99%A3%E5%88%97array)
 >#### ☁️[多維陣列](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#12-%E5%A4%9A%E7%B6%AD%E9%99%A3%E5%88%97)
 >#### ☁️[運算式](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#13-%E9%81%8B%E7%AE%97%E5%BC%8Fexpression)
->>#### ☁️[練習題9](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C8)
+>>#### ☁️[練習題9](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C9)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
