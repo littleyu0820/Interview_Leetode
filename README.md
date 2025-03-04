@@ -888,8 +888,31 @@ n = (*p).size();
 n = p->size(); //與上式一樣
 std::cout << n << std::endl;
 ```
-
-
+## 練習題10
+### 方法:
+```c++
+/*
+* 輸入一些數字(最多10個)
+* 輸出結果為將其中所有奇數數字做平方
+* 用vector實現
+*/
+#include<iostream>
+#include<vector>
+#include<iterator>
+int main()
+{
+	std::vector<int> nums(10);
+	for (int index = 0; index < nums.size(); ++index)
+	{
+		std::cin >> nums[index];
+	}
+	for (auto num = nums.begin(); num != nums.end(); ++num)
+	{	
+		std::cout << ((*num % 2 != 0) ? ((*num) * (*num)) : *num) << std::endl;
+	}
+	return 0;
+}
+```
 
 
 ## ⭐補充:
