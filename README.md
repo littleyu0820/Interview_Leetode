@@ -837,7 +837,27 @@ int main()
 int i = 0;
 std::cout << i << ++i << std::endl; //error
 ```
-### 算術運算子，如圖::
+### 4. 算術運算子，如圖:
+![Expression](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/expression.png)
+### 5. bool的值不應該用於計算:
+```c++
+bool b = true;
+bool b2 = -b; //b2還是true 因為他返回-1，只要不是零，都是true
+```
+### 5. 取餘數時(a % b)，a跟b都必須為整數。
+### 6. 取餘數時(m & n)，得到結果的正負號是跟著m的。
+```c++
+-21 % 8 = -5 (-/-)
+21 % -5 = 1 (+/+)
+```
+### 7. 算數運算式(a+b)，只能放在右邊，是rvalues。
+
+
+
+
+
+
+
 
 
 ## ⭐補充:
