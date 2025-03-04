@@ -914,7 +914,7 @@ int main()
 	return 0;
 }
 ```
-
+### 10. 強制型別轉換，共分四種:static_cast、dynamic_cas、const_cast，以及reinterpret_cast。
 
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
