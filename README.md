@@ -851,9 +851,31 @@ bool b2 = -b; //b2還是true 因為他返回-1，只要不是零，都是true
 21 % -5 = 1 (+/+)
 ```
 ### 7. 算數運算式(a+b)，只能放在右邊，是rvalues。
+## 練習題9
+### 方法:
+```c++
+#include<iostream>
+int main()
+{
+	std::cout << "This program will stop when we meet the first negative number." << std::endl;
+	std::cout << "Please enter some numbers(Max:10): " << std::endl;
+	int i[10], index = 0, max_index = 9;
+	while (index <= max_index)
+	{
+		std::cin >> i[index];
+		++index;
+	}
 
+	auto pbegin = std::begin(i);
+	while (pbegin != std::end(i) && *pbegin >= 0)
+	{
+		std::cout << *pbegin++ << std::endl; //will print --pbegin
+	}
 
-
+	std::cout << "And the first negative number is: " << *pbegin << std::endl;
+	return 0;
+}
+```
 
 
 
