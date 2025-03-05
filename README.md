@@ -1107,7 +1107,7 @@ int main()
 		return 0;
 	}
 	std::string level;
-	for (unsigned &identify_grades : grades) //範圍for auto beg = v.begin(); auto &r = *beg;
+	for (unsigned &identify_grades : grades) //範圍for(auto beg = v.begin(); beg != v.end(), ++beg) auto &r = *beg;
 	{
 		if (identify_grades < 60)
 		{
