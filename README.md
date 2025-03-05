@@ -30,6 +30,7 @@
 >#### ☁️[運算式](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#13-%E9%81%8B%E7%AE%97%E5%BC%8Fexpression)
 >>#### ☁️[練習題9](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C9)
 >>#### ☁️[練習題10](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C10)
+>#### ☁️[述句](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#13-%E9%81%8B%E7%AE%97%E5%BC%8Fexpression)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -916,12 +917,35 @@ int main()
 ```
 ### 10. 強制型別轉換，共分四種:static_cast、dynamic_cas、const_cast，以及reinterpret_cast。
 
+## 14 述句(statement):
+### 1. 在C++中大部分的述句都是以一個";"作為結尾。
+### 2. 述句又分為幾種，首先提到的是"運算式述句":
+```c++
+ival + 5; //無用但正確
+cout << val; /有用且正確
+```
+### 3. "null述句":
+```c++
+//持續讀取輸入，直到碰到sought，又或者檔案結尾才頂只
+while (std::cin >> s && s != sought)
+	;
+```
+### 4. "複合述句"，通常我們也將它稱為"區塊"，是由兩個大括號所包圍起來的:
+```c++
+while(val <= 10}
+{
+	sum += val;
+	++val;
+}
+```
+### 註記:在區塊內定義的變數在外面不能用。
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
 ### 2. "extern"不是定義，是宣告，讓我們從外部引用其它程式碼中所定義的非"static"變數。
 ### 3. 當我們在觀察一個變數的定義時，從右邊向左看就對了!
 ### 4. 可以把迭代器想成是一個pointer，指向index所處的位置。
+### 5. 在使用"null"述句時，都應該加上註解，讓閱讀程式碼的人知道該行是刻意省略的。
 
 
 # LeetCode
