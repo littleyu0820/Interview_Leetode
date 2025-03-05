@@ -35,6 +35,7 @@
 >>#### ☁️[練習題12](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C12)
 >>#### ☁️[練習題13](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C13)
 >>#### ⭐⭐⭐[綜合練習](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B6%9C%E5%90%88%E7%B7%B4%E7%BF%92-1)
+>#### ☁️[例外(異常)處理](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#14-%E8%BF%B0%E5%8F%A5statement)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -1154,27 +1155,45 @@ int main()
 ```
 ### 8. continue述句，強制開始下一輪迴圈。
 ### 9 goto述句，跳轉到一個帶有標籤的述句，並且向下執行。
+## 15 例外(異常)處理:
+### throw運算式:
+```c++
+throw runtime_error("An error."); //stop
+```
+### try運算式:
+```c++
+try
+{}
+catch(runtime_error err)
+{
+std::cout << err.what() << std::endl;
+}
+```
 ## 綜合練習
 >設計一個成績統計程式，能夠讓老師決定是否開始，內容包含可以輸入總人數，能夠將每個學生的分數以A++ A+/A/A- B+/B/B- C+/C/C- D+/D/D- 以及 來區分開來，最後在給上固定的評語，請考慮如果輸入負數程式該如何修正。
 >Solution:
 ```c++
 /*
 * 這個程式可以讓我們統計成績
-* 同時應用到do while
+* 同時應用到
+* do while
 * for
 * vector
 * continue
 * goto
+* try/throw runrime_error
 */
 #include<iostream>
 #include<string>
 #include<vector>
+
 int main()
 {
 	std::vector<int> grades;
 	std::string levels[6] = {"Failed", "D", "C", "B", "A", "A++"};
 	std::string YesorNo;
 	int grade_in = 0, stduents = 0, counter = 0;
+
 	std::cout << "Do you want to start?(Yes or No)" << std::endl;
 	std::cin >> YesorNo;
 	if (YesorNo == "Yes" || YesorNo == "yes")
@@ -1182,14 +1201,17 @@ int main()
 		begin:
 			std::cout << "How many students do you need to enter?" << std::endl;
 			std::cin >> stduents;
-		if (stduents <= 0)
+		try 
 		{
-			std::cerr << "Please eneter a positive number." << std::endl;
-			goto begin;
+			if (stduents <= 0)
+			{
+				throw std::runtime_error("Please eneter a positive number.");
+			}
 		}
-		else
+		catch (std::runtime_error err)
 		{
-			;
+			std::cout << err.what() << std::endl;
+			goto begin;
 		}
 		do
 		{
@@ -1205,6 +1227,7 @@ int main()
 				grades.push_back(grade_in);
 				++counter;
 			}
+
 		} while (counter < stduents);
 	}
 	else
@@ -1255,7 +1278,19 @@ int main()
 	}
 	return 0;
 }
+
 ```
+
+
+
+
+
+
+
+
+
+
+
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
 ### 2. "extern"不是定義，是宣告，讓我們從外部引用其它程式碼中所定義的非"static"變數。
