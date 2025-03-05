@@ -33,6 +33,7 @@
 >#### ☁️[述句](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#14-%E8%BF%B0%E5%8F%A5statement)
 >>#### ☁️[練習題11](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C11)
 >>#### ☁️[練習題12](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C12)
+>>#### ☁️[練習題13](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C12)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -1027,14 +1028,13 @@ int main()
 			std::cerr << "Invalid input." << std::endl;
 			break;
 		}
-	}
-
+	}	
 	std::string levels;
 	for (unsigned &identify_grades : grades)
 	{
 		if (identify_grades < 60)
 		{
-			std::cout << identify_grades << ": " << level[0] << std::endl;
+			std::cout << identify_grades << ": " << level[0]  << " Please study hard!" << std::endl;
 		}
 		else
 		{
@@ -1067,13 +1067,87 @@ int main()
 				case 6:
 					std::cout << identify_grades << ": " << levels << " You can be more better!" << std::endl;
 					break;
-				default:
-					std::cout << identify_grades << ": " << levels << " Please study hard!" << std::endl;
-					break;
 			}
 		}
 	}
 	return 0;
+}
+```
+### 7. do while述句:
+## 練習題13
+```c++
+/*這個程式可以讓我們統計成績*/
+#include<iostream>
+#include<string>
+#include<vector>
+int main()
+{
+	std::vector<unsigned> grades;
+	std::string levels[6] = {"Failed", "D", "C", "B", "A", "A++"};
+	std::string YesorNo;
+	int grade_in = 0, stduents = 0, counter = 0;
+	std::cout << "Do you want to start?(Yes or No)" << std::endl;
+	std::cin >> YesorNo;
+	if (YesorNo == "Yes" || YesorNo == "yes")
+	{
+		std::cout << "How many students do you need to enter?" << std::endl;
+		std::cin >> stduents;
+		do
+		{
+			std::cout << "Please enter the grades." << std::endl;
+			std::cin >> grade_in;
+			grades.push_back(grade_in);
+			++counter;
+
+		} while (counter < stduents);
+	}
+	else
+	{
+		std::cout << "Thanks for using." << std::endl;
+		return 0;
+	}
+	std::string level;
+	for (unsigned &identify_grades : grades) //範圍for auto beg = v.begin(); auto &r = *beg;
+	{
+		if (identify_grades < 60)
+		{
+			std::cout << identify_grades << ": " << levels[0] << " Please study hard!" << std::endl;
+		}
+		else
+		{
+			level = levels[(identify_grades - 50) / 10];
+
+			if (identify_grades % 10 > 7)
+			{
+				level += "+";
+			}
+			else if (identify_grades % 10 < 3 && identify_grades != 100)
+			{
+				level += "-";
+			}
+			else
+			{
+				;
+			}
+			switch (identify_grades / 10)
+			{
+			case 10:
+			case 9:
+				std::cout << identify_grades << ": " << level << " You're excellent!" << std::endl;
+				break;
+			case 8:
+				std::cout << identify_grades << ": " << level << " You're nice!" << std::endl;
+				break;
+			case 7:
+				std::cout << identify_grades << ": " << level << " You're good!" << std::endl;
+				break;
+			case 6:
+				std::cout << identify_grades << ": " << level << " You can be more better!" << std::endl;
+				break;
+			}
+		}
+	}
+	return 0;	
 }
 ```
 ### 註記:switch裡面不能初始化，但如果你括號起來就可以，因為把它限定在區塊內了，與外面無關。
@@ -1084,6 +1158,7 @@ int main()
 ### 3. 當我們在觀察一個變數的定義時，從右邊向左看就對了!
 ### 4. 可以把迭代器想成是一個pointer，指向index所處的位置。
 ### 5. 在使用"null"述句時，都應該加上註解，讓閱讀程式碼的人知道該行是刻意省略的。
+### 6. 在我們使用迴圈時，如果不確定到底要執行多少次，又或者已經知道會執行非常多次，那我們就都會用while。
 
 
 # LeetCode
