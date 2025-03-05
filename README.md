@@ -34,6 +34,7 @@
 >>#### ☁️[練習題11](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C11)
 >>#### ☁️[練習題12](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C12)
 >>#### ☁️[練習題13](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C13)
+>>#### ⭐⭐⭐[綜合練習](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C13)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -1073,6 +1074,7 @@ int main()
 	return 0;
 }
 ```
+### 註記:switch裡面不能初始化，但如果你括號起來就可以，因為把它限定在區塊內了，與外面無關。
 ### 7. do while述句:
 ## 練習題13
 ```c++
@@ -1150,8 +1152,110 @@ int main()
 	return 0;	
 }
 ```
-### 註記:switch裡面不能初始化，但如果你括號起來就可以，因為把它限定在區塊內了，與外面無關。
-## ⭐補充:
+### 8. continue述句，強制開始下一輪迴圈。
+### 9 goto述句，跳轉到一個帶有標籤的述句，並且向下執行。
+## 練習題14
+>綜合練習:設計一個成績統計程式，能夠讓老師決定是否開始，內容包含可以輸入總人數，能夠將每個學生的分數以A++ A+/A/A- B+/B/B- C+/C/C- D+/D/D- 以及 來區分開來，最後在給上固定的評語，請考慮如果輸入負數程式該如何修正。
+>Solution:
+```c++
+/*
+* 這個程式可以讓我們統計成績
+* 同時應用到do while
+* for
+* vector
+* continue
+* goto
+*/
+#include<iostream>
+#include<string>
+#include<vector>
+int main()
+{
+	std::vector<int> grades;
+	std::string levels[6] = {"Failed", "D", "C", "B", "A", "A++"};
+	std::string YesorNo;
+	int grade_in = 0, stduents = 0, counter = 0;
+	std::cout << "Do you want to start?(Yes or No)" << std::endl;
+	std::cin >> YesorNo;
+	if (YesorNo == "Yes" || YesorNo == "yes")
+	{
+		begin:
+			std::cout << "How many students do you need to enter?" << std::endl;
+			std::cin >> stduents;
+		if (stduents <= 0)
+		{
+			std::cerr << "Please eneter a positive number." << std::endl;
+			goto begin;
+		}
+		else
+		{
+			;
+		}
+		do
+		{
+			std::cout << "Please enter the grades." << std::endl;
+			std::cin >> grade_in;
+			if (grade_in < 0)
+			{
+				std::cout << "Please eneter a number greater than 0." << std::endl;
+				continue;
+			}
+			else
+			{
+				grades.push_back(grade_in);
+				++counter;
+			}
+		} while (counter < stduents);
+	}
+	else
+	{
+		std::cout << "Thanks for using." << std::endl;
+		return 0;
+	}
+	std::string level;
+	for (int &identify_grades : grades)
+	{
+		if (identify_grades < 60)
+		{
+			std::cout << identify_grades << ": " << levels[0] << " Please study hard!" << std::endl;
+		}
+		else
+		{
+			level = levels[(identify_grades - 50) / 10];
+
+			if (identify_grades % 10 > 7)
+			{
+				level += "+";
+			}
+			else if (identify_grades % 10 < 3 && identify_grades != 100)
+			{
+				level += "-";
+			}
+			else
+			{
+				;
+			}
+			switch (identify_grades / 10)
+			{
+			case 10:
+			case 9:
+				std::cout << identify_grades << ": " << level << " You're excellent!" << std::endl;
+				break;
+			case 8:
+				std::cout << identify_grades << ": " << level << " You're nice!" << std::endl;
+				break;
+			case 7:
+				std::cout << identify_grades << ": " << level << " You're good!" << std::endl;
+				break;
+			case 6:
+				std::cout << identify_grades << ": " << level << " You can be more better!" << std::endl;
+				break;
+			}
+		}
+	}
+	return 0;
+}
+```
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
 ### 2. "extern"不是定義，是宣告，讓我們從外部引用其它程式碼中所定義的非"static"變數。
