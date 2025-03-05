@@ -30,7 +30,8 @@
 >#### ☁️[運算式](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#13-%E9%81%8B%E7%AE%97%E5%BC%8Fexpression)
 >>#### ☁️[練習題9](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C9)
 >>#### ☁️[練習題10](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C10)
->#### ☁️[述句](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#13-%E9%81%8B%E7%AE%97%E5%BC%8Fexpression)
+>#### ☁️[述句](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#14-%E8%BF%B0%E5%8F%A5statement)
+>>#### ☁️[練習題11](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C10)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -939,6 +940,65 @@ while(val <= 10}
 }
 ```
 ### 註記:在區塊內定義的變數在外面不能用。
+
+## 練習題11
+### 方法:
+```c++
+#include<iostream>
+#include<string>
+#include<vector>
+#include<iterator>
+/*
+* A program for defining the grades for students
+* The level are A++(100) A+/A-(90~99) B+/B-(80~89) C+/C-(70~79) D+/D-(60~69) F+/F-(0~59)
+*/
+int main()
+{
+	std::string level[6] = {"Failed", "D", "C", "B", "A", "A++"}; //6 levels
+	int grades[10] = {}, grades_in = 0, counter = 0; //Max students:10
+	
+	while (std::cin >> grades_in)
+	{
+		grades[counter] = grades_in;
+		++counter;
+		if (counter == 10)
+		{
+			std::cout << "Already 10 students." << std::endl;
+			break;
+		}
+	}
+	std::string levels;
+	for (int &identify_grades : grades)
+	{
+		if (identify_grades < 60)
+		{
+			std::cout << identify_grades << ": " << level[0] << std::endl;
+		}
+		else
+		{
+			levels = level[(identify_grades - 50) / 10];
+			if (identify_grades % 10 > 7)
+			{
+				levels += "+";
+			}
+			else if(identify_grades % 10 < 3 && identify_grades != 100)
+			{
+				levels += "-";
+			}
+			else
+			{
+				;
+			}
+			std::cout << identify_grades << ": " << levels << std::endl;
+		}
+	}
+	return 0;
+}
+```
+
+
+
+
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
