@@ -1187,49 +1187,48 @@ std::cout << err.what() << std::endl;
 #include<iostream>
 #include<string>
 #include<vector>
-
 int main()
 {
-	std::vector<int> grades;
-	std::string levels[6] = {"Failed", "D", "C", "B", "A", "A++"};
-	std::string YesorNo;
+	std::vector<int> grades; //store grades
+	std::string levels[6] = {"Failed", "D", "C", "B", "A", "A++"}; //6levels
+	std::string YesorNo; //start or not start
 	int grade_in = 0, stduents = 0, counter = 0;
 
 	std::cout << "Do you want to start?(Yes or No)" << std::endl;
 	std::cin >> YesorNo;
-	if (YesorNo == "Yes" || YesorNo == "yes")
+	if (YesorNo == "Yes" || YesorNo == "yes") //start or not start
 	{
-		begin:
+		begin: //if we choose start from here
 			std::cout << "How many students do you need to enter?" << std::endl;
 			std::cin >> stduents;
-		try 
+		try //try error
 		{
 			if (stduents <= 0)
 			{
 				throw std::runtime_error("Please eneter a positive number.");
 			}
 		}
-		catch (std::runtime_error err)
+		catch (std::runtime_error err) //if error
 		{
 			std::cout << err.what() << std::endl;
 			goto begin;
 		}
-		do
+		do //start to enter
 		{
 			std::cout << "Please enter the grades." << std::endl;
 			std::cin >> grade_in;
-			if (grade_in < 0)
+			if (grade_in < 0) //if negative numbers
 			{
 				std::cout << "Please eneter a number greater than 0." << std::endl;
 				continue;
 			}
 			else
 			{
-				grades.push_back(grade_in);
+				grades.push_back(grade_in); //store the grades into the vector
 				++counter;
 			}
 
-		} while (counter < stduents);
+		} while (counter < stduents); //stop when the grades are enough
 	}
 	else
 	{
@@ -1237,21 +1236,21 @@ int main()
 		return 0;
 	}
 	std::string level;
-	for (int &identify_grades : grades)
+	for (int &identify_grades : grades) //start to group the students
 	{
-		if (identify_grades < 60)
+		if (identify_grades < 60) //failed
 		{
 			std::cout << identify_grades << ": " << levels[0] << " Please study hard!" << std::endl;
 		}
 		else
 		{
-			level = levels[(identify_grades - 50) / 10];
+			level = levels[(identify_grades - 50) / 10]; //except for F we still have 5 levels from levels[1] to levels[5]
 
-			if (identify_grades % 10 > 7)
+			if (identify_grades % 10 > 7) //identify better/normal/so-so
 			{
 				level += "+";
 			}
-			else if (identify_grades % 10 < 3 && identify_grades != 100)
+			else if (identify_grades % 10 < 3 && identify_grades != 100) //except for 100
 			{
 				level += "-";
 			}
@@ -1259,7 +1258,7 @@ int main()
 			{
 				;
 			}
-			switch (identify_grades / 10)
+			switch (identify_grades / 10) //give each levels a comment
 			{
 			case 10:
 			case 9:
@@ -1279,7 +1278,6 @@ int main()
 	}
 	return 0;
 }
-
 ```
 
 
