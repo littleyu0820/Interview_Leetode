@@ -940,7 +940,7 @@ while(val <= 10}
 }
 ```
 ### 註記:在區塊內定義的變數在外面不能用。
-
+### 5. if述句:
 ## 練習題11
 ### 方法:
 ```c++
@@ -955,7 +955,7 @@ while(val <= 10}
 int main()
 {
 	std::string level[6] = {"Failed", "D", "C", "B", "A", "A++"}; //6 levels
-	int grades[10] = {}, grades_in = 0, counter = 0; //Max students:10
+	unsigned grades[10] = {}, grades_in = 0, counter = 0; //Max students:10
 	
 	while (std::cin >> grades_in)
 	{
@@ -968,7 +968,7 @@ int main()
 		}
 	}
 	std::string levels;
-	for (int &identify_grades : grades)
+	for (unsigned &identify_grades : grades)
 	{
 		if (identify_grades < 60)
 		{
@@ -995,9 +995,86 @@ int main()
 	return 0;
 }
 ```
+### 6. switch述句提供數個固定的替代方案讓我們挑選。
+### 在使用switch case時最好都加上"break;"，因為一但程式匹配到了正確的case，如果我們沒有打破，它將會繼續向下執行，而不是跳出switch。
+## 練習題12
+### 方法:
+```c++
+#include<iostream>
+#include<string>
+#include<vector>
+#include<iterator>
+/*
+* A program for defining the grades for students
+* The level are A++(100) A+/A-(90~99) B+/B-(80~89) C+/C-(70~79) D+/D-(60~69) F+/F-(0~59)
+*/
+int main()
+{
+	std::string level[6] = {"Failed", "D", "C", "B", "A", "A++"}; //6 levels
+	unsigned grades[10] = {}, grades_in = 0, counter = 0; //Max students:10	
+	while (std::cin >> grades_in)
+	{
+		grades[counter] = grades_in;
+		++counter;
+		if (counter == 10)
+		{
+			std::cout << "Already 10 students." << std::endl;
+			break;
+		}
+		else if(grades_in > 100)
+		{
+			std::cerr << "Invalid input." << std::endl;
+			break;
+		}
+	}
 
+	std::string levels;
+	for (unsigned &identify_grades : grades)
+	{
+		if (identify_grades < 60)
+		{
+			std::cout << identify_grades << ": " << level[0] << std::endl;
+		}
+		else
+		{
+			levels = level[(identify_grades - 50) / 10];
 
-
+			if (identify_grades % 10 > 7)
+			{
+				levels += "+";
+			}
+			else if(identify_grades % 10 < 3 && identify_grades != 100)
+			{
+				levels += "-";
+			}
+			else
+			{
+				;
+			}
+			switch (identify_grades / 10)
+			{
+				case 10:
+				case 9:
+					std::cout << identify_grades << ": " << levels << " You're excellent!" << std::endl;
+					break;
+				case 8:
+					std::cout << identify_grades << ": " << levels << " You're nice!" << std::endl;
+					break;
+				case 7:
+					std::cout << identify_grades << ": " << levels << " You're good!" << std::endl;
+					break;
+				case 6:
+					std::cout << identify_grades << ": " << levels << " You can be more better!" << std::endl;
+					break;
+				default:
+					std::cout << identify_grades << ": " << levels << " Please study hard!" << std::endl;
+					break;
+			}
+		}
+	}
+	return 0;
+}
+```
 
 ## ⭐補充:
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
