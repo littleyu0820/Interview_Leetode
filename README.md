@@ -1406,7 +1406,7 @@ int main()
 	char test_c;
 	bool appearornot = false;
 	std::cout << "Please enter the string: " << std::endl;
-	std::cin >> test_s;
+	getline(std::cin, test_s);
 	std::cout << "Please enter the character you want to find: " << std::endl;
 	std::cin >> test_c;
 	auto result = find_char(test_s, test_c, occurs, appearornot);
