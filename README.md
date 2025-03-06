@@ -1397,22 +1397,23 @@ int main()
 * 該字母出現了幾次以及第一次出現在哪裡，並且可以自訂想要的字串與字母
 * 如果沒有找到該字母，要讓使用者可以選擇是否重新開始
 */
-std::string::size_type find_char(const std::string, const char,int&);
+std::string::size_type find_char(const std::string, const char,int&, bool&);
 int main()
 {
 	begin:
 	int occurs = 0;
 	std::string test_s;
 	char test_c;
+	bool appearornot = false;
 	std::cout << "Please enter the string: " << std::endl;
 	std::cin >> test_s;
 	std::cout << "Please enter the character you want to find: " << std::endl;
 	std::cin >> test_c;
-	auto result = find_char(test_s, test_c, occurs);
-	if (result != 0)
+	auto result = find_char(test_s, test_c, occurs, appearornot);
+	if (appearornot)
 	{
 		std::cout << "Character " << test_c << " occurs " << occurs << " times"
-			<< " and appears at index " << result << " in " << test_s << std::endl;
+			<< " and appears(first) at index " << result << " in " << test_s << std::endl;
 	}
 	else
 	{
@@ -1421,7 +1422,6 @@ int main()
 		std::cout << "Do you want to try again?(Yes or No)" << std::endl;
 		std::string YesOrNo;
 		std::cin >> YesOrNo;
-
 		if (YesOrNo == "Yes" || YesOrNo == "yes")
 		{
 			goto begin;
@@ -1431,23 +1431,20 @@ int main()
 			std::cout << "Thanks for using!" << std::endl;
 			return 0;
 		}
-	}
+	}	
 	return 0;
 }
-std::string::size_type find_char(const std::string s, const char c, int &occurs)
+std::string::size_type find_char(const std::string s, const char c, int &occurs, bool &AppearOrNot)
 {
 	decltype(s.size()) first_time = 0;
 	for (auto i = 0; i < s.size(); ++i)
 	{
 		if (s[i] == c)
 		{
-			if (first_time == 0 && i != 0)
+			if (!AppearOrNot)
 			{
+				AppearOrNot = true;
 				first_time = i;
-			}
-			else if (first_time == 0 && i == 0)
-			{
-				++first_time;
 			}
 			++occurs;
 		}
