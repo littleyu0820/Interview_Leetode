@@ -1280,7 +1280,30 @@ int main()
 }
 ```
 
+## 15 函式(function):
+### 1. 一個函式的定義通常由一個回傳、一個名稱，以及一串參數(程式內容)所組成的。
+```c++
+#include<iostream>
+#include<vector>
+#include<string>
 
+int fact(int val)
+{
+	int ret = 1;
+	while (val > 1)
+	{
+		ret *= val--; //5 4 3 2 1
+	}
+	return ret;
+}
+int main()
+{
+	int val = 4;
+	int restult = fact(val);
+	std::cout << restult << std::endl;
+	return 0;
+}
+```
 
 
 
