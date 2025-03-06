@@ -36,6 +36,8 @@
 >>#### ☁️[練習題13](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C13)
 >#### ☁️[例外(異常)處理](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#15-%E4%BE%8B%E5%A4%96%E7%95%B0%E5%B8%B8%E8%99%95%E7%90%86)
 >>#### ⭐⭐⭐[綜合練習](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B6%9C%E5%90%88%E7%B7%B4%E7%BF%92-1)
+>#### ☁️[函式](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#15-%E4%BE%8B%E5%A4%96%E7%95%B0%E5%B8%B8%E8%99%95%E7%90%86)
+>>#### ☁️[練習題14](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C13)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -1286,7 +1288,6 @@ int main()
 #include<iostream>
 #include<vector>
 #include<string>
-
 int fact(int val)
 {
 	int ret = 1;
@@ -1304,12 +1305,156 @@ int main()
 	return 0;
 }
 ```
+### 2. 一個函式的執行會在遇到一個return時結束。
+### 3. 大多數的型別都可以進行回傳，但要記得我們不能回傳函式跟陣列。
+### 4. 在C++中，名稱具有範疇(scope)，簡單點來講就是有範圍的，具有區域性的。
+### 5. 物件具有生命週期(lifetimes)。
+### 所謂生命週期指的是該物件被執行時所存在的時間。
+### 6. 物件又可分為"自動物件"(Automatic Objects)跟"區域物件"(Static Objects)。
+### 自動物件泛指的是該物件只有在函式執行時存在，結束後就消失了。
+### 區域物件泛指的是該物件會在函式執行後就一直存在，直到整個程式完全結束才會消失。
+```c++
+#include<iostream>
+#include<vector>
+#include<string>
+int counter(int);
+int main()
+{
+	int val = 5;
+	while (val > 0)
+	{
+		std::cout << counter(val--) << std::endl;
+	}
+	return 0;
+}
+int counter(int val)
+{
+	//int ctr = 0; //will re-initialize when the function is called
+	static int ctr = 0; //only initialize once despite the function is called every times
+	if (val > 0)
+	{
+		++ctr;
+	}
+	return ctr;
+}
+```
+### 7. 函式跟變數一樣，要使用前必須先宣告。
+### 8. 可以通過指標來改變物件的值:
+```c++
+void reset_pointer(int *p)
+{
+	*p = 50; //will re-initialize
+	//p = 50;
+}
+```
+### 程式碼解釋:定義指標改變物件的函式
+```c++
+reset_pointer(&test_nums);
+```
+### 程式碼解釋:呼叫該函式
+### 8. 可以通過參考來改變物件的值:
+```c++
+void references_reset(int &val)
+{
+	val = 100;
+}
+```
+```c++
+int main()
+{
+	int test_nums = 0;
+	references_reset(test_nums);
+	std::cout << test_nums << std::endl;
+}
+```
+### 9. 如果真的要改變物件，最好的方式是使用參考。因為參考是直接改變該物件，而非通過"拷貝"的方式，拷貝的話我們的使用效率會大幅降低。
+### 10. 如果我們不希望修改物件，那就記得使用const：
+```c++
+int test_const(const int val)
+{
+	///val = 50; //we cant modify a constant
+	return val;
+}
+```
+```c++
+//使用const來固定變數
+int main()
+{
+	int test_nums = 10;
+	int result = test_const(test_nums);
+	std::cout << result << std::endl;
+	return 0;
+}
+```
+### 11. 一個函式只能回傳一個值，但我們可以通過參考的方式，來回傳多個結果。
+## 練習題14
+```c++
+#include<iostream>
+#include<string>
+#include<vector>
+/*
+* 設計一個可以在字串找出特定字母的函式，得到的結果必須包含:
+* 該字母出現了幾次以及第一次出現在哪裡，並且可以自訂想要的字串與字母
+* 如果沒有找到該字母，要讓使用者可以選擇是否重新開始
+*/
+std::string::size_type find_char(const std::string, const char,int&);
+int main()
+{
+	begin:
+	int occurs = 0;
+	std::string test_s;
+	char test_c;
+	std::cout << "Please enter the string: " << std::endl;
+	std::cin >> test_s;
+	std::cout << "Please enter the character you want to find: " << std::endl;
+	std::cin >> test_c;
+	auto result = find_char(test_s, test_c, occurs);
+	if (result != 0)
+	{
+		std::cout << "Character " << test_c << " occurs " << occurs << " times"
+			<< " and appears at index " << result << " in " << test_s << std::endl;
+	}
+	else
+	{
+		std::cout << "Sorry! The character you entered is not in the string: "
+			<< test_s << std::endl;
+		std::cout << "Do you want to try again?(Yes or No)" << std::endl;
+		std::string YesOrNo;
+		std::cin >> YesOrNo;
 
-
-
-
-
-
+		if (YesOrNo == "Yes" || YesOrNo == "yes")
+		{
+			goto begin;
+		}
+		else
+		{
+			std::cout << "Thanks for using!" << std::endl;
+			return 0;
+		}
+	}
+	return 0;
+}
+std::string::size_type find_char(const std::string s, const char c, int &occurs)
+{
+	std::string::size_type first_time = 0;
+	for (auto i = 0; i < s.size(); ++i)
+	{
+		if (s[i] == c)
+		{
+			if (first_time == 0 && i != 0)
+			{
+				first_time = i;
+			}
+			else if (first_time == 0 && i == 0)
+			{
+				++first_time;
+			}
+			++occurs;
+		}
+	}
+	return first_time;
+}
+```
 
 
 ## ⭐補充
@@ -1320,6 +1465,7 @@ int main()
 ### 4. 可以把迭代器想成是一個pointer，指向index所處的位置。
 ### 5. 在使用"null"述句時，都應該加上註解，讓閱讀程式碼的人知道該行是刻意省略的。
 ### 6. 在我們使用迴圈時，如果不確定到底要執行多少次，又或者已經知道會執行非常多次，那我們就都會用while。
+### 7. 在一個參考上進行運算，其實就是在對該參考所綁定的物件進行運算。
 
 
 # LeetCode
