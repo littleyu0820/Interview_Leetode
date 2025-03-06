@@ -36,7 +36,7 @@
 >>#### ☁️[練習題13](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C13)
 >#### ☁️[例外(異常)處理](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#15-%E4%BE%8B%E5%A4%96%E7%95%B0%E5%B8%B8%E8%99%95%E7%90%86)
 >>#### ⭐⭐⭐[綜合練習](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B6%9C%E5%90%88%E7%B7%B4%E7%BF%92-1)
->#### ☁️[函式](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#15-%E4%BE%8B%E5%A4%96%E7%95%B0%E5%B8%B8%E8%99%95%E7%90%86)
+>#### ☁️[函式](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#15-%E5%87%BD%E5%BC%8Ffunction)
 >>#### ☁️[練習題14](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C13)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
