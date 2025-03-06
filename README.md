@@ -1615,14 +1615,45 @@ int main()
 ### 29. 我們也可以使用NDEBUG來定義自己的除錯(程式碼)方法:
 ```c++
 #ifndef NDEBUG
-#define NDEBUG
-
+/*
+中間放我們想要印出的訊息
+*/
 #endif
 ```
-
-
-
-
+### 30. 前置處理器還定義了四個可以讓我們除錯時使用的名稱:
+>> __FILE__ //檔案名
+>> __LINE__ //第幾行
+>> __TIME__ //時間
+>> __DATE__ //日期
+>> 以及C++提供的 __func__
+### 31. 當我們使用一個函式名稱當作變數的值時，那個函式會被自動轉換成一個指標。
+```c++
+#include <iostream>
+#include <vector>
+#include <string>
+bool length_compare(const std::string&, const std::string&);
+int main()
+{
+	bool (*pf)(const std::string&, const std::string&); //a pointer point to a function that return bool
+	pf = &length_compare; //like pointer well get the address of the function
+	bool b1 = pf("hello", "hello"); //same
+	bool b2 = (*pf)("hello", "hello"); //same we get the value that in the address where pf points
+	if (b2)
+	{
+		std::cout << "1" << std::endl;
+	}
+	return 0;
+}
+bool length_compare(const std::string &s1, const std::string &s2)
+{
+	return s1.size() == s2.size() ? true : false;
+}
+```
+### 32. 我們可以妥善的利用typedef跟decltype來定義函式指標的型別。
+```c++
+typedef decltype(length_compare) func; 
+typedef decltype(length_compare) *funcp;
+```
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
