@@ -712,7 +712,7 @@ int a3[2] = {0, 1, 2}; //error 3 > 2
 char a4[] = "C++"; //C++\0
 char a5[6] = "Dainel"; //error no space for null
 ```
-### 4. 陣列是無法指定的:
+### 4. 陣列是無法指定(拷貝)的:
 ```c++
 int a[] = {0, 1, 2};
 int a2[] = a; //error
@@ -1452,7 +1452,7 @@ std::string::size_type find_char(const std::string s, const char c, int &occurs,
 	return first_time;
 }
 ```
-
+### 11. 一個函式只能回傳一個值，但我們可以通過參考的方式，來回傳多個結果。
 
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
