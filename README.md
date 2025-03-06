@@ -1436,7 +1436,7 @@ int main()
 }
 std::string::size_type find_char(const std::string s, const char c, int &occurs)
 {
-	std::string::size_type first_time = 0;
+	decltype(s.size()) first_time = 0;
 	for (auto i = 0; i < s.size(); ++i)
 	{
 		if (s[i] == c)
