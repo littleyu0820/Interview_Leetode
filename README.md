@@ -1452,7 +1452,105 @@ std::string::size_type find_char(const std::string s, const char c, int &occurs,
 	return first_time;
 }
 ```
-### 11. 一個函式只能回傳一個值，但我們可以通過參考的方式，來回傳多個結果。
+### 12. 我們通常引用指標參數來管理陣列:
+```c++
+#include<iostream>
+void pointer_practice(const int *beg, const int *end)
+{
+	while (*beg != *end)
+	{
+		std::cout << *beg++ << std::endl;
+	}
+}
+```
+```c++
+int main()
+{
+	int test_arr[] = { 0, 1, 2, 3, 4, 5, 6 };
+	int *beg = std::begin(test_arr); //an address
+	int *end = std::end(test_arr); //an address
+	pointer_practice(beg, end);
+	return 0;
+}
+```
+### 12. 我們也可以使用參考參數來管理陣列:
+```c++
+#include<iostream>
+void reference_practice(int (&arr)[10])
+{
+	for (auto run_arr : arr)
+	{
+		std::cout << run_arr << std::endl;
+	}
+}
+```
+```c++
+int main()
+{
+	int test_arr[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+	reference_practice(test_arr);
+	return 0;
+}
+```
+### 註記:使用陣列時一定要宣告大小。
+### 13. 帶有不定參數的函式:
+### 有時候我們不確定到底要使用幾個參數，就可以使用標準函式庫中的，initializer_list<type>:
+### 第一種用法:
+```c++
+#include<iostream>
+#include<string>
+#include<vector>
+void print_string(std::initializer_list<std::string>); //kind of like vector
+int main()
+{
+	std::initializer_list<std::string> test_s = { "Hello " , ", ""How ", "are ", "you ", "?"};
+	print_string(test_s);
+	return 0;
+}
+void print_string(std::initializer_list<std::string> ls)
+{
+	for (auto &s : ls)
+	{
+		std::cout << s;
+	}
+	std::cout << std::endl;
+}
+```
+```c++
+### 第二種用法:
+#include<iostream>
+#include<string>
+#include<vector>
+void print_string(std::initializer_list<std::string>); //kind of like vector
+int main()
+{
+	std::string test = "Hi";
+	print_string({ "Hello", test});
+	return 0;
+}
+void print_string(std::initializer_list<std::string> ls)
+{
+	for (auto &s : ls)
+	{
+		std::cout << s;
+	}
+	std::cout << std::endl;
+}
+```
+### 14. 對於一個void類型的函式，我們可以使用return來當成break使用，直接終止該函式。
+```c++
+void swap(int &v1, int &v2)
+{
+	if(v1 == v2)
+	{
+		return;
+	}
+
+	int tmp = v2;
+	v2 = v1;
+	v1 = tmp;
+}
+```
 
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
@@ -1463,6 +1561,7 @@ std::string::size_type find_char(const std::string s, const char c, int &occurs,
 ### 5. 在使用"null"述句時，都應該加上註解，讓閱讀程式碼的人知道該行是刻意省略的。
 ### 6. 在我們使用迴圈時，如果不確定到底要執行多少次，又或者已經知道會執行非常多次，那我們就都會用while。
 ### 7. 在一個參考上進行運算，其實就是在對該參考所綁定的物件進行運算。
+### 8. 如果你不打算在一個函式內部修該引用的參數，請妥善使用const。
 
 
 # LeetCode
