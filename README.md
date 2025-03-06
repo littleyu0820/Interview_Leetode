@@ -1552,7 +1552,7 @@ void swap(int &v1, int &v2)
 }
 ```
 ### 15. 只要不是void函式就一定都要有回傳值。這句話是絕對的，但有一個例外，如果我們在main()函式內沒有打出回傳值，它會自己默認為回傳0。
-### 16. 我們也可以回傳函式本身(Recursion):
+### 16. 我們也可以"呼叫"函式本身(Recursion):
 ```c++
 int factorial(int val) 
 {
@@ -1577,7 +1577,7 @@ auto func(int i) -> int(*)[10]; //型別是一個對陣列的指標 指向一個
 ### 20. 重載函式:具有相同名稱，但參數列不同的函式。
 ### 要注意，main不能重載。
 ### 21. 要使用重載函式一定要記得，參數的數量又或者是其中的型別一定要不一樣。
-### 22. 我們可以為函是設定訂預設參數。
+### 22. 我們可以為函式設定訂預設參數。
 ### 但要注意的是，一旦你使用了預設參數，那後面的所有參數也必然都要有預設值。
 ### 23. 區域變數不能被設為預設參數:
 ```c++
@@ -1651,8 +1651,20 @@ bool length_compare(const std::string &s1, const std::string &s2)
 ```
 ### 32. 我們可以妥善的利用typedef跟decltype來定義函式指標的型別。
 ```c++
-typedef decltype(length_compare) func; 
-typedef decltype(length_compare) *funcp;
+typedef boo1 func1(const std::string, const std::string); //返回函式
+typedef decltype(length_compare) func2; //同上
+typedef boo1 (*func3)(const std::string, const std::string); //返回指標
+typedef decltype(length_compare) *func3p; //decltype返回的是函式型別，所以需要通過*來將其轉換為指標
+```
+### 33. 函式不可以返回函式，這代表著還是不可以當成一個型別來定義函式。
+```c++
+using F = int(int*, int); 函式
+using PF = int(*)(int*, int); PF是一個指標，指向F類型的函式
+PF f1(int); f1現在是一個返回指標的指針，指向F
+F f1(int); 錯，f1沒辦法返回一個函式型別
+F *f1(int); f1是一個返回指標的函式，指向F
+int (*f1(int))(int*, int);
+auto f1(int) -> int(*)(int*, int);
 ```
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
@@ -1665,6 +1677,7 @@ typedef decltype(length_compare) *funcp;
 ### 7. 在一個參考上進行運算，其實就是在對該參考所綁定的物件進行運算。
 ### 8. 如果你不打算在一個函式內部修該引用的參數，請妥善使用const。
 ### 9. 在C++中名稱的查找先於型別檢查。
+### 10. 當你看到一個函式被當成參數時，它會自動地被轉換為指標。
 
 
 # LeetCode
