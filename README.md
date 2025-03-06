@@ -1551,6 +1551,77 @@ void swap(int &v1, int &v2)
 	v1 = tmp;
 }
 ```
+### 15. 只要不是void函式就一定都要有回傳值。這句話是絕對的，但有一個例外，如果我們在main()函式內沒有打出回傳值，它會自己默認為回傳0。
+### 16. 我們也可以回傳函式本身(Recursion):
+```c++
+int factorial(int val) 
+{
+	if (val > 1)
+	{
+		return factorial(val-1) * val;
+	}
+	return 1;
+}
+```
+### 註記:main不能回傳main。
+### 17. 我們不能回傳陣列。
+### 18. 我們可以回傳一個對陣列的指標。
+```c++
+typedef int arr[10];
+arr *func(int i); //型別是一個對陣列的指標 指向一個由10int組成的陣列
+```
+### 19. 尾端回傳類型:
+```c++
+auto func(int i) -> int(*)[10]; //型別是一個對陣列的指標 指向一個由10int組成的陣列
+```
+### 20. 重載函式:具有相同名稱，但參數列不同的函式。
+### 要注意，main不能重載。
+### 21. 要使用重載函式一定要記得，參數的數量又或者是其中的型別一定要不一樣。
+### 22. 我們可以為函是設定訂預設參數。
+### 但要注意的是，一旦你使用了預設參數，那後面的所有參數也必然都要有預設值。
+### 23. 區域變數不能被設為預設參數:
+```c++
+typedef std::string::size_type sz;
+sz wd = 80;
+char def = '';
+sz ht();
+string screen(sz = ht(), sz = wd, char = def);
+string window = screen(); //ht(), 80, ''
+
+void f2()
+{
+	def = '*';
+	sz wd = 100;
+	window = screen(); //ht(), 80, *
+}
+```
+### 24. 可以使用inline減少函式執行時期的負擔。
+### 25. constexpr函式:必須回傳字面值型別(數字、字串、布林值、符號)，又或者是常數運算式。
+### 26. 前置處理器巨集assert，通常用來檢查不可能發生的事情。
+### 如果該運算式為false，那麼assert會寫出一段訊息，並且甚麼都不做;如果為true，則會甚麼都不管。
+### 27. 要記住，assert是由前器處理器管理的，所以我們呼叫它的時候，不用std::，可以直接使用。
+### 但使用前要記得#include <cassert>
+### 28. 當我們定義了NDEBUG代表著程式已經不是開發狀態了，所以使用assert是無用的。
+```c++
+#define NDEBUG
+#include<cassert>
+int main()
+{
+	int x = 0;
+	assert(x); //是無用的
+	return 0
+}
+```
+### 29. 我們也可以使用NDEBUG來定義自己的除錯(程式碼)方法:
+```c++
+#ifndef NDEBUG
+#define NDEBUG
+
+#endif
+```
+
+
+
 
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
@@ -1562,6 +1633,7 @@ void swap(int &v1, int &v2)
 ### 6. 在我們使用迴圈時，如果不確定到底要執行多少次，又或者已經知道會執行非常多次，那我們就都會用while。
 ### 7. 在一個參考上進行運算，其實就是在對該參考所綁定的物件進行運算。
 ### 8. 如果你不打算在一個函式內部修該引用的參數，請妥善使用const。
+### 9. 在C++中名稱的查找先於型別檢查。
 
 
 # LeetCode
