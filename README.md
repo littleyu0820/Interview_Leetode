@@ -1822,6 +1822,9 @@ else:
 ```
 ### 程式碼解釋:左右兩端點在迴圈內不斷比較，以此找出最大值，存取到新陣列中。
 
+☁️[LeetCode連結](https://leetcode.com/problems/squares-of-a-sorted-array/description/)
+☁️[My_LeetCode_Sol]()
+
 ### Exercise 4
 >Minimum Size Subarray Sum(長度最小的子陣列):Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
 ### 思考邏輯:通過快指針移動來找出兩根指針的和是否大於等於目標值了。如果找到了，計算長度，同時再將慢指針向右移一格，繼續判斷。
@@ -1846,10 +1849,40 @@ class Solution:
             right_pointer += 1
         return sublength if sublength != float('inf') else 0
 ```
-### Exercise 5 
->Spiral Matrix II(螺旋矩陣):Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
-### 思考邏輯:如果我們在二分搜尋法時所提到的，我們的每一次迴圈所操作的方式都要一樣，在此題我們統一的設想是左閉右開，代表著每一次右邊的端點我們都不考慮。
-![Spiral Matrix](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/expression.png)
-
 ☁️[LeetCode連結](https://leetcode.com/problems/minimum-size-subarray-sum/description/)
 ☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Minimum_Size_Subarray_Sum.py)
+
+### Exercise 5 
+>Spiral Matrix II(螺旋矩陣):Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+### 思考邏輯:如我們在二分搜尋法時所提到的，我們的每一次迴圈所操作的方式都要一樣，在此題我們統一的設想是左閉右開，代表著每一次右邊的端點我們都不考慮。
+![Spiral Matrix](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/Spiral_Matrix.png)
+>Solution:
+```python
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        i, j =  0, 0
+        nums = [[0] * n for _ in range(n)]
+        counter = 1
+        loop = n//2
+        mid = n//2
+        for offset in range(1, loop + 1):
+            for run in range(j, n - offset):
+                nums[i][run] = counter
+                counter += 1
+            for run in range(i, n - offset):
+                nums[run][n - offset] = counter
+                counter += 1
+            for run in range(n - offset, j, -1):
+                nums[n - offset][run] = counter
+                counter += 1
+            for run in range(n - offset, i, -1):
+                nums[run][j] = counter
+                counter += 1           
+            i += 1
+            j += 1
+        if n % 2 != 0:
+            nums[mid][mid] = counter
+        return nums       
+```
+☁️[LeetCode連結](https://leetcode.com/problems/spiral-matrix-ii/description/)
+☁️[My_LeetCode_Sol]()
