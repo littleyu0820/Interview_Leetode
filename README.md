@@ -1846,5 +1846,10 @@ class Solution:
             right_pointer += 1
         return sublength if sublength != float('inf') else 0
 ```
+### Exercise 5 
+>Spiral Matrix II(螺旋矩陣):Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+### 思考邏輯:如果我們在二分搜尋法時所提到的，我們的每一次迴圈所操作的方式都要一樣，在此題我們統一的設想是左閉右開，代表著每一次右邊的端點我們都不考慮。
+![Spiral Matrix](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/expression.png)
+
 ☁️[LeetCode連結](https://leetcode.com/problems/minimum-size-subarray-sum/description/)
 ☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Minimum_Size_Subarray_Sum.py)
