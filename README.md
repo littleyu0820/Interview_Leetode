@@ -1823,7 +1823,7 @@ else:
 ### 程式碼解釋:左右兩端點在迴圈內不斷比較，以此找出最大值，存取到新陣列中。
 
 ☁️[LeetCode連結](https://leetcode.com/problems/squares-of-a-sorted-array/description/)
-☁️[My_LeetCode_Sol]()
+☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Squares_of_a_Sorted_Array.py)
 
 ### Exercise 4
 >Minimum Size Subarray Sum(長度最小的子陣列):Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
@@ -1885,4 +1885,4 @@ class Solution:
         return nums       
 ```
 ☁️[LeetCode連結](https://leetcode.com/problems/spiral-matrix-ii/description/)
-☁️[My_LeetCode_Sol]()
+☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Spiral_Matrix.py)
