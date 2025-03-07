@@ -1926,4 +1926,4 @@ public:
 };
 ```
 ☁️[LeetCode連結](https://leetcode.com/problems/search-insert-position/)
-☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Spiral_Matrix.py)
+☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Search%20Insert%20Position.cpp)
