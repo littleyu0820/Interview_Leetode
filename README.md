@@ -45,6 +45,7 @@
 >#### ☁️[有序陣列的平方(Squares of a Sorted Array)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-3)  
 >#### ☁️[長度最小的子陣列(Minimum Size Subarray Sum)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-4)
 >#### ☁️[螺旋矩陣(Spiral_Matrix)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-5)
+>#### ☁️[搜索插入位置(Search Insert Position)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-5)
 
 # C++
 ## 1 輸入與輸出
@@ -1886,3 +1887,41 @@ class Solution:
 ```
 ☁️[LeetCode連結](https://leetcode.com/problems/spiral-matrix-ii/description/)
 ☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Spiral_Matrix.py)
+### Exercise 6
+>Search Insert Position(搜索插入位置):Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+### 思考邏輯: 與二分搜尋法有異曲同工之妙，但需要額外判定是否有找到目標值，如果沒有找到，則根據目標值的大小來判斷該放在哪裡。
+>Solution:
+```C++
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int left = 0;
+        int right = nums.size() - 1;
+        while(left <= right)
+        {
+            int mid = (right + left) / 2;
+            if(nums[mid] < target)
+            {
+                left = mid + 1;
+            }
+            else if(nums[mid] > target)
+            {
+                right = mid - 1;
+            }
+            else
+            {
+                return mid;
+            }
+        }
+        int new_mid = (right + left) / 2;
+        if(new_mid == 0 && nums[new_mid] > target)
+        {
+            return new_mid;
+        }
+        else
+        {
+            return nums[new_mid] < target ? ++new_mid : --new_mid;
+        }   
+    }
+};
+```
