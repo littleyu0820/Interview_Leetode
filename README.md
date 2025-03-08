@@ -1667,6 +1667,201 @@ F *f1(int); f1是一個返回指標的函式，指向F
 int (*f1(int))(int*, int);
 auto f1(int) -> int(*)(int*, int);
 ```
+## 16 類別(Classes):
+### 1. 定義成員函式:
+### 在內部定義:isbn()
+```c++
+struct Sales_Data
+{
+	std::string book_Numbers = "";
+	unsigned units_sold = 0;
+	double revenue = 0.0;
+	std::string isbn() const //告訴電腦isbn其實是要使用一個叫做this的指針，指向回傳值，而且它是常量的，不能改變 //Sales_Data::isbn(&total) 如果我們要拿total的booknums的話
+	{
+		return book_Numbers;
+	}//代表我們只能讀取isbn中的值，但不能改寫
+	Sales_Data& combine(const Sales_Data&); //combine這個函式回傳的是一個Sales_Data型別的參考
+	double avg_price() const;
+};
+```
+### 在外部定義:avg_price()
+```c++
+double Sales_Data::avg_price() const
+{
+	
+	if (units_sold)
+	{
+		return revenue / units_sold;
+	}
+	else
+	{
+		return 0;
+	}
+
+}
+```
+### 使用*this回傳物件(資料結構)本身:
+```c++
+/*
+* combine()函式解釋:假設有兩個Sales_Data:data1跟data2
+* 如果我現在是呼叫data1.combine(data2)代表著我們要做data1 = data1 + data2;
+*/
+Sales_Data& Sales_Data::combine(const Sales_Data& rhs) 
+{
+	units_sold += rhs.units_sold;
+	revenue += rhs.revenue;
+	return *this; //回傳data本身且是參考型別的，代表會改變data本身原有的值 用來回傳物件整體
+}
+```
+### 2. 定義非成員函式:
+### 通常定義在同一個標頭黨(.h)中。
+```c++
+/*
+* 自己定義iostream
+*/
+std::istream& read(std::istream& in, Sales_Data& item)
+{
+	double price = 0; //每本書的價錢
+
+	in >> item.book_Numbers >> item.units_sold >> price; //可以輸入isbn、賣了幾本、跟一本多少前
+	item.revenue = price * item.units_sold; //計算總獲利
+	return in; //回傳std::cin
+}
+std::ostream& print(std::ostream& out, Sales_Data& item)
+{
+	out << item.isbn() << " " << item.units_sold << " " << item.avg_price()
+		<< " " << item.revenue;
+	return out;
+}
+```
+### 註記:iostream型別無法被拷貝，只能使用參考(因為我們在定義一個變數的時候，其實就依靠拷貝的方式定義)。
+```c++
+/*
+* 定義相加
+*/
+Sales_Data add(const Sales_Data& data1, const Sales_Data& data2)
+{
+	Sales_Data sum = data1;
+	sum.combine(data2); //data1+data2
+
+	return sum; //return data1+data2
+}
+```
+### 完整程式碼:
+```c++
+#include<iostream>
+#include<string>
+//定義成員函式
+/*
+* 1.能夠回傳isbn，命名為isbn()
+* 2.能將同樣Sales_data這個型別的物件加到另一個上，命為名combie()
+* 3.相加兩個相同的Sales_data，命名為add()
+* 4.從istream(cin)中讀取資料到Sales_data內，命名為read()
+* 5.從ostream(cout)上印出Sales_data內的物件，命名為print()
+*/
+/*
+* 1.常量指針:指向常量的指針
+* const int *cptr; //可以不用初始化
+* 2.指針常量:指針是常量的，一開始是多少就是多少
+* int *const ptrc = &a; //必須初始化
+*/
+struct Sales_Data
+{
+	std::string book_Numbers = "";
+	unsigned units_sold = 0;
+	double revenue = 0.0;
+	std::string isbn() const //告訴電腦isbn其實是要使用一個叫做this的指針，指向回傳值，而且它是常量的，不能改變 //Sales_Data::isbn(&total) 如果我們要拿total的booknums的話
+	{
+		return book_Numbers;
+	}//代表我們只能讀取isbn中的值，但不能改寫
+	Sales_Data& combine(const Sales_Data&); //combine這個函式回傳的是一個Sales_Data型別的參考
+	double avg_price() const;
+};
+double Sales_Data::avg_price() const
+{	
+	if (units_sold)
+	{
+		return revenue / units_sold;
+	}
+	else
+	{
+		return 0;
+	}
+}
+/*
+* combine()函式解釋:假設有兩個Sales_Data:data1跟data2
+* 如果我現在是呼叫data1.combine(data2)代表著我們要做data1 = data1 + data2;
+*/
+Sales_Data& Sales_Data::combine(const Sales_Data& rhs) 
+{
+	units_sold += rhs.units_sold;
+	revenue += rhs.revenue;
+	return *this; //回傳data本身且是參考型別的，代表會改變data本身原有的值 用來回傳物件整體
+}
+/*
+* 自己定義iostream
+*/
+std::istream& read(std::istream& in, Sales_Data& item)
+{
+	double price = 0; //每本書的價錢
+	in >> item.book_Numbers >> item.units_sold >> price; //可以輸入isbn、賣了幾本、跟一本多少前
+	item.revenue = price * item.units_sold; //計算總獲利
+	return in; //回傳std::cin
+}
+std::ostream& print(std::ostream& out, Sales_Data& item)
+{
+	out << item.isbn() << " " << item.units_sold << " " << item.avg_price()
+		<< " " << item.revenue;
+	return out;
+}
+/*
+* 定義相加
+*/
+Sales_Data add(const Sales_Data& data1, const Sales_Data& data2)
+{
+	Sales_Data sum = data1;
+	sum.combine(data2); //data1+data2
+	return sum; //return data1+data2
+}
+int main()
+{	
+	Sales_Data data1, data2, total;
+	read(std::cin, data1); //read the data:isbn, unit_sold, price for each books
+	read(std::cin, data2);
+	if (data1.isbn() != data2.isbn())
+	{
+		std::cerr << "Invalid Input." << std::endl;
+		return -1;
+	}
+	else
+	{
+		total = add(data1, data2);
+		print(std::cout, total); //print the data:isbn, unit_sold, price for each books, revenue
+		return 0;
+	}
+}
+```
+### 3. 建構器(構造函式):用來初始化類別(Classes)的特殊成員函式。
+### 4. 當我們沒有定義任何建構器(構造函式)，那麼系統就會為我們定義預設的建構器(構造函式):synthesized default constructor
+### 5. 只有相當簡單的calssed來能仰賴預設的建構器，通常來說我們都需要自己定義。
+### 原因:因為變數在未定義時，會使用預設初始化的，這絕大多數都不是我們想要的。再來，有些時候編譯器會無法合成，這導致它無法幫我們初始化那些沒有被定義的成員。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
@@ -1679,6 +1874,7 @@ auto f1(int) -> int(*)(int*, int);
 ### 8. 如果你不打算在一個函式內部修該引用的參數，請妥善使用const。
 ### 9. 在C++中名稱的查找先於型別檢查。
 ### 10. 當你看到一個函式被當成參數時，它會自動地被轉換為指標。
+### 11. 編譯器會先做宣告然後才處理函式主體。
 
 
 # LeetCode
