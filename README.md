@@ -1852,7 +1852,7 @@ int main()
 struct Sales_Data
 {
 	Sales_Data() = default; //因為我們已經有對變數進行初始化了
-	Sales_Data(const std::string& s, unsigned n, double p) :
+	Sales_Data(const std::string s, unsigned n, double p) :
 		book_Numbers(s), units_sold(n), revenue(n* p){}
 	Sales_Data(std::istream&);
 	std::string book_Numbers; = "";
@@ -1890,7 +1890,7 @@ class Sales_Data
 		//建構器
 		Sales_Data() = default;
 		Sales_Data(std::istream&);
-		Sales_Data(const std::string& s, unsigned n, double r) :
+		Sales_Data(const std::string s, unsigned n, double r) :
 			book_Nos(s), unit_sold(n), revenue(n * r) {}
 		std::string isbn () const; //print isbn
 		Sales_Data& combine(const Sales_Data&); //combine 2 objects to make the new object
