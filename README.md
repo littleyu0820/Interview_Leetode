@@ -1960,11 +1960,57 @@ int main()
 	return 0;
 }
 ```
+### 4. 使用mutable來改變classes內部的成員，哪怕它是const。
+```c++
+class Screen
+{
+	public:
+		void some_member() const;
+	private:
+		mutable size_t access_ctr;
+};
+void Screen:some_member() const
+{
+	++access_ctr;
+}
+```
+### 5. classes的初始化:
+```c++
+class Screen
+{
+public:
+	typedef std::string::size_type pos;
+	Screen() = default;
+	Screen(pos ht, pos wd, char c):
+		height(ht), width(wd), contents(ht * wd, c) {}
+	char get() const
+	{
+		return contents[curson];
+	}
+	inline char get(pos ht, pos wd) const;
+	Screen& move(pos r, pos c);
+private:
+	pos cursor = 0;
+	pos height = 0, width = 0;
+	std::string contents;
 
-
-
-
-
+};
+class Window_mgr
+{
+private:
+	std::vector<Screen> screens{Screen(24, 80, ' ')};
+};
+```
+### 6. 回傳*this
+```c++
+Screen& move(pos r, pos c);
+Screen& set(char c);
+```
+### 如果我們回傳的是一個reference(Screen)，代表著我們可以直接改變物件本身。但如果只是回傳(Screen)，那就像是我們在定義變數一樣，只是在做拷貝而已。
+### 回傳reference的流程大致如下:
+![Reference]()
+### 回傳非reference的流程大致如下:
+![Non-Reference]()
 
 
 
