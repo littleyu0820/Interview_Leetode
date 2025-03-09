@@ -2008,7 +2008,7 @@ Screen& set(char c);
 ```
 ### 如果我們回傳的是一個reference(Screen)，代表著我們可以直接改變物件本身。但如果只是回傳(Screen)，那就像是我們在定義變數一樣，只是在做拷貝而已。
 ### 回傳reference的流程大致如下:
-![Reference]()
+![Reference](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/%E5%9B%9E%E5%82%B3%E5%8F%83%E8%80%83.png)
 ### 回傳非reference的流程大致如下:
 ![Non-Reference]()
 
