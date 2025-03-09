@@ -2029,14 +2029,85 @@ class A
 ### 10. 當我們在一個class內部friend一個函式或class時，其實編譯器就已經隱含的幫我們宣告這個函式或class了。
 ### 但這其實僅侷限於那個class中，這也是為甚麼我們還需要在class後面或前面，再進行宣告一次的關係。
 ### 11. 定義一定會在編譯器處理完所有宣告後才開始處理。
+### 12. 我們可以把建構器(constructor)想成一個複雜型的int或string，變數名稱後的括號內部所給定的值，就如同我們在對int a = 10，賦值一樣。
+### 方法一，直接在class內初始化:
+```c++
+class Sales_Data
+{
+	public:
+		//建構器
+		//定義構造函式，又或者說告訴電腦，Sales_Data內部待會需要放入三個值
+		Sales_Data(const std::string s, unsigned n, double r) :
+			book_Nos(s), unit_sold(n), revenue(n * r) { }
+		//構造函數end
+		Sales_Data():Sales_Data("", 0, 0) {} //初始化
+	private:
+		std::string book_Nos;
+		unsigned unit_sold;
+		double revenue;
+		double avg_price() const
+		{
+			return unit_sold ? revenue / unit_sold : 0;
+		}		
+};
+```
+### 方法二，如同我們在定義變數一樣，在main()函式裡定義它:
+```c++
+class Sales_Data
+{
+	public:
+		//建構器
+		//定義構造函式，又或者說告訴電腦，Sales_Data內部待會需要放入三個值
+		Sales_Data(const std::string s, unsigned n, double r) :
+			book_Nos(s), unit_sold(n), revenue(n * r) { }
+		//構造函數end
+	private:
+		std::string book_Nos;
+		unsigned unit_sold;
+		double revenue;
+		double avg_price() const
+		{
+			return unit_sold ? revenue / unit_sold : 0;
+		}		
+};
+int main()
+{
+	Sales_Data data1("", 0, 0); //分別對isbn賦值空,unit_sold賦值0,price賦值0
+	return 0;
+}
+```
+### 13. 彙總類別/聚合(Aggregate Class):
+### 使用條件:A. 成員都是public B. 沒有定義任何建構器 C. 沒有在classes裡初始化 D. 沒有base classes和virtual函式。
+### 範例:
+```c++
+struct Data
+{
+	int ival;
+	string s;
+}
 
 
-
-
-
-
-
-
+int main()
+{
+	Data data1 = {10, "test"};
+	return 0;
+}
+```
+註記:必須要按照變數宣告的順序來定義。
+### 14. Satic:每一個static成員都是由整個class共用的。
+### 15. Static沒有reference跟pointer，也不能宣告為const。
+### 16. Static的定義一定要在classes外面。
+### 17. 但是如果你加上constexpr就可以在classes內進行初始化。但這個初始化，還是只侷限於該classes裡面。
+```c++
+class Account()
+{
+public:
+private:
+	static conxtexpr int period = 30; //period的初始化值30值在account裡面有用
+};
+/*如果想在外面繼續使用則可以在class外部在定義一次*/
+constexpr int Account::period;
+```
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
@@ -2051,6 +2122,7 @@ class A
 ### 10. 當你看到一個函式被當成參數時，它會自動地被轉換為指標。
 ### 11. 編譯器會先做宣告然後才處理函式主體。
 ### 12. reference跟const都是不能被賦值的。
+### 13. 構造函式不會有回傳。
 
 
 # LeetCode
