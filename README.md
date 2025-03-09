@@ -2010,7 +2010,7 @@ Screen& set(char c);
 ### 回傳reference的流程大致如下:
 ![Reference](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/%E5%9B%9E%E5%82%B3%E5%8F%83%E8%80%83.png)
 ### 回傳非reference的流程大致如下:
-![Non-Reference]()
+![Non-Reference](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/%E5%9B%9E%E5%82%B3%E6%8B%B7%E8%B2%9D%E5%80%BC.png)
 
 
 
