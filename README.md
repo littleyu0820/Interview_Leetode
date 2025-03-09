@@ -1880,7 +1880,7 @@ Sales_Data::Sales_Data(std::istream& in)
 * 1.輸入isbn
 * 2.輸入販賣數量
 * 3.輸入一本書的價錢
-* 4.最後印出: isbn/總銷量/總獲利/平均出售價前
+* 4.最後印出: isbn/總銷量/總獲利/平均出售價錢
 */
 class Sales_Data
 {
