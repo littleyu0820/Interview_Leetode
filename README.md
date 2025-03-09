@@ -2011,9 +2011,23 @@ Screen& set(char c);
 ![Reference](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/%E5%9B%9E%E5%82%B3%E5%8F%83%E8%80%83.png)
 ### 回傳非reference的流程大致如下:
 ![Non-Reference](https://github.com/littleyu0820/Interview_Leetode/blob/main/PitcturesForLearning/%E5%9B%9E%E5%82%B3%E6%8B%B7%E8%B2%9D%E5%80%BC.png)
-
-
-
+### 7. claa也可以當class的frined。簡單點來講，我們可以在一個class內部friend另外一個class。
+```c++
+class Screen
+{
+	friend class Window_mgr;
+};
+```
+### 8. 每個class都分別控制著自己的成員、函式，以及朋友。這代表說當class B要使用class A裡面的東西的時候，需要在class A裡面說清楚，那麼class B才能拿。
+### 9. 當我們只想要讓class B中的某個函式有資格使用class A裡面的東西時，我們也可使用以下這個方法:
+```c++
+class A
+{
+	friend void B::test(); //表示class B中有一個回傳型別是void的函式可以使用class A中的東西
+};
+```
+### 10. 當我們在一個class內部friend一個函式或class時，其實編譯器就已經隱含的幫我們宣告這個函式或class了
+### 但這其實僅侷限於那個class中，這也是為甚麼我們還需要在class後面或前面，再進行宣告一次的關係。
 
 
 
