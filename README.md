@@ -39,6 +39,7 @@
 >#### ☁️[函式](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#15-%E5%87%BD%E5%BC%8Ffunction)
 >>#### ☁️[練習題14](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C14)
 >#### ☁️[定義Class](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#16-%E9%A1%9E%E5%88%A5classes)
+>#### ☁️[存取與封裝](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#17-%E5%AD%98%E5%8F%96%E8%88%87%E5%B0%81%E8%A3%9D)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
