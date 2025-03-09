@@ -2098,6 +2098,7 @@ int main()
 ### 15. Static沒有reference跟pointer，也不能宣告為const。
 ### 16. Static的定義一定要在classes外面。
 ### 17. 但是如果你加上constexpr就可以在classes內進行初始化。但這個初始化，還是只侷限於該classes裡面。
+### 18. 存取static的member時一定要記得使擁範疇運算子"::"。
 ```c++
 class Account()
 {
@@ -2107,6 +2108,90 @@ private:
 };
 /*如果想在外面繼續使用則可以在class外部在定義一次*/
 constexpr int Account::period;
+```
+## 練習題15
+### 方法:
+```c++
+#include <iostream>
+#include <string>
+/*
+* 設計一個銀行帳戶管理程式
+* 功能包含:可以輸入用戶名、帳號過去金額、利率、經過了幾天，以及當前總金額(過去金額 * (1+利率))
+* 利率變化是由天數決定的:180天以上的話就變成1.2倍(利率*1.2)，以下就維持不變
+* 顯示出用戶經過了幾天之後，帳戶總金額變成多少了
+*/
+class Bank_Manage
+{
+	//friend
+	friend std::istream& read(std::istream&, Bank_Manage&);
+	friend std::ostream& print(std::ostream&, Bank_Manage&)
+public:
+	//calculate the money after the interestrate
+	void calculate()
+	{
+		amount += amount * interest_rate;
+	}
+	//constructor
+	Bank_Manage(const std::string& name, double money):
+		owner(name), amount(money){}
+	//initialize
+	Bank_Manage():Bank_Manage("", 0){}
+private:
+	std::string owner;
+	double amount;
+	//static member need to be initialized outside
+	static double interest_rate;
+	static double init_rate(double);
+	static unsigned period;
+};
+//initialzie the static member variable
+double Bank_Manage::interest_rate = 0.0;
+unsigned Bank_Manage::period = 0;
+//declare the friend
+std::istream& read(std::istream&, Bank_Manage&);
+std::ostream& print(std::ostream&, Bank_Manage&);
+//initialzie the static member function
+double Bank_Manage::init_rate(double r)
+{
+	if (r <= 180)
+	{
+		return 1.0;
+	}
+	else
+	{
+		return 1.2;
+	}
+}
+//design the function what we need
+std::istream& read(std::istream& in, Bank_Manage& user)
+{	
+	std::cout << "User Name:" << std::endl;
+	in >> user.owner;
+	std::cout << "User Amount:" << std::endl;
+	in >> user.amount;
+	std::cout << "The Rate is:" << std::endl;
+	in >> user.interest_rate;
+	//static variable (public)
+	std::cout << "How long does the user save?" << std::endl;
+	in >> user.period;
+	user.interest_rate  = user.interest_rate * Bank_Manage::init_rate(user.period);
+	return in;
+}
+//decide the print what we need
+std::ostream& print(std::ostream& out, Bank_Manage& user)
+{
+	out << "The rate is: " << user.interest_rate << std::endl;
+	user.calculate();
+	out << "After " << user.period << " days. " << "User: " << user.owner << " has " << user.amount << " dollars now." << std::endl;
+	return out;
+}
+int main()
+{
+	Bank_Manage owner1;
+	read(std::cin, owner1);
+	print(std::cout, owner1);
+	return 0;
+}
 ```
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
