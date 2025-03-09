@@ -1843,10 +1843,122 @@ int main()
 }
 ```
 ### 3. 建構器(構造函式):用來初始化類別(Classes)的特殊成員函式。
-### 4. 當我們沒有定義任何建構器(構造函式)，那麼系統就會為我們定義預設的建構器(構造函式):synthesized default constructor
-### 5. 只有相當簡單的calssed來能仰賴預設的建構器，通常來說我們都需要自己定義。
+### 4. 當我們沒有定義"任何"建構器(構造函式)，那麼系統就會為我們定義預設的建構器(構造函式):synthesized default constructor
+### 5. 只有相當簡單的calsses才能仰賴預設的建構器，通常來說我們都需要自己定義。
 ### 原因:因為變數在未定義時，會使用預設初始化的，這絕大多數都不是我們想要的。再來，有些時候編譯器會無法合成，這導致它無法幫我們初始化那些沒有被定義的成員。
+### 6. 建構器(構造函式)不能宣告為const型別。
+### 建構器範例:
+```c++
+struct Sales_Data
+{
+	Sales_Data() = default; //因為我們已經有對變數進行初始化了
+	Sales_Data(const std::string& s, unsigned n, double p) :
+		book_Numbers(s), units_sold(n), revenue(n* p){}
+	Sales_Data(std::istream&);
+	std::string book_Numbers; = "";
+	unsigned units_sold = 0;
+	double revenue = 0.0;
+	std::string isbn() const;
+	Sales_Data& combine(const Sales_Data&); //combine這個函式回傳的是一個Sales_Data型別的參考
+	double avg_price() const;
+};
+Sales_Data::Sales_Data(std::istream& in)
+{
+	read(in, *this);
+}
+```
+## 17 存取與封裝:
+### 1. public:整個程式內都可以被存取。
+### 2. private:只能在class裡面實現。
+### 3. 使用friend來存取private內的變數。
+```c++
+#include<iostream>
+#include<string>
+/*
+* 設計一個程式，功能包含:
+* 1.輸入isbn
+* 2.輸入販賣數量
+* 3.輸入一本書的價錢
+* 4.最後印出: isbn/總銷量/總獲利/平均出售價前
+*/
+class Sales_Data
+{
+	friend Sales_Data add(const Sales_Data&, const Sales_Data&);
+	friend std::istream& read(std::istream&, Sales_Data&);
+	friend std::ostream& print(std::ostream&, const Sales_Data&);
+	public:
+		//建構器
+		Sales_Data() = default;
+		Sales_Data(std::istream&);
+		Sales_Data(const std::string& s, unsigned n, double r) :
+			book_Nos(s), unit_sold(n), revenue(n * r) {}
+		std::string isbn () const; //print isbn
+		Sales_Data& combine(const Sales_Data&); //combine 2 objects to make the new object
+		//print the result: isbn, total_sold, average_price, total_revenue
+	private:
+		std::string book_Nos = "";
+		unsigned unit_sold = 0;
+		double revenue = 0.0;
+		double avg_price() const
+		{
+			return unit_sold ? revenue / unit_sold : 0;
+		}		
+};
+Sales_Data add(const Sales_Data&, const Sales_Data&);
+std::istream& read(std::istream&, const Sales_Data&);
+std::ostream& print(std::ostream&, const Sales_Data&);
+std::string Sales_Data::isbn() const
+{
+	return book_Nos;
+}
+Sales_Data& Sales_Data::combine(const Sales_Data& new_data)
+{
+	unit_sold += new_data.unit_sold;
+	revenue += new_data.revenue;
+	return *this;
+}
+Sales_Data add(const Sales_Data& data_1, const Sales_Data& data_2)
+{
+	Sales_Data sum = data_1;
+	sum.combine(data_2);
+	return sum;
+}
+//define iostream
+std::istream& read(std::istream& in/*cin*/, Sales_Data& data)
+{
+	double price = 0.0;
+	in >> data.book_Nos >> data.unit_sold >> price;
+	data.revenue = data.unit_sold * price;
 
+	return in;
+}
+std::ostream& print(std::ostream& out/*out*/, const Sales_Data& data)
+{
+	out << data.book_Nos << " "<< data.unit_sold << " " << data.avg_price()
+		<< " " << data.revenue << std::endl;
+	return out;
+}
+Sales_Data::Sales_Data(std::istream& in)
+{
+	read(in, *this);
+}
+int main()
+{
+	Sales_Data data_1, data_2;
+	read(std::cin, data_1);
+	read(std::cin, data_2);
+	if (data_1.isbn() == data_2.isbn())
+	{
+		Sales_Data new_data = add(data_1, data_2);
+		print(std::cout, new_data);
+	}
+	else
+	{
+		std::cerr << "Invalid Input." << std::endl;
+	}
+	return 0;
+}
+```
 
 
 
