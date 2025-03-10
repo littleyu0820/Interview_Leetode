@@ -2204,6 +2204,140 @@ int main()
 	return 0;
 }
 ```
+
+## 18 IO程式庫:
+### 1. 分別有三種:iostream、fstream，以及sstream。
+### iostream:用來讀寫資料流。
+### fstream:用來讀寫具檔名的型別。
+### iostream:用來讀寫記憶體內的string。
+### 2. 通常我們在使用程式碼之前，應該先檢查它的資料流是否有問題，如下:
+```c++
+while(std::cin >> word) //檢查cin是否有正確回傳
+{
+}
+```
+### 但上面這種方法只會告訴我們這個資料流是否有效，並不會告訴我們發生了甚麼。
+### 3. 要想知道發生了甚麼，IO資料庫額外定義了一個整數型別"iostate"。
+### 要記得，iostate存放於函式庫strm::iostate。
+### badbit:表示系統層級的錯誤，如:無法復原的讀取或寫入錯誤。通常這種錯誤發生就代表著這個資料流無法使用了。
+### failbit:表示出現可復原的錯誤，如:預期得到數字，卻得到字元。
+### eofbit:表示到達檔案結尾了。
+### goodbit:表示沒有錯誤，保證會有值0。
+### 4. 我們可以通過restate這個函式來回傳目前的資料流狀態。
+```c++
+auto state = cin.rdstate(); //回傳狀態
+cin.clear(); //使cin有效
+```
+### 5. 清除緩衝區的方法:
+```c++
+std::cout << s << std::endl; //換行(newline)然後清空
+std::cout << s << std::flush; //清空
+std::cout << s << std::ends; //輸入一個null然後清空
+```
+### 6. 也可以通過unitbuf來設定每一次輸出都要清空緩衝區:
+```c++
+std::cout << std::unitbuf; //設定每次都清空
+std::cout << std::nounitbuf; //恢復正常
+```
+### 7. 我們有可以將輸入與輸出綁在一器，這樣每次讀取時就會都會先清空緩衝區。
+### 互動式系統最常使用這個方法，這樣子每次都會在試著讀取輸入前就先被寫出了。
+```c++
+int main()
+{
+	std::string s = "hello";
+	std::cin.tie(&std::cout);  //綁定cin/cout //這是函式庫內建的
+	std::cin >> s;
+	std::ostream* old_tie = std::cin.tie(nullptr); //解除綁定
+	return 0;
+}
+```
+### 8. 如果我們的cin跟cout沒有內建綁定，緩衝區未被釋放，那代表著程式會一值處於等待狀態，不會自動向下執行:
+```c++
+int val = 0;
+std::cout << "Enter a number...";
+std::cin >> val;
+```
+### 程式會卡在cout那，因為緩衝區沒有被釋放出來。當然，有些電腦不會這樣喔!
+### 9. fstream中的三種型別:
+### ifstream:讀取檔案
+### ofstream:寫入檔案
+### fstream:讀寫檔案
+```c++
+ifstream in(file)
+ofstream out;
+out.open(file + ".copy");
+```
+### 10. 一旦檔案被開啟，它就會持續到倍close()為止。
+### 11. istringstream的應用，用來處理一整行的輸入。
+## 練習題16
+```c++
+#include <iostream>
+#include <vector>
+#include <string> 
+#include <fstream>
+#include <sstream>
+/*
+* 設計一個電話本程式，用來記錄名字與電話號碼
+* 假定輸入順序為名字、手機、家裡電話
+* 輸出結果為名字與手機
+*/
+int main()
+{
+	struct Person_Info
+	{
+		std::string name; //名字
+		std::vector<std::string> phones; //存放多種電話
+	};
+
+	std::string line, word;
+	std::vector<Person_Info> people;
+	while (getline(std::cin, line)) //輸入
+	{
+		Person_Info info; //當前資料
+		std::istringstream record(line); //紀錄輸入值
+		record >> info.name; //假設第一筆資料必然為名字
+		while (record >> word) //後面都是電話
+		{
+			info.phones.push_back(word); //將電話一筆一筆存進vector中
+		}
+		people.push_back(info); //全部存到people中(電話本)
+	}
+	for (auto& p : people)
+	{
+		std::cout << p.name  << p.phones[0] << std::endl; //輸出名字/手機號碼
+	}
+	return 0;
+}
+```
+### 12. ostringstream的應用，處理完後在輸出。
+### 以下為範例程式碼:
+```c++
+ostringstream:
+	for(const auto& entry :people)
+	{
+		ostringstream formatted, badnums;
+		for(cosnt auto& nums : entry.phones)
+		{
+			if(!valid(nums))
+			{
+				badnums << " " << nums;
+			}
+			else
+			{
+				formatted << " " << format(nums);
+			}
+		}
+		if(badnums.str().empty())
+			os << entry.name << " " << formatted.str() << endl;
+		else
+			cerr << "input error: " << entry.name << "invalid number(s) " << badnums.str() << endl;
+
+```
+
+
+
+
+
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
 ### 其中cerr是用來發出警告和錯誤訊息，clog則是用來記錄程式執行過程中的一般資訊。
