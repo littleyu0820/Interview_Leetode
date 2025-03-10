@@ -52,7 +52,7 @@
 >>#### ☁️[練習題15](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C15)
 
 >#### ☁️[IO程式庫](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#18-io%E7%A8%8B%E5%BC%8F%E5%BA%AB)
->>#### ☁️[練習題16]()
+>>#### ☁️[練習題16](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C16)
 
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
