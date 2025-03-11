@@ -2631,7 +2631,7 @@ int main()
 ```c++
 c.shrunk_to_fit() //請求將capcity降到跟size一樣的大小
 c.capacity() //重新配置前c所可以容納的元素量  也就是程式真的運作起來後，才知道該容器到底多大
-c.reserve(n) //位置少n個元素配置空間
+c.reserve(n) //為至少n個元素配置空間
 ```
 ### 所以我們可以通過capacity與size的互動來使用我們的空間:
 ```c++
