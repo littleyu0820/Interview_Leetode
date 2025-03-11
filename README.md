@@ -2438,8 +2438,7 @@ vector<int> v4 = {1,3,5,7,9,12};
 ### 29. 除了push_back()之外，list、forward_list跟deque還支援了push_front()，用來將物件插入到容器的前端。
 ### 30. 我們也可以使用insert在容器的任一位置進行插入:
 ```c++
-c.insert(p, t)  //在迭代器(位置)p之前插入值為t的元素
-c.insert(p, t)  //在迭代器(位置)p之前插入值為t的元素
+c.insert(p, t)  //在迭代器(位置)p之前插入值為t的元素，並回傳指向P上一個元素的迭代器
 c.insert(p, n, t)  //在迭代器(位置)p之前插入n個值為t的元素
 c.insert(p, begin(), end())  //在迭代器(位置)p之前插入範圍begin到end中間的所有元素，但還是要記得，不包含end
 c.insert(p, il) //在迭代器(位置)p之前插入il(串列)
@@ -2447,6 +2446,321 @@ c.insert(p, il) //在迭代器(位置)p之前插入il(串列)
 ### 31. 但要記得，與swap不同的是，一但我們新增元素到一個容器中，那麼它原來的迭代器、參考，與指標就都會無效化了。
 ### 32. 雖然有些容器不支援push_front，但insert卻沒有限制，大家都能用。
 ### 這也就代表我們可以使用insert在vector前端插入一個元素，但這往往也意味著我們的效能會大幅降低。因為vector本身其實就不適合在前端做插入或刪除。
+### 33. emplace函式，與push/insert不同，emplace是真的在空間內創建了一個物件然後放進容器裡，並非是拷貝。
+```c++
+c.emplace_back("978-0590353403", 25, 15.99); //假設我們有一個Sales_data物件的建構器，那麼就是創造一個Sales_data型別的物件放到c的後端。
+c.emplace_back(Sales_data("978-0590353403", 25, 15.99));
+```
+### 這就代表著emplace函式中的參數(引述)，必須跟程式內部的某一個建構器相匹配。
+### 34. 在操作一個容器之前，我們一定要習慣先檢查它內部是否有元素，最簡單的方法是:
+```c++
+if(!c.empty())
+{
+}
+```
+### 35.foward_list不支援遞減(--)跟back。
+### 36. 存取容器中的元素:
+```c++
+c.back() //與end不同，這是取最後一個元素。
+c.front() //第一個元素
+c[n] //第n個元素
+c.at(n) //第n個元素，但如果錯誤的話，就會回傳out_of_range
+```
+### 這也是為甚麼我們要先檢查容器是否為空的原因，因為我們是使用下標的方式來存取。如果沒有元素在容器內，這就代表著我們超出範圍了。
+### 37. 我們存取容器中的元素，其實就等於回傳該元素的參考。如果我們在建構函式一樣，如果容器是const那就回傳const&，如果不是，那就是正常的reference，是可以做改變的。
+### 38. 移除元素:
+```c++
+c.pop_back() //移除容器c中的最後一個元素
+c.pop_back() //移除容器c中的第一個元素
+c.erase(p) //移除迭代器p，也就是位置p的元素，並且回傳下一個元素
+c.erase(begin,end) //移除迭代器begin到end中的所有元素，當然不包含end。同時回傳一個指針，指向end，又或者說指向被移除元素後的下一個元素。
+c.clear() //移除c中的所有元素
+```
+## 練習題17
+### 設計一個程式，可以讓使用者輸入一串數列，同時可以決定要刪除數列中的哪一個數字。
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+int main()
+{
+begin:
+	std::vector<int> nums; //the vector for user to stroe the numbers what they input
+	int val = 0; //the varibale to store the input numbers
+	int counter = 0; //the counter to count how many variables the user already input
+	while (counter < 10 && std::cin >> val)
+	{
+		nums.push_back(val);
+		++counter;
+	}
+	std::string YesOrNo = "";
+	//check if the vector is empty or not
+	if (nums.empty())
+	{
+		std::cerr << "No numbers in the vector now." << std::endl;
+		std::cout << "Do you want to try again?(Yes or Np)" << std::endl;
+
+		std::cin >> YesOrNo;
+		if (YesOrNo == "yes" || YesOrNo == "Yes")
+		{
+			goto begin;
+		}
+		else
+		{
+			return -1;
+		}
+	}
+	//print the variables in the vector
+	std::cout << "The numbers you input are: " << std::flush;
+	for (auto& v : nums)
+	{
+		std::cout << v << ", " << std::flush;
+	}
+	std::cout << "\n" << "Please enter what numbers you want to erase?" << std::endl;
+	int era_val = 0;
+	auto beg = nums.begin(); //iterator begin
+	bool findornot = false; 
+	//check if the input is valid or not
+	if (std::cin >> era_val)
+	{
+		while (beg < nums.end()) //search the variable from begin to end
+		{
+			if (era_val == *beg) //find
+			{
+				nums.erase(beg);
+				findornot = true;	
+				break;
+			}
+			else //not find and increase the iterator
+			{
+				++beg;
+			}
+		}
+	}
+	else
+	{
+		std::cout << "Invalid Input." << std::endl;
+	}
+	//check if we find the variable or not
+	if (findornot)
+	{
+		std::cout << "The numbers are: " << std::flush;
+		//print the varibales after we erase the target
+		for (auto& v : nums)
+		{
+			std::cout << v << ", " << std::flush;
+		}
+		return 0;
+	}
+	else
+	{
+		std::cout << "The number you want to erase is not in the vector." << std::endl;
+		return -1;
+	}
+}
+```
+### 39. 對於forward_list的插入或刪除:
+```c++
+lst.before_begin() //回傳串列開頭前那個不存在的元素，以便之後用來新增跟刪除。
+lst.cbefore_begin() //回傳串列開頭前那個不存在的元素，但是const，以便之後用來新增跟刪除。
+lst.insert_after(p,t) //在迭代器p之後插入物件t。
+lst.insert_after(p,n,t) //在迭代器p之後插入n個物件t。
+lst.insert_after(p,begin,end) //在迭代器p之後插入迭代器begin到end中間的物件，當然一樣不包含end。
+lst.insert_after(p,il) //在迭代器p之後插入串列il。
+lst.erase_after(p) //移除迭代器p之後所代表元素的值，並回傳指標指向下一個元素
+lst.erase_after(begin,end) //移除迭代器begin之後到end中間的物件，當然一樣不包含end，是會回傳指標指向end。
+```
+### 40. 當我們要對一個forward_list做插入或刪除，一定要記得追蹤兩個迭代器:
+### 一定要記得宣告開頭前元素，因為forward_list是單向的，我們刪除的每一個元素都會引響前一個元素，因此我們需要使用前一個元素來做插入與刪除，這也代表著宣告開頭前元素是必然的。
+### 範例程式:
+```c++
+forward_list<int> flst = {0,1,2,3,4,5,6,7,8,9};
+auto prev = flst.before_begin();
+auto curr = flst.begin();
+while(curr != flst.end())
+{
+	if(*curr % 2) //奇數
+	{
+		curr = flst.erase_after(prev);
+	}
+	else
+	{
+		prev = curr; //開始向後移動尋找
+		++curr;
+	}
+}
+```
+### 41. resize函式:用來調整vector的大小。
+```c++
+list<int> ilist(10,42); //裝有10個int物件，元素值都是10
+ilist.resize(15); //向後新增5個元素值為0的物件
+ilist.resize(25,-1); //向後新增10個元素值為-1的物件
+ilist.resize(5); //從後端刪除20個元素
+```
+### 42. 要注意，array不能resize。
+### 43. 一定要記得，當我們對容器做新增以及刪除之後，絕大多數的迭代器、指標，以及參考都無效化了，這代表著我們不能再使用它，請重新宣告。
+### 44. 這也就代表著我們必須不斷的更新迭代器:
+## 練習題18
+```c++
+//移除偶數並且複製奇數
+int main()
+{
+	std::vector<int> vi = { 0,1,2,3,4,5,6,7,8,9 };
+	auto iter = vi.begin();
+	while (iter != vi.end())
+	{
+		if (*iter % 2) //奇數
+		{
+			iter = vi.insert(iter, *iter);
+			iter += 2; //因為原來是要指向下一個元素(+1)，但我們現在在iter前面額外插入了一個元素，所以變成+2
+		}
+		else
+		{
+			iter = vi.erase(iter); //移除iter所代表的元素，並且回傳下一個元素，所以不用做改變
+		}
+	}
+	for (auto& v : vi)
+	{
+		std::cout << v << std::flush;
+	}
+	return 0;
+}
+```
+### 45. 不要將end()定義在一個變數內，因為我們每次做新增或移除是，迭代器就發生改變了，我們應該確保每一次的end都會再迴圈內做更新。
+### 46. 容器的大小管理:
+```c++
+c.shrunk_to_fit() //請求將capcity降到跟size一樣的大小
+c.capacity() //重新配置前c所可以容納的元素量  也就是程式真的運作起來後，才知道該容器到底多大
+c.reserve(n) //位置少n個元素配置空間
+```
+### 所以我們可以通過capacity與size的互動來使用我們的空間:
+```c++
+while(ivec.size() != ivec.capacity())
+{
+	ivec.push_back(0);
+}
+```
+### 47. 這種分配空間的方式叫做vector實作，它們都會自己定義capacity大小的最佳策略。
+### 48. string的特殊建構式:
+```c++
+string s(cp,n); //cp所指陣列的前n個字元的拷貝
+string s(s2,pos2); //字串s2從pos2開始後面所有元素的一個拷貝
+string s(s2,pos2,len2); //字串s2從pos2開始後面len2個元素的一個拷貝
+```
+### 49. 一般來說當我們以一個指標來宣告字串，那這個指標所指的字串陣列就必然以null結尾。
+```c++
+const char *cp = "Hello World!";
+```
+### 50. substr函式:
+```c++
+string s("hello world");
+string s2 = s.substr(0, 5); //s從零開始數五個 印出hello
+string s2 = s.substr(6); //初始值預設為0 印出六個
+```
+### 51. 修改string:
+```c++
+s.insert(s.size(), 5, '!'); //在最後面，也就是end前插入五個驚嘆號
+s.erase(s.size() - 5, 5); //移除最後五個字元
+const char *cp = "Stately, plump Buck";
+s.assign(cp, 7); //cp所指指向字元開始的七個字元
+```
+### 52. append與replace函式:
+```c++
+s2.append("4th Ed.") //等於將"4th Ed."附加到s2上，並且回傳一個新的s2參考
+s2.replace(11, 3, "5th"); //等於將從11後面三個字元替換為"5th"
+```
+### 53. string的搜尋運算:
+```c++
+s.find(args) //在s中找出args第一個出現處
+s.rfind(args) //在s中找出args最後一個出現處
+s.find_first_of(args) //在s中找出args中任何字元的第一個出現處
+s.find_last_of(args) //在s中找出args中任何字元的最後一個出現處
+s.find_first_not_of(args) //在s中找出不在args中任何字元的第一個出現處
+s.find_last_not_of(args) //在s中找出不在args中任何字元的最後一個出現處
+```
+### 註記:(args)代表:
+### ('c', pos):從pos開始找字元c
+### (s, pos):從pos開始找字串s
+### (cp, pos):從pos開始找指標cp所指向的字串
+### (cp, pos, n):從pos開始找指標cp所指向字串的前n個字元
+## 練習題19
+```c++
+//尋找字元
+int main()
+{
+	std::string s = "";
+	char c;
+	std::string::size_type pos = 0;
+	std::cout << "Please enter a sentence or a word." << std::endl;
+	if (getline(std::cin, s))
+	{
+		std::cout << "Please enter the character you want to find: " << std::flush;
+		std::cin >> c;
+		auto index = s.find(c, pos);
+		if (index != -1) //find
+		{
+			std::cout << "The character " << c << " is at index: " << index << std::endl;
+			return 0;
+		}
+		else
+		{
+			std::cout << "The character is not in this string. "<< std::endl;
+			return 0;
+		}
+	}
+	else
+	{
+		std::cerr << "Invalid Input." << std::endl;
+		return -1;
+	}
+}
+```
+## 練習題20
+```c++
+int main()
+{
+	std::string s = "";
+	std::string::size_type pos = 0;
+	double d = 0.0;
+	unsigned ctr = 0;
+	if (getline(std::cin, s))
+	{	
+		while (s.find_first_of("-0123456789") != -1)
+		{
+			double d = stod(s.substr(s.find_first_of("-0123456789")));
+			std::cout << d << std::endl;
+			s.erase(s.find_first_of("-0123456789"), s.find_first_of("-0123456789"));
+		}
+	}	
+	return 0;
+}
+```
+### 54. 容器轉接器:stack, queue, priority_queue
+### 每個轉接器都定義了兩個建構器，一個用來創建空物件，還有一個用來接受容器。
+```c++
+stack<int> stk(deq); //將deq裡面的元素拿出來存到stk裡面
+```
+### 55. stack存放於stack的標頭檔中，同時也為於標準函式庫中。
+```c++
+int main()
+{
+	std::stack<int> intstack;
+	for (size_t ix = 0; ix != 10; ++ix)
+	{
+		intstack.push(ix); //從0放到9
+	}
+	while (!intstack.empty()) 
+	{
+		int value = intstack.top(); //最頂端為9
+		std::cout << value << std::endl; //印出最頂端的值
+		intstack.pop(); //刪除最頂端的值，代表向前移一格
+	}	
+}
+```
+
+
+
+
 
 
 
