@@ -2351,6 +2351,102 @@ ostringstream:
 ### 4. 如果需要做快速的隨機存取，那就用vector跟deque。
 ### 5. 如果需要在容器中間做插入或刪除，就用list跟forward_list
 ### 6. 如果需要在前端或後端做插入跟刪除，就用deque。
+### 7. 迭代器範圍:由一個begin跟end所組成。
+### 所謂begin泛指容器中的第一個元素，而end卻非容器中的最後一個元素，而是指最後一個元素的下一個位置。
+### 8. 這代表著我們的容器是一個左閉右開(left-inclusive intreval)的陣列:[begin,end)。
+### 9. 換句話說，我們可以通過++begin的方式來抵達end。
+### 10. 如果begin = end那就代表著這個容器是空的。
+### 11. 如果begin != end那就代表著這個容器中間至少有一個元素。
+### 12. 迭代器的型別如下:
+```c++
+list<string> a = {"Milton", "Shakespeare", "Austen"};
+auto it1 - a.begin(); //list<string>::iterator
+auto it2 - a.rbegin(); //list<string>::reverse_iterator
+auto it3 - a.cbegin(); //list<string>::const_iterator
+auto it4 - a.crbegin(); //list<string>::const_reverse_iterator
+```
+### 13. 如果不需要寫入的話，就使用cbegin()跟cend()。
+### 14. 定義和初始化容器:
+```c++
+C c1(c2) //c1=c2
+C c(begin, end) //c是由begin~end範圍內所有元素拷貝所組成的，但不包含end。
+deque<string> c2(c1.begin(), c1.end());
+C seq(n) //seq有n個型別為c的元素
+C seq(n,t) //seq有n個型別為c的t
+```
+### 15. array的初始化與定義:
+```c++
+array<int, 42> a1//存放42個int的array:a1
+```
+### 16. 要記得陣列不能被放在右值，也就是不能被拷貝或指定給內建陣列。
+### 17. 但是容器array卻可以拷貝或指定給容器array，如下:
+```c++
+int digs[10] = {0,1,2,3,4,5,6,7,8,9};
+int cpy[10] = digs[10]; //錯的因為陣列不能被拷貝或指定給內建陣列
+array<int, 10> digits = {0,1,2,3,4,5,6,7,8,9};
+array<int, 10> copy = digits; //可以，只要型別是一樣的就行了
+```
+### 18. 只要型別相同，經過指定之後，容器的大小會變得跟右值一樣。
+```c++
+c1 = c2; //直接把c2拷貝給c1
+c1 = {a,b,c}; //c1現在是一個大小為3的容器，裡面裝{a,b,c}
+```
+### 19. array也基本支持上面的各類指定模式，但卻不支持以下這種:
+```c++
+a = {0}; //我們沒辦法直接對array做assign，因為它可能與它一開始的宣告的大小不同。
+```
+### 20. 如同我們前面所說，array無法做插入與刪除，因此所有可能導致大小不同的運算都是不支援的。
+### 21. 我們也可以通過swap的方式來交換c1跟c2，而且這通常比拷貝還要快。
+```c++
+swap(c1,c2);
+c1.swap(c2);
+```
+### 22. 但要記得，還是需要相同型別才能使用這些運算。
+### 23. 也有關於assign的函式:
+```c++
+seq.assign(c.begin(), c.end()); //將c從begin到end放到seq裡面
+seq.assign(n,t) //將n個t放進squ裡面
+seq.assign(il); //直接將串列il取代seq
+```
+### 24. assign就多樣化一點，它不一定要相同型別，只要相容的話，也能做運算，如下:
+```c++
+list<string> names;
+vector<const char*> oldstyle;
+names = oldstyle; //錯的，不是相同型別
+names.assugn(oldstyle.cbegin(), oldstyle.cend()) //可以因為char與string相容
+```
+### 25. 哪怕經過了swap，容器的迭代器、參考，與指標都不會無效化。
+### 這代表著哪怕經過swap，迭代器、參考，與指標仍然綁定在它們原來綁定的元素上，只是元素所代表的值不一樣了。
+```c++
+swap(c1,c2) //假定交換c1跟c2
+```
+### 假定現在我們交換了c1跟c2，那麼c1[2]的位址還是沒變，只是其內部所含的值改變了。
+### 26. 容器支援大小比較:
+```c++
+vector<int> v1 = {1,3,5,7,9,12};
+vector<int> v2 = {1,3,9};
+vector<int> v3 = {1,3,5,7};
+vector<int> v4 = {1,3,5,7,9,12};
+```
+### v1 < v2:成立，因為v2[2] > v1[2]
+### v1 < v3:錯，因為前面四個元素都相等，那麼就比大小。這同樣代表v3是v1的子序列(subsequence)
+### v1 == v4:成立，這無庸置疑的，兩個一模一樣。
+### 27. 但我們也要記得，容器之所以支援大小比較，那是因為其內部所裝的物件(int,double,string,float)也同樣支援。
+### 28. 當我們使用一個物件來初始化又或者插入到一個容器時，其本質就是拷貝，與該物件本體並沒有關係。
+### 29. 除了push_back()之外，list、forward_list跟deque還支援了push_front()，用來將物件插入到容器的前端。
+### 30. 我們也可以使用insert在容器的任一位置進行插入:
+```c++
+c.insert(p, t)  //在迭代器(位置)p之前插入值為t的元素
+c.insert(p, t)  //在迭代器(位置)p之前插入值為t的元素
+c.insert(p, n, t)  //在迭代器(位置)p之前插入n個值為t的元素
+c.insert(p, begin(), end())  //在迭代器(位置)p之前插入範圍begin到end中間的所有元素，但還是要記得，不包含end
+c.insert(p, il) //在迭代器(位置)p之前插入il(串列)
+```
+### 31. 但要記得，與swap不同的是，一但我們新增元素到一個容器中，那麼它原來的迭代器、參考，與指標就都會無效化了。
+### 32. 雖然有些容器不支援push_front，但insert卻沒有限制，大家都能用。
+### 這也就代表我們可以使用insert在vector前端插入一個元素，但這往往也意味著我們的效能會大幅降低。因為vector本身其實就不適合在前端做插入或刪除。
+
+
 
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
