@@ -2717,19 +2717,53 @@ int main()
 ```
 ## 練習題20
 ```c++
+//找出數字並且做出轉換
+#include <iostream>
+#include <string>
+#include <sstream>
 int main()
 {
 	std::string s = "";
 	std::string::size_type pos = 0;
-	double d = 0.0;
-	unsigned ctr = 0;
+	std::cout << "Please enter the senetence: " << std::endl;
 	if (getline(std::cin, s))
 	{	
+		std::cout << "the numbers are: " << std::flush;
 		while (s.find_first_of("-0123456789") != -1)
 		{
 			double d = stod(s.substr(s.find_first_of("-0123456789")));
-			std::cout << d << std::endl;
-			s.erase(s.find_first_of("-0123456789"), s.find_first_of("-0123456789"));
+			std::cout << d << ", " << std::flush;
+			std::ostringstream strStream;
+			strStream << d;
+			//std::cout << strStream.str().size() << std::endl;
+			if (d >= 1)
+			{
+				//std::cout << "There are " << strStream.str().size() << " numbers" << std::endl;
+				if (s.find_first_of("-0123456789") == 0)
+				{
+					s.erase(s.find_first_of("-0123456789"), strStream.str().size());
+					//std::cout << "Now: " << s << std::endl;
+				}
+				else
+				{
+					s.erase(pos, s.find_first_of("-0123456789") + strStream.str().size());
+					//std::cout << "Now: " << s << std::endl;
+				}
+			}
+			else
+			{
+				//std::cout << "There are " << strStream.str().size() << " numbers" << std::endl;
+				if (s.find_first_of("-0123456789") == 0)
+				{
+					s.erase(s.find_first_of("-0123456789"), strStream.str().size());
+					//std::cout << "Now: " << s << std::endl;
+				}
+				else
+				{
+					s.erase(pos, s.find_first_of("-0123456789") + strStream.str().size());
+					//std::cout << "Now: " << s << std::endl;
+				}
+			}
 		}
 	}	
 	return 0;
