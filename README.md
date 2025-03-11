@@ -2726,48 +2726,32 @@ int main()
 	std::string s = "";
 	std::string::size_type pos = 0;
 	std::cout << "Please enter the senetence: " << std::endl;
-	if (getline(std::cin, s))
+	if (getline(std::cin, s)) //輸入句子
 	{	
 		std::cout << "the numbers are: " << std::flush;
-		while (s.find_first_of("-0123456789") != -1)
+		while (s.find_first_of("-0123456789") != -1) //如果有找到數字
 		{
-			double d = stod(s.substr(s.find_first_of("-0123456789")));
-			std::cout << d << ", " << std::flush;
+			double d = stod(s.substr(s.find_first_of("-0123456789"))); //從第一個數字的位置開始轉換，直到不是數字為止
+			std::cout << d << " " << std::flush;
 			std::ostringstream strStream;
-			strStream << d;
+			strStream << d; //將d轉為string
 			//std::cout << strStream.str().size() << std::endl;
-			if (d >= 1)
+			//std::cout << "There are " << strStream.str().size() << " numbers" << std::endl;
+			if (s.find_first_of("-0123456789") == 0)
 			{
-				//std::cout << "There are " << strStream.str().size() << " numbers" << std::endl;
-				if (s.find_first_of("-0123456789") == 0)
-				{
-					s.erase(s.find_first_of("-0123456789"), strStream.str().size());
-					//std::cout << "Now: " << s << std::endl;
-				}
-				else
-				{
-					s.erase(pos, s.find_first_of("-0123456789") + strStream.str().size());
-					//std::cout << "Now: " << s << std::endl;
-				}
+				s.erase(s.find_first_of("-0123456789"), strStream.str().size());
+				//std::cout << "Now: " << s << std::endl;
 			}
 			else
 			{
-				//std::cout << "There are " << strStream.str().size() << " numbers" << std::endl;
-				if (s.find_first_of("-0123456789") == 0)
-				{
-					s.erase(s.find_first_of("-0123456789"), strStream.str().size());
-					//std::cout << "Now: " << s << std::endl;
-				}
-				else
-				{
-					s.erase(pos, s.find_first_of("-0123456789") + strStream.str().size());
-					//std::cout << "Now: " << s << std::endl;
-				}
-			}
+				s.erase(pos, s.find_first_of("-0123456789") + strStream.str().size());
+				//std::cout << "Now: " << s << std::endl;
+			}		
 		}
-	}	
+	}
 	return 0;
 }
+
 ```
 ### 54. 容器轉接器:stack, queue, priority_queue
 ### 每個轉接器都定義了兩個建構器，一個用來創建空物件，還有一個用來接受容器。
