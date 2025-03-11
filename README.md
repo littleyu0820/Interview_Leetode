@@ -2760,6 +2760,7 @@ int main()
 ```
 ### 54. 容器轉接器:stack, queue, priority_queue
 ### 每個轉接器都定義了兩個建構器，一個用來創建空物件，還有一個用來接受容器。
+### 默認情況下，stack跟queue都是基於deque實現的。而priority_queue則是在vector上實現。
 ```c++
 stack<int> stk(deq); //將deq裡面的元素拿出來存到stk裡面
 ```
