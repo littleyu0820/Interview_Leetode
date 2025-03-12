@@ -60,7 +60,7 @@
 >>#### ☁️[練習題19](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C19)
 >>#### ☁️[練習題20](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C20)
 
->#### ☁️[泛型演算法]()
+>#### ☁️[泛用演算法](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#20-%E6%B3%9B%E7%94%A8%E6%BC%94%E7%AE%97%E6%B3%95)
 >
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
