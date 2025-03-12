@@ -61,7 +61,8 @@
 >>#### ☁️[練習題20](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C20)
 
 >#### ☁️[泛用演算法](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#20-%E6%B3%9B%E7%94%A8%E6%BC%94%E7%AE%97%E6%B3%95)
->
+>#### ☁️[再探迭代器]()
+>>#### ☁️[練習題21](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C21)
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -2853,6 +2854,351 @@ int main()
 	return 0;
 }
 ```
+### 註記:unique只能處理相鄰的重複元素，所以使用前必然要先進行排序。
+### 9. 可呼叫物件(Callable Objects):Lambda Expression，可以把它想成是一個沒有命名的inline函式。
+	[capture list] (parameter list) -> return type {function body}
+ 	//parameter list跟return type是可以省略的
+### 範例程式:
+```c++
+//比較字詞長短並重新排序
+void Elim_Dups(std::vector<std::string>);
+bool Is_Shorter(const std::string&, const std::string&);
+void Elim_Dups(std::vector<std::string> sen)
+{
+	sort(sen.begin(), sen.end());
+	auto the_unique = unique(sen.begin(), sen.end()); //covert the repeat_words to null(or doesnt convert) and move them to the end(after the last element)
+	//but the size of the vector isnt changed
+	sen.erase(the_unique, sen.end()); //erase the null from the_unique(after the last not null element) to end(before the end)
+	stable_sort(sen.begin(), sen.end(), Is_Shorter);
+	for (auto& beg : sen)
+	{
+		std::cout << beg << " " << std::flush;
+	}
+}
+bool Is_Shorter(const std::string& w1, const std::string& w2)
+{
+	return w1.size() < w2.size();
+}
+int main()
+{
+	std::vector<std::string> sentences;
+	std::string word = "";
+	while (std::cin >> word) //press ctrl+z to stop
+	{
+		sentences.push_back(word);
+	}
+	Elim_Dups(sentences);
+	//sort(sentences.begin(), sentences.end(), Is_Shorter);
+	return 0;
+}
+```
+### 範例程式(Lambda Expression):
+```c++
+//比較字詞長短並重新排序
+void Elim_Dups(std::vector<std::string>);
+void Elim_Dups(std::vector<std::string> sen)
+{
+	sort(sen.begin(), sen.end());
+	auto the_unique = unique(sen.begin(), sen.end()); //covert the repeat_words to null and move them to the end(after the last element)
+	//but the size of the vector isnt changed
+	sen.erase(the_unique, sen.end()); //erase the null from the_unique(after the last not null element) to end(before the end)
+	stable_sort(sen.begin(), sen.end(), [](const string& a, const string& b) { return a.size() < b.size(); });
+	for (auto& beg : sen)
+	{
+		std::cout << beg << " " << std::flush;
+	}
+}
+int main()
+{
+	std::vector<std::string> sentences;
+	std::string word = "";
+	while (std::cin >> word) //press ctrl+z to stop
+	{
+		sentences.push_back(word);
+	}
+	Elim_Dups(sentences);
+	//sort(sentences.begin(), sentences.end(), Is_Shorter);
+	return 0;
+}
+```
+### 註記:stable_sort:維持相等元素原來的順序。
+### 10. Lambda Expression的捕捉串列:
+```c++
+[sz] (const string& a)
+{
+	return a.size() >= sz;
+}
+```
+### 範例程式:
+```c++
+void biggies(std::vector<std::string>& sen, std::ostream& os = std::cout, std::string c = ", ")
+{
+	for_each(sen.begin(), sen.end(),
+		[&os, c](const std::string& s /*本身拿到的結果*/) { os << s << c; });
+}
+```
+### 11. 一般情況下一個Lambda是沒辦法改變它以值捕捉的變數的，我們需要通過mutable才能改變。
+```c++
+void func3()
+{
+	size_t v1 = 42;
+	auto f = [v1]() mutalbe { return ++v1};
+	v1 = 0;
+	auto j = f(); //43
+}
+```
+```c++
+void func4()
+{
+	size_t v1 = 42;
+	auto f = [&v1]() mutalbe { return ++v1};
+	v1 = 0;
+	auto j = f(); //1
+}
+```
+### 12. 通常來說Lambda Expression最適合在不需要使用一個以上的運算時使用最好，如果條件太多了，最好還是設計一個function。
+## 21 再探迭代器
+### 1. 除了每個容器所定義的迭代器之外，我們還有:插入迭代器(insert iterator)、資料流迭代器(stream iterator)、反向迭代器(reverse iterator)，以及移動迭代器(move iterator)。
+### 插入迭代器(insert iterator)又分三種:back_inserter(push_back)、front_inserter(push_fornt)，以及inserter(insert)。
+### 2. 相對的我們也必須在容器有支援以上幾種迭代器時，才能使用。
+### 範例程式:
+```c++
+#include <iostream>
+#include <iterator>
+#include <list>
+int main()
+{
+	std::list<int> lst = { 1,2,3,4 };
+	std::list<int> lst2, lst3; //空列表所以lst3.begin() = lst3.end()
+	copy(lst.cbegin(), lst.cend(), front_inserter(lst2)); //4 (front) 3 (front) 2 (front) 1 (front)
+	for (auto& val : lst2)
+	{
+		std::cout << val  << " " << std::flush;
+	}
+	std::cout << std::endl;
+	copy(lst.cbegin(), lst.cend(), inserter(lst3, lst3.end())); //1 2 3 4 (end)
+	for (auto& val : lst3)
+	{
+		std::cout << val << " " << std::flush;
+	}
+	return 0;
+}
+```
+### 3. iostream迭代器:
+### istream_iterator:讀取輸入資料流。
+### 範例程式:
+```c++
+int main()
+{
+	typedef std::istream_iterator<int> int_it;
+	int_it it(std::cin);
+	int_it it_eof;	
+	std::vector<int> vec;
+	while (it != it_eof)
+	{
+		vec.push_back(*it++);
+	}
+	for (auto& val : vec)
+		{
+			std::cout << val << " " << std::flush;
+		}
+	return 0;
+}
+```
+### ostream_iterator:讀取輸入資料流。
+### 範例程式:
+```c++
+int main()
+{
+	typedef std::istream_iterator<int> in_it;
+	typedef std::ostream_iterator<int> out_it;
+	in_it it(std::cin);
+	in_it it_eof;
+	out_it out(std::cout, " ");
+	std::vector<int> vec;
+	while (it != it_eof)
+	{
+		vec.push_back(*it++);
+	}
+	for (auto& val : vec)
+		{
+			//*out++ = val;
+			out = val; //可以不用解參考跟遞增，會自己移動
+		}
+	std::cout << std::flush;
+	return 0;
+}
+```
+### 範例程式(最優解):
+```c++
+int main()
+{
+	typedef std::istream_iterator<int> in_it;
+	typedef std::ostream_iterator<int> out_it;
+	in_it it(std::cin);
+	in_it it_eof;
+	out_it out(std::cout, " ");
+	std::vector<int> vec;	
+	while (it != it_eof)
+	{
+		vec.push_back(*it++);
+	}
+	copy(vec.begin(), vec.end(), out);
+	std::cout << std::flush;
+	return 0;
+}
+```
+### 4. 反向迭代器是一個往回巡訪的迭代器，從最後一個元素開始朝向第一個元素。
+### 5. 要注意，它反轉了遞增(++)與遞減(--)的意義:"++"變成向前，"--"變成向後。
+### 6. 除了forward_list之外，所有的容器都有反向迭代器。
+### 範例程式:
+```c++
+//reverse iterator
+int main()
+{
+	std::vector<int> vec = { 0,1,2,3,4,5,6,7,8,9 };
+	for (auto r_iter = vec.crbegin(); r_iter != vec.crend(); ++r_iter) //crbegin是vec[9],crend是vec[0]的前一個空位置
+	{
+		std::cout << *r_iter << " " << std::flush;
+	}
+	return 0;
+}
+```
+## 練習題21
+```c++
+// 設計一個可以找出標點符號的程式
+// 可以選擇印出逗號前後的單字/句子
+// 句子由使用者自己輸入
+// 並且可以決定要尋找哪一個標點符號
+int main()
+{
+	typedef std::ostream_iterator<std::string> out_it;
+	std::string words, decide;
+	char symbols;
+	getline(std::cin, words);
+	auto find_comma = find(words.cbegin(), words.cend(), ','); //只能找string
+	auto rfind_comma = find(words.crbegin(), words.crend(), ','); //只能找string
+	auto find_question_mark = find(words.cbegin(), words.cend(), '?'); //只能找string
+	auto rfind_question_mark = find(words.crbegin(), words.crend(), '?'); //只能找string
+	auto find_period = find(words.cbegin(), words.cend(), '.'); //只能找string
+	auto rfind_period = find(words.crbegin(), words.crend(), '.'); //只能找string
+	bool foundornot = false;
+	int decision = 0;
+	std::cout << "Please decide which symbols you want to find?(comma, period or question mark)" << std::endl;
+	std::cin >> symbols;
+	if (symbols == ',')
+	{
+		if (find_comma != words.end())
+		{
+			foundornot = true;
+			decision = 1;
+		}
+		else
+		{
+			std::cerr << "There is no comma." << std::endl;
+			return -1;
+		}
+	}
+	else if (symbols == '.')
+	{
+		if (find_period != words.end())
+		{
+			foundornot = true;
+			decision = 2;
+		}
+		else
+		{
+			std::cerr << "There is no period." << std::endl;
+			return -1;
+		}
+	}
+	else if (symbols == '?')
+	{
+		if (find_question_mark != words.end())
+		{
+			foundornot = true;
+			decision = 3;
+		}
+		else
+		{
+			std::cerr << "There is no question mark." << std::endl;
+			return -1;
+		}
+	}
+	switch (decision)
+	{
+	case 1: //comma
+		std::cout << "Please decide to find which words, the first one or the last one?(first or last)" << std::endl;
+		std::cin >> decide;
+		if (decide == "first")
+		{
+			std::cout << std::string(words.cbegin(), find_comma) << std::flush;
+		}
+		else if (decide == "last")
+		{
+			std::cout << std::string(rfind_comma.base(), words.cend()) << std::flush;
+		}
+		else
+		{
+			std::cerr << "Invalid Input" << std::endl;
+			return -1;
+		}
+		break;
+	case 2: //period
+		std::cout << "Please decide to find which words, the first one or the last one?(first or last)" << std::endl;
+		std::cin >> decide;
+		if (decide == "first")
+		{
+			std::cout << std::string(words.cbegin(), find_period) << std::flush;
+		}
+		else if (decide == "last")
+		{
+			std::cout << std::string(rfind_period.base(), words.cend()) << std::flush;
+		}
+		else
+		{
+			std::cerr << "Invalid Input" << std::endl;
+			return -1;
+		}
+		break;
+	case 3: //question mark
+		std::cout << "Please decide to find which words, the first one or the last one?(first or last)" << std::endl;
+		std::cin >> decide;
+		if (decide == "first")
+		{
+			std::cout << std::string(words.cbegin(), find_question_mark) << std::flush;
+		}
+		else if (decide == "last")
+		{
+			std::cout << std::string(rfind_question_mark.base(), words.cend()) << std::flush;
+		}
+		else
+		{
+			std::cerr << "Invalid Input" << std::endl;
+			return -1;
+		}
+	}
+	return 0;
+}
+```
+### 7. 迭代器的分類:
+### 輸入迭代器(input iterator):讀取但不寫入，單回，僅遞增。
+### 輸出迭代器(output iterator):寫入但不讀取，單回，僅遞增。
+### 正向迭代器(forward iterator):讀取且寫入，多回，僅遞增。
+### 雙向迭代器(bidirectional iterator):讀取且寫入，多回，遞增及遞減。
+### 隨機存取迭代器(random-access iterator):讀取且寫入，多回，完整的迭代器運算術。
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
@@ -2869,6 +3215,7 @@ int main()
 ### 11. 編譯器會先做宣告然後才處理函式主體。
 ### 12. reference跟const都是不能被賦值的。
 ### 13. 構造函式不會有回傳。
+### 14. 一定要記得，對於IO物件是不能拷貝的，只能用參考。
 
 
 # LeetCode
