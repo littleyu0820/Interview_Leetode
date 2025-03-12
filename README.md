@@ -60,6 +60,8 @@
 >>#### ☁️[練習題19](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C19)
 >>#### ☁️[練習題20](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C20)
 
+>#### ☁️[泛型演算法]()
+>
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -2781,12 +2783,76 @@ int main()
 	}	
 }
 ```
+## 20 泛用演算法:
+### 1. 一般來說，演算法不會直接作用在整個容器上，而是通過一組迭代器所界定的範圍，在上面尋訪(traverse)，而後對每一個元素做一些處理。
+### 2. 指標在內建陣列上的行為就等同於迭代器。
+### 3. 除了少數幾個例外，演算就就是作用於一組迭代器的範圍內，而這個範圍我們稱為輸入範圍"input range"。
+### 4. 如果只打算讀取不會寫入，請善用cbegin()跟cend()。
+### 5. 一定要記得，演算法不會改變容器大小，因為它們並不能直接做插入與刪除。
+### 6. 為了確保我們有足夠的元素來進行存取，我們可以使用插入迭代器(insert iterator):
+```c++
+int main()
+{
+	std::vector<int> vec;
+	auto it = back_inserter(vec); //通過it來插入元素到vec中
+	*it = 42;
+	auto beg = vec.begin();
 
+	while (beg != vec.end())
+	{
+		std::cout << *beg++ << std::endl;
+	}
+	return 0;
+}
 
+```
+```c++
+int main()
+{
+	std::vector<int> vec;
+	auto it = back_inserter(vec);	
+	fill_n(it, 10, 0);
+	auto beg = vec.begin();
+	while (beg != vec.end())
+	{
+		std::cout << *beg++ << std::endl;
+	}
+	return 0;
+}
+```
+### 7. 當我們想要確保兩個陣列大小相同時，可以使用sizeof:
+```c++
+int a1[] = {0,1,2,3,4,5,6,7,8,9};
+int a2[sizeof(a1)/sizeof(*a1)];
+auto ret = copy(begin(a1),end(a1),a2); //將a1拷貝到a2中，但前題是a2與a1一樣大
+```
+### 8. 如我們前面所說，演算法並不能直接做插入與刪除，因此我們可以通過以下方法來改變容器:
+```c++
+void Elim_Dups(std::vector<std::string> sen)
+{
 
-
-
-
+	sort(sen.begin(), sen.end());
+	auto the_unique = unique(sen.begin(), sen.end()); //covert the repeat_words to null and move them to the end(after the last element)
+	//but the size of the vector isnt changed
+	sen.erase(the_unique, sen.end()); //erase the null from the_unique(after the last not null element) to end(before the end)
+	for (auto& beg : sen)
+	{
+		std::cout << beg << " " << std::flush;
+	}
+}
+void Elim_Dups(std::vector<std::string>);
+int main()
+{
+	std::vector<std::string> sentences;
+	std::string word = "";
+	while (std::cin >> word) //press ctrl+z to stop
+	{
+		sentences.push_back(word);
+	}
+	Elim_Dups(sentences);
+	return 0;
+}
+```
 
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
