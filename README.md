@@ -3479,6 +3479,63 @@ int main()
 ### 20. 如上面的範例程式，我們也可以通過lower_bound與upper_bound來進行限定查詢，當兩者回傳相同的迭代器時，即代表所給的值已不再容器內部了。
 ## 綜合練習:
 ```c++
+// 設計一個字詞轉換程式
+// 使用者可以自己決定要改變成甚麼單字
+// 句子使用者自己輸入
+/*
+* 1.read word function
+* 2.transform function
+*/
+void read_word(const std::map<std::string, std::string>&, std::ifstream&);
+const std::string& transform(const std::string&, const std::map<std::string, std::string>&);
+const std::string& transform(const std::string& s, const std::map<std::string,std::string>& m)
+{
+	auto map_it = m.find(s); //從容器中尋找s，也就是我們輸入句子裡面的各個單字
+
+	if (map_it != m.end()) //如果有找到
+		return map_it->second; //把那個字替換為容器中的second 如r要變成are
+
+	else
+		return s;
+}
+void read_word(const std::map<std::string, std::string>& m)
+{
+	std::string text;
+	std::cout << "Please enter the sentence: " << std::endl;
+	while (getline(std::cin, text)) //開始輸入句子
+	{
+		std::istringstream stream(text); //將每個單字分開拿出來這是一個"流"
+		std::string word; //用來存放流裡面的單字
+		bool firstword = true; //用來判斷是不是第一個字
+		while(stream >> word) //開始把流裡面的字一個一個放進去
+		{
+			if (firstword)
+				firstword = false;
+			else
+				std::cout << " " << std::flush; //如果是後面的單字，印出來之前要加空格
+			std::cout << transform(word, m); //印出變化後的結果
+		}
+	}	
+}
+int main()
+{
+	std::cout << "This program is designed to change the word, you can enter 5 rules totally." << std::endl;
+	std::map<std::string, std::string> changed_map; //宣告容器
+	std::string bechanged, change;
+	int ctr = 0;
+	while(ctr < 5)
+	{
+		std::cout << "Please enter the word you want to change: " << std::flush;
+		std::cin >> bechanged;
+		std::cout << "Please enter what word you want to change to: " << std::flush;
+		std::cin >> change;
+		changed_map.insert({ bechanged, change }); //把要更改的值存入容器內
+		++ctr;
+		std::cin.get(); //釋放cin緩衝區
+	}
+	read_word(changed_map);
+	return 0;
+}
 ```
 
 
