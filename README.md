@@ -3568,7 +3568,9 @@ int main()
 	return 0;
 }
 ```
-
+### 21. 無序關聯式容器:不使用一般比較運算子來組織元素，而是使用hash_function，以及鍵值型別的"=="。
+### 22. 無序容器會被組織成由bucket所組成的一個群集(a collection of buckets)。
+### 23. 無序容器的效能取決於hash function以及buckets的數量跟大小。
 
 
 
