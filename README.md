@@ -3193,12 +3193,300 @@ int main()
 
 
 ## 22 關聯式容器
-### 1. 與循序性容器不同，循序性容器式通過位置來做存取，但是關聯性容器是通過鍵值(key)來做存取的。
-### 2. 關聯式容器主要分兩個型別:mao跟set。
-### 3. map:其中包含的元素有鍵值(key)跟值對組(key-value pairs)
+### 1. 與循序性容器不同，循序性容器式通過位置來做存取，但是關聯性容器是通過鍵(key)來做存取的。
+### 2. 關聯式容器主要分兩個型別:map跟set。
+### 3. map:其中包含的元素有鍵(key)跟值對組(key-value pairs)
 ### 其中key是索引，而值則是那個索引所關聯的資料。字典會是很好的例子，單字是key，解釋是值。
-### 4. set:其中只含有一個鍵值(key)。
+### 4. set:其中只含有一個鍵(key)，key就是value。
 ### set支援有效率的查詢一個key是否存在。
+### 5. map通常會被稱作關聯性陣列，只是他的下標(index)並不一定要是整數而已。再來，如果我們要尋找map裡面的值，也並非是通過位置，而是key。
+### 6. 相比於map，set就只是一些由key所組成的群集。就比如製作黑名單人員，我們就可以使用一個set來存取這些人員，之後只要通過key就可以查找那個仁是否有在黑名單裡面了。
+### 範例程式(map):
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iterator>
+#include <map>
+int main()
+{
+	std::map<std::string, size_t> word_count; //std::map<key(index),the type of value> map_name
+	std::string word;
+	while (std::cin >> word) //use word to be a (key)index and store it(each time plus one)
+	{
+		++word_count[word];
+	}
+	for (const auto& c : word_count) //print the data of the map(first for key(index) and second for the value)
+	{
+		std::cout << c.first << ": " << c.second << ((c.second > 1) ? " times" : " time") << std::endl;
+	}
+	return 0;
+}
+```
+## 練習題22
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iterator>
+#include <map>
+#include <set>
+#include <algorithm>
+//map and set 設計一個忽略大小寫與標點符號的記數程式 e.g example跟example.都會增加
+int main()
+{
+	std::map<std::string, size_t> word_count; //std::map<key(index),the type of value> map_name
+	std::set<char> exclude = { ',', '.', '?', ':', '!' };
+	std::string word;
+	std::cout << "Please enter the words:" << std::endl;
+	while (std::cin >> word) //use word to be a (key)index and store it(each time plus one)
+	{
+		std::transform(word.begin(), word.end(), word.begin(), ::tolower); //convert the string to lowercase and copy into word(from begin) again
+		for (const auto& m : exclude) //從set中取標點符號
+		{
+			auto mark = find(word.begin(), word.end(), m); //找邊標點符號
+			if (mark != word.end()); //找到了
+			{
+				word = std::string(word.begin(), mark); //忽略標點符號
+			}		
+		}
+		++word_count[word];
+	}
+	for (const auto& c : word_count) //print the data of the map(first for key(index) and second for the value)
+	{
+		std::cout << c.first << ": " << c.second << ((c.second > 1) ? " times" : " time") << std::endl;
+	}
+	return 0;
+}
+```
+### 7. 關聯式容器並不支援循序容器上那些基於位置的運算。
+### 8. 關聯式容器的迭代是雙向的。
+### 9. 每個map跟set的鍵都是唯一的，但是multiamp跟multiset就沒有這種限制。
+### 範例程式:
+```c++
+//multimap and multiset 
+int main()
+{
+	std::vector<unsigned> vec;
+	for (unsigned i = 0; i != 10; ++i)
+	{
+		vec.push_back(i);
+		vec.push_back(i);
+	}
+	std::set<unsigned> iset(vec.cbegin(), vec.cend());
+	std::multiset<unsigned> multiset(vec.cbegin(), vec.cend());
+	std::cout << vec.size() << std::endl;
+	std::cout << iset.size() << std::endl;
+	std::cout << multiset.size() << std::endl;
+	for (const auto& val : vec)
+	{
+		std::cout << val << " " << std::flush;
+	}
+	std::cout << std::endl;
+	for (const auto& val : iset)
+	{
+		std::cout << val << " " << std::flush;
+	}
+	std::cout << std::endl;
+	for (const auto& val : multiset)
+	{
+		std::cout << val << " " << std::flush;
+	}
+	return 0;
+}
+```
+### 10. pair型別:一個pair存有兩個資料成員，是一個模板，讓我們產出特別的型別。
+### 11. pair存放於utlity的標頭檔中。
+### 範例程式:
+```c++
+int main()
+{
+	std::pair<std::string, std::string> author;
+	return 0;
+}
+```
+### 12. 對於set來說，每個key就是value。但是如果我們探討的是map，就是不一樣了。
+### map是由key-value所組成的，這代表每一個元素都是pair。同時，我們也要記得，key是const的，不可改變，但是value可以改變。
+### 13. set的key是const的，這代表set的迭代器也是const的。
+### 範例程式:
+```c++
+int main()
+{	
+	std::set<int> iset = { 0,1,2,3,4,5,6,7,8,9 };
+	auto isetb = iset.begin();
+	while (isetb != iset.end())
+	{
+		std::cout << *isetb++ << " " << std::flush;
+	}
+	return 0;
+}
+```
+### 14. 新增元素:
+### 範例程式:
+```c++
+//新增元素到set
+int main()
+{
+	std::vector<int> vec = { 2,4,6,8,2,4,6,8 };
+	std::set<int> iset, iset2;
+	iset.insert(vec.begin(),vec.end()); //唯一性，所以重複的不會再放進去
+	auto isetb = iset.begin();
+	while (isetb != iset.end())
+	{
+		std::cout << *isetb++ << " " << std::flush;
+	}
+	std::cout << std::endl;
+	iset.insert({ 1,3,5,7,1,3,5,7 });
+	isetb = iset.begin();
+	while (isetb != iset.end())
+	{
+		std::cout << *isetb++ << " " << std::flush;
+	}
+	return 0;
+}
+```
+### 範例程式:
+```c++
+//新增元素到map
+int main()
+{
+	std::map<std::string, unsigned> word_count;
+	std::string word;
+	while (std::cin >> word)
+	{
+		word_count.insert({ word, 1 });
+	}
+	auto beg = word_count.begin();
+	while (beg != word_count.end()) //iterator use -> to get the value
+	{
+		std::cout << beg->first << " " << beg->second << std::endl;
+		++beg;
+	}
+	return 0;
+}
+```
+### 15. 移除元素:
+### 範例程式:
+```c++
+int main()
+{
+	std::map<std::string, unsigned> word_count;
+	std::string word;
+	int ctr = 0;
+	while (ctr < 4 && std::cin >> word)
+	{
+		word_count.insert({ word, 1 });
+		++ctr;
+	}
+	auto beg = word_count.begin();
+	while (beg != word_count.end()) //iterator use -> to get the value
+	{
+		std::cout << beg->first << " " << beg->second << std::endl;
+		++beg;
+	}
+	std::cout << "Please enter what word you want to remove: " << std::flush;
+	std::string removed;
+	std::cin >> removed;
+	if (word_count.erase(removed))
+	{
+		beg = word_count.begin();
+		while (beg != word_count.end()) //iterator use -> to get the value
+		{
+			std::cout << beg->first << " " << beg->second << std::endl;
+			++beg;
+		}
+	}
+	else
+	{
+		std::cout << removed << "is not found." << std::endl;
+	}
+	return 0;
+}
+```
+### 16. 添標:我們可以幫map跟unordered_map提供下標。
+### 但是沒辦法對set添標，因為set的key就是value沒有成對。然後multimap也不行，因為同一個key可能有多個值;簡單點來講，就是一個下標會有多個值。
+### 17. 存取元素:如果我們只是想要尋找某一個元素有沒有在容器中，那使用find()會是個好方法。
+### 但這是在key-value具有唯一性時才是如此。如果是有多重鍵值的容器，那麼使用count會好一些。
+### find會回傳迭代器，而count則會回傳那個元素出現了幾次。
+### 18. 因為find是回傳迭代器，所以我們可以通過迭代器的方式，來判斷該元素是否存在:
+```c++
+if(word.count.find("foot") == word.count.end()) //表示不存在
+	std::cout << "not found" << std::endl;
+```
+### 註記:使用下標來尋找元素時，如果該元素不存在，那麼電腦會自動幫我們新增，這也是我們使用迭代器來尋找元素的主要原因。
+### 19. 當一個multimap或multiset有多個元素具有相同的鍵值時，這些元素會彼此相鄰。
+### 範例程式:
+```c++
+//尋找特定元素
+int main()
+{
+	std::multimap<std::string, double> fruits;
+	std::string fruit;
+	double price;
+	unsigned ctr = 0;
+	std::cout << "The fruit: " << std::flush;
+	while (ctr < 5 && std::cin >> fruit)
+	{
+		std::cout << "The price: " << std::flush;
+		std::cin >> price;
+		fruits.insert({ fruit ,price });
+		++ctr;
+		if (ctr != 5)
+			std::cout << "The fruit: " << std::flush;
+	}
+	std::string search;
+	std::cout << "Please enter what fruit you want to find: " << std::flush;
+	std::cin >> search;
+	auto total = fruits.count(search);
+	auto beg = fruits.begin();
+	while (total)
+	{
+		std::cout << beg->first << " " << beg->second << std::endl;
+		++beg;
+		--total;
+	}
+	return 0;
+}
+```
+### 範例程式(優化):
+```c++
+int main()
+{
+	std::multimap<std::string, double> fruits;
+	std::string fruit;
+	double price;
+	unsigned ctr = 0;
+	std::cout << "The fruit: " << std::flush;
+	while (ctr < 5 && std::cin >> fruit)
+	{
+		std::cout << "The price: " << std::flush;
+		std::cin >> price;
+		fruits.insert({ fruit ,price });
+		++ctr;
+		if (ctr != 5)
+			std::cout << "The fruit: " << std::flush;
+	}
+	std::string search;
+	std::cout << "Please enter what fruit you want to find: " << std::flush;
+	std::cin >> search;
+	for (auto beg = fruits.lower_bound(search), end = fruits.upper_bound(search); beg != end; ++beg)
+	{
+		std::cout << beg->first << " " << beg->second << std::endl;
+	}
+	return 0;
+}
+```
+### 20. 如上面的範例程式，我們也可以通過lower_bound與upper_bound來進行限定查詢，當兩者回傳相同的迭代器時，即代表所給的值已不再容器內部了。
+## 綜合練習:
+```c++
+```
+
+
+
+
+
+
+
 
 
 
