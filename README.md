@@ -3479,6 +3479,34 @@ int main()
 	return 0;
 }
 ```
+### 範例程式(最佳化):
+```c++
+int main()
+{
+	std::multimap<std::string, double> fruits;
+	std::string fruit;
+	double price;
+	unsigned ctr = 0;
+	std::cout << "The fruit: " << std::flush;
+	while (ctr < 5 && std::cin >> fruit)
+	{
+		std::cout << "The price: " << std::flush;
+		std::cin >> price;
+		fruits.insert({ fruit ,price });
+		++ctr;
+		if (ctr != 5)
+			std::cout << "The fruit: " << std::flush;
+	}
+	std::string search;
+	std::cout << "Please enter what fruit you want to find: " << std::flush;
+	std::cin >> search;
+	for (auto pos = fruits.equal_range(search); pos.first != pos.second; ++pos.first)
+	{
+		std::cout << beg->first << " " << beg->second << std::endl;
+	}
+	return 0;
+}
+```
 ### 20. 如上面的範例程式，我們也可以通過lower_bound與upper_bound來進行限定查詢，當兩者回傳相同的迭代器時，即代表所給的值已不再容器內部了。
 ## 綜合練習:
 ```c++
