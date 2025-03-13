@@ -3357,7 +3357,7 @@ int main()
 	std::string word;
 	while (std::cin >> word)
 	{
-		word_count.insert({ word, 1 });
+		word_count.insert({ word, 1 }); //return pair(map,true or flae) map又分成map->first(key) map-->second(value)
 	}
 	auto beg = word_count.begin();
 	while (beg != word_count.end()) //iterator use -> to get the value
