@@ -3502,7 +3502,7 @@ int main()
 	std::cin >> search;
 	for (auto pos = fruits.equal_range(search); pos.first != pos.second; ++pos.first)
 	{
-		std::cout << beg->first << " " << beg->second << std::endl;
+		std::cout << pos.first->first << " " << pos.first->second << std::endl;
 	}
 	return 0;
 }
