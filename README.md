@@ -63,6 +63,9 @@
 >#### ☁️[泛用演算法](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#20-%E6%B3%9B%E7%94%A8%E6%BC%94%E7%AE%97%E6%B3%95)
 >#### ☁️[再探迭代器](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#21-%E5%86%8D%E6%8E%A2%E8%BF%AD%E4%BB%A3%E5%99%A8)
 >>#### ☁️[練習題21](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C21)
+
+>#### ☁️[關聯式容器]()
+
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -3189,8 +3192,13 @@ int main()
 ### 隨機存取迭代器(random-access iterator):讀取且寫入，多回，完整的迭代器運算術。
 
 
-
-
+## 22 關聯式容器
+### 1. 與循序性容器不同，循序性容器式通過位置來做存取，但是關聯性容器是通過鍵值(key)來做存取的。
+### 2. 關聯式容器主要分兩個型別:mao跟set。
+### 3. map:其中包含的元素有鍵值(key)跟值對組(key-value pairs)
+### 其中key是索引，而值則是那個索引所關聯的資料。字典會是很好的例子，單字是key，解釋是值。
+### 4. set:其中只含有一個鍵值(key)。
+### set支援有效率的查詢一個key是否存在。
 
 
 
