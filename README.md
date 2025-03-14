@@ -77,6 +77,7 @@
 >#### ☁️[有序陣列的平方(Squares of a Sorted Array)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-3)  
 >#### ☁️[長度最小的子陣列(Minimum Size Subarray Sum)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-4)
 >#### ☁️[螺旋矩陣(Spiral_Matrix)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-5)
+>#### ☁️[移除列表元素(Remove Linked List Elements)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-6)
 
 # C++
 ## 1 輸入與輸出
@@ -3859,3 +3860,35 @@ class Solution:
 ☁️[LeetCode連結](https://leetcode.com/problems/spiral-matrix-ii/description/)
 ☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Spiral_Matrix.py)
 
+### Exercise 6
+>Remove Linked List Elements(移除列表元素):Given the head of a linked list and an integer val, remove all the nodes of the linked list that has Node.val == val, and return the new head.
+### 思考邏輯:依靠list是通過指針的方式來連接的想法，只要將next的目的地改向後一個就可以了。
+>Solution:
+```C++
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) 
+    {
+        ListNode* vhead = new ListNode(0);
+        vhead->next = head;
+        ListNode* cur = vhead;
+        while(cur->next != NULL)
+        {
+            if(cur->next->val == val)
+            {
+               ListNode* tmp = cur->next;
+               cur->next = cur->next->next;
+               delete tmp;
+            }
+            else
+            {
+                cur = cur->next;
+            }
+        }
+        head = vhead->next;
+        delete vhead;
+        return head;
+    }   
+```
+☁️[LeetCode連結](https://leetcode.com/problems/remove-linked-list-elements/description/)
+☁️[My_LeetCode_Sol]()
