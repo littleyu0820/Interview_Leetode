@@ -3869,7 +3869,7 @@ class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) 
     {
-        ListNode* vhead = new ListNode(0);
+        ListNode* vhead = new ListNode(0); //create a virtual head
         vhead->next = head;
         ListNode* cur = vhead;
         while(cur->next != NULL)
