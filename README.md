@@ -3891,4 +3891,4 @@ public:
     }   
 ```
 ☁️[LeetCode連結](https://leetcode.com/problems/remove-linked-list-elements/description/)
-☁️[My_LeetCode_Sol]()
+☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Remove%20Linked%20List%20Elements_V2.cpp)
