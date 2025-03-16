@@ -3784,24 +3784,24 @@ class Read_Passage
 {
 public:
 	//using line_Nos = std::vector<std::string>::size_type; //use vector to stroe the passage the line means vec[0],vec[1],vec[2]
-	inline Read_Passage(std::ifstream& input, const std::string w);
+	inline Read_Passage(std::ifstream& input, const std::string search_word); //constructor
 
 private:
-	std::shared_ptr<std::vector<std::string>> file; //a pointer used to store each sentence
+	std::vector<std::string> file; //a vector used to store each sentence
 	std::map<std::string, unsigned> word_map; //word + total counter
 	std::map<unsigned, unsigned> lines_map; //line + line counter(use to count the word occurs in each line)
 	std::map<unsigned, std::string> sentence_map; // line + sentence in order to save the sentence
 	//We need to notice that map is searched by key not idnex so we can start from 1 which means line 1
 };
 
-Read_Passage::Read_Passage(std::ifstream& input, const std::string search_word) : file(new std::vector<std::string>)
+Read_Passage::Read_Passage(std::ifstream& input, const std::string search_word) //the details of the constructor
 {
 	std::string text = "";
 
 	while (getline(input, text)) //read the sentence line by line
 	{
-		file->push_back(text); //store the text in each line
-		size_t n = file->size(); //the line_Nos
+		file.push_back(text); //store the text in each line
+		size_t n = file.size(); //the line_Nos
 		std::istringstream record(text); //seperate the words in each line
 		std::string word; //in order to stroe the word
 		while (record >> word) //start to seperate
