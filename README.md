@@ -3572,14 +3572,179 @@ int main()
 ### 21. 無序關聯式容器:不使用一般比較運算子來組織元素，而是使用hash_function，以及鍵值型別的"=="。
 ### 22. 無序容器會被組織成由bucket所組成的一個群集(a collection of buckets)。
 ### 23. 無序容器的效能取決於hash function以及buckets的數量跟大小。
-
-
-
-
-
-
-
-
+## 23 動態記憶體(Dynamic Memory)
+### 1. 靜態記憶體:存放區域與類別的static物件或成員，以及任何函式定義外的變數。
+### 2. 靜態記憶體:存放函式內的非static物件。
+### 3. 靜態記憶體與靜態記憶體:它們所配置的物件都會由編譯器自動創建跟摧毀。
+### 4. 動態記憶體的管理式通過:new與delete來進行的。
+### 5. shared_ptr:允許多個指標指向同一個物件，存放於標準函式庫裡。
+### 5. unique_ptr:表示這個指標擁有它所指的物件。
+### 6. weak_ptr:弱參考(weak reference)指向由一個shared_ptr管理的物件。
+### 7. 跟vector一樣，智慧指標也是模板，宣告方式如下:
+```c++
+int main()
+{
+	std::shared_ptr<int> p1 = std::make_shared<int>(42); //p is a shared ptr point to an int and the value of the int is 42
+	std::shared_ptr<std::string> p2 = std::make_shared<std::string>(10,'9'); //p is a shared ptr point to a string and the value of the string is "9999999999"
+	std::shared_ptr<int> p3 = std::make_shared<int>(); //p is a shared ptr point to an int and the value is initialized to 0
+	std::cout << *p1 << " " << *p2 << " " << *p3 << std::endl;
+	return 0;
+}
+```
+### 當然，一般來說我們可以直接使用auto來宣告:
+```c++
+int main()
+{
+	auto p1 = std::make_shared<int>(42); //p is a shared ptr point to an int and the value of the int is 42
+	auto p2 = std::make_shared<std::string>(10,'9'); //p is a shared ptr point to a string and the value of the string is "9999999999"
+	auto p3 = std::make_shared<int>(); //p is a shared ptr point to an int and the value is initialized to 0
+	std::cout << *p1 << " " << *p2 << " " << *p3 << std::endl;
+	return 0;
+}
+```
+### 8. 當我們在拷貝或者指定一個shared_ptr時，它內部都會有一個計數器，用來記錄當前總共有幾個shared_ptr指向相同的物件。
+### 換句話說，只要shared_ptr的計數器為零，那就代表著該物件要被自動釋放了。
+### 9. 如上述，shared_ptr會自動釋放關聯的記憶體。
+### 10. 我們之所以要使用動態記憶體，是為了讓多個物件共用相同的狀態。
+### 範例程式:定義一個模板
+```c++
+#include <iostream>
+#include <vector>
+#include <string>
+#include <memory>
+class StrBlob
+{
+public:
+	typedef std::vector<std::string>::size_type size_type; //typedefine
+	StrBlob() : data(std::make_shared<std::vector<std::string>>()) {}; //constructor
+	StrBlob(std::initializer_list<std::string> il) : data(std::make_shared<std::vector<std::string>>()) {}; //constructor
+	size_type size() const { return data->size(); } //function get_size
+	bool empty() const { return data->empty(); } //function check empty
+	void push_back(const std::string& s) { data->push_back(s); } //insert element to back
+	void pop_back(); // erase element from back
+	std::string& front(); //get the frist element
+	const std::string& front() const;
+	std::string& back(); //get the last element
+	const std::string& back() const;
+private:
+	std::shared_ptr<std::vector<std::string>> data; //a shared_ptr
+	inline void check(size_type i, const std::string& msg) const;
+};
+int main()
+{
+	StrBlob data1;
+	data1.push_back("10");
+	data1.push_back("20");
+	data1.push_back("30");
+	std::cout << data1.front() << std::endl;
+	std::cout << data1.back() << std::endl;
+	data1.pop_back();
+	std::cout << data1.back() << std::endl;
+	return 0;
+}
+void StrBlob::check(size_type i, const std::string& msg) const
+{
+	if (i >= data->size())
+		throw std::out_of_range(msg);
+}
+void StrBlob::pop_back()
+{
+	check(0, "pop_back on empty StrBlob.");
+	data->pop_back();
+}
+std::string& StrBlob::front()
+{
+	check(0, "front on empty StrBlob.");
+	return data->front();
+}
+const std::string& StrBlob::front() const
+{
+	check(0, "front on empty StrBlob.");
+	return data->front();
+}
+std::string& StrBlob::back()
+{
+	check(0, "back on empty StrBlob.");
+	return data->back();
+}
+const std::string& StrBlob::back() const
+{
+	check(0, "back on empty StrBlob.");
+	return data->back();
+}
+```
+### 11. new會回傳一個"指標"指向它所配置的物件。
+```c++
+int* pi = new int; //pi指向一個動態配置，且無名未初始化的int
+```
+### 12. 如同我們會初始化變數一樣，初始化動態配置的物件也是個好習慣。
+### 13. new也可以配置cosnt物件。
+### 14. 我們可以用以下方法來解決讓new配置失敗時回傳一個nullprt。
+```c++
+int* pi = new(nothrow) int; //回傳一個nullprt
+```
+### 15. 為了避免動態記憶體耗盡，我們必須在使用完後，通過delete的方式來將記憶體歸還給系統。
+```c++
+delete p; //p必須是一個動態配置的物件或者是null
+int i, * pi1 = &i, * pi2 = nullptr;
+double* pd = new double(33), * pd2 = pd;
+delete i; //error its an int
+delete pi1;//undefined it points to a value
+delete pd; //ok point to a dynamic object
+delete pd2;//undefined the object already be deleted 
+delete pi2; //ok a nullptr
+```
+### 16. 在delete pi1編譯器不會馬上報錯，這是一個潛在的錯誤，因為編譯器無法判斷這個指標是否為動態的。
+### 同樣的，在delete pd2編譯器也不會馬上報錯，因為它無法判斷那個位置的記憶體是否被釋放了。
+### 17. 當我們的函式回傳一個動態物件(動態指標所指的物件)，那麼後面使用到這個函式的呼叫者，就要負責釋放動態記憶體。
+```c++
+int* factory(int val)
+{
+	return new int(val);
+}
+void use_factory(int val)
+{
+	int* p = factory(val); //p need to be deleted
+	delete p;
+}
+```
+### 18. 雖然我們delete一個指標後，就代表著那個指標無效了，但在許多機器上，這些被delete的指標會被變成dangling pointer(懸置指標)。
+### 所謂dangling pointer所指向的正是曾經指向某個物件的記憶體，但現如今已經消失或不同的一種指標。
+### 19. 使用一個內建指標來存取某個智慧指標所擁有的物件通常並不是個好想法，因為我們不知道那個物件何時會被摧毀。
+### 20. 不論是shared_ptr還是unique_ptr，我們都必須使用直接初始化的方式。來將他綁到一個new所回傳的指標上。
+```c++
+shared_ptr<int> sp1(new int(42));
+unique_ptr<int> sp2(new int(42));
+```
+### 21. unique_ptr不支援一般的拷貝跟指定。
+### 22. 通過weak_prt對shared_ptr進行綁定，並不會影響該shared_ptr的計數。
+```c++
+auto p = make_shared<int>(42);
+weak_ptr<int> wp(p); //使用shared_ptr來初始化，但shared_ptr的計數器不變。
+```
+## 24 動態陣列(Dynamic Array)
+### 1. 定義/刪除動態陣列，如下:
+```c++
+int *pia = new int[size]; //要注意，pia所指的是陣列中的第一個元素
+delete[] pia;
+```
+### 2. 我們可以使用unique_ptr來管理動態陣列:
+```c++
+unique_ptr<int[]> up(new int[10]);
+up.release(); //等價於delete []
+```
+### 3. 我們也能通過下標的方式來存取unique_ptr:
+```c++
+for(size_t i = 0; i != 10; ++i)
+{
+	up[i] = i; //賦值
+}
+```
+### 4.通常我們並不建議使用shared_ptr來管理動態陣列，如果真的要使用，要記得設計一個刪除器。
+### 同時，如果我們要存取動態陣列中的元素，也無法使用下標來存取，而是要使用get()函式。
+## 綜合練習:
+```c++
+```
 
 
 
@@ -3604,6 +3769,7 @@ int main()
 ### 13. 構造函式不會有回傳。
 ### 14. 一定要記得，對於IO物件是不能拷貝的，只能用參考。
 ### 15. 只要是key就不能修改。
+### 16. 一定要記得，任何const物件都必須被初始化。
 
 
 # LeetCode
