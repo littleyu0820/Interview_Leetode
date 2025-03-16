@@ -68,6 +68,10 @@
 >>#### ☁️[練習題22](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C22)
 >>#### ⭐⭐⭐[綜合練習](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B6%9C%E5%90%88%E7%B7%B4%E7%BF%92-3)
 
+>#### ☁️[動態陣列]()
+
+>#### ☁️[動態記憶體]()
+>>#### ⭐⭐⭐⭐⭐[實作]()
 
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
@@ -3572,6 +3576,7 @@ int main()
 ### 21. 無序關聯式容器:不使用一般比較運算子來組織元素，而是使用hash_function，以及鍵值型別的"=="。
 ### 22. 無序容器會被組織成由bucket所組成的一個群集(a collection of buckets)。
 ### 23. 無序容器的效能取決於hash function以及buckets的數量跟大小。
+
 ## 23 動態記憶體(Dynamic Memory)
 ### 1. 靜態記憶體:存放區域與類別的static物件或成員，以及任何函式定義外的變數。
 ### 2. 靜態記憶體:存放函式內的非static物件。
@@ -3742,8 +3747,124 @@ for(size_t i = 0; i != 10; ++i)
 ```
 ### 4.通常我們並不建議使用shared_ptr來管理動態陣列，如果真的要使用，要記得設計一個刪除器。
 ### 同時，如果我們要存取動態陣列中的元素，也無法使用下標來存取，而是要使用get()函式。
-## 綜合練習:
+## ⭐⭐⭐實作:
 ```c++
+#include <iostream>
+#include <vector>
+#include <string>
+#include <memory>
+#include <fstream>
+#include <sstream>
+#include <map>
+#include <set>
+#include <algorithm>
+/*
+* 設計一個文字查詢程式
+* 讀取一篇文章
+* 使用者輸入一個字詞(不區分大小寫)
+* 輸出該字詞總共出現了幾次
+* 輸出該字詞在哪一行出現，在該行出現了幾次，並且輸出該行
+* 
+*/
+
+/*
+* Function:
+* 1.Use a vector to store the passage
+* 2.Each (index) stroe 1 line
+* 3.Seperate the word
+* 4.Store the word
+* 5.Store the line
+* 6.Print the answer
+*/
+
+void LookFor_Word(const std::string, std::map<std::string, unsigned>, std::map<unsigned, unsigned>);
+const std::string User_Input();
+
+class Read_Passage
+{
+public:
+	//using line_Nos = std::vector<std::string>::size_type; //use vector to stroe the passage the line means vec[0],vec[1],vec[2]
+	inline Read_Passage(std::ifstream& input, const std::string w);
+
+private:
+	std::shared_ptr<std::vector<std::string>> file; //a pointer used to store each sentence
+	std::map<std::string, unsigned> word_map; //word + total counter
+	std::map<unsigned, unsigned> lines_map; //line + line counter(use to count the word occurs in each line)
+};
+
+Read_Passage::Read_Passage(std::ifstream& input, const std::string search_word) : file(new std::vector<std::string>)
+{
+	std::string text = "";
+
+	while (getline(input, text)) //read the sentence line by line
+	{
+		file->push_back(text); //store the text in each line
+		size_t n = file->size(); //the line_Nos
+		std::istringstream record(text); //seperate the words in each line
+		std::string word; //in order to stroe the word
+		while (record >> word) //start to seperate
+		{
+			std::transform(word.begin(), word.end(), word.begin(), ::tolower); //conver the word to lower
+			++word_map[word]; //store each word into the map and for the repeat word the total counter will +1
+			if (word == search_word) //check if the word is equal to search_word or not
+			{
+				++lines_map[n]; //the word is equal to the target and it doesnt jump out the loop so its in the same line / counter+1
+			}
+			
+		}
+	}
+
+	LookFor_Word(search_word, word_map, lines_map); //funciton for looking for the word
+	
+
+}
+
+const std::string User_Input() //function for user to input the word what they want to search and return it
+{
+
+	std::cout << "Please enter the word you want to find in this chapter: " << std::flush;
+	std::string search_word = "";
+
+	std::cin >> search_word; //store the word
+
+	std::cout << "The word you want to search is: >>" << search_word << "<<" << std::endl;
+
+	return search_word;
+}
+
+void LookFor_Word(const std::string w, std::map<std::string, unsigned> m, std::map<unsigned, unsigned> l) //funciton for looking for the word
+{
+	if (m.find(w) == m.end()) //check if we find the target or not
+		std::cout << "We can not find this word in this chapter." << std::endl;
+
+	if (m[w] > 1) //singular(incldue 0) and plura
+		std::cout << "There are " << m[w] << " >>" << w << "<< in this chapter totally." << std::endl;
+	else
+		std::cout << "There is " << m[w] << " >>" << w << "<< in this chapter totally." << std::endl;
+
+
+	auto lines_beg = l.begin();
+	while (lines_beg != l.end()) //start to print the details for each line if we find the word
+								//if we dont find the word: lines_beg == l.end()
+	{
+		std::cout << "(Lines: " << (lines_beg->first) << ")" << " The word: " << ">>" << w << "<< "
+			<< "occurs " << lines_beg->second << " time(s)" << std::endl;
+		++lines_beg;
+	}
+	
+}
+
+
+int main()
+{
+
+	const std::string serach_word = User_Input();
+	
+	std::ifstream input("Twilight.txt");
+	Read_Passage file(input, serach_word);
+
+	return 0;
+}
 ```
 
 
