@@ -3763,7 +3763,7 @@ for(size_t i = 0; i != 10; ++i)
 * 讀取一篇文章
 * 使用者輸入一個字詞(不區分大小寫)
 * 輸出該字詞總共出現了幾次
-* 輸出該字詞在哪一行出現，在該行出現了幾次
+* 輸出該字詞在哪一行出現，在該行出現了幾次，並且印出該行
 * 
 */
 
@@ -3777,7 +3777,7 @@ for(size_t i = 0; i != 10; ++i)
 * 6.Print the answer
 */
 
-void LookFor_Word(const std::string, std::map<std::string, unsigned>, std::map<unsigned, unsigned>);
+void LookFor_Word(const std::string, std::map<std::string, unsigned>, std::map<unsigned, unsigned>, std::map<unsigned, std::string>);
 const std::string User_Input();
 
 class Read_Passage
@@ -3790,6 +3790,8 @@ private:
 	std::shared_ptr<std::vector<std::string>> file; //a pointer used to store each sentence
 	std::map<std::string, unsigned> word_map; //word + total counter
 	std::map<unsigned, unsigned> lines_map; //line + line counter(use to count the word occurs in each line)
+	std::map<unsigned, std::string> sentence_map; // line + sentence in order to save the sentence
+	//We need to notice that map is searched by key not idnex so we can start from 1 which means line 1
 };
 
 Read_Passage::Read_Passage(std::ifstream& input, const std::string search_word) : file(new std::vector<std::string>)
@@ -3812,9 +3814,11 @@ Read_Passage::Read_Passage(std::ifstream& input, const std::string search_word) 
 			}
 			
 		}
+
+		sentence_map[n] = text; //store each sentence
 	}
 
-	LookFor_Word(search_word, word_map, lines_map); //funciton for looking for the word
+	LookFor_Word(search_word, word_map, lines_map, sentence_map); //funciton for looking for the word
 	
 
 }
@@ -3829,10 +3833,11 @@ const std::string User_Input() //function for user to input the word what they w
 
 	std::cout << "The word you want to search is: >>" << search_word << "<<" << std::endl;
 
+	std::transform(search_word.begin(), search_word.end(), search_word.begin(), ::tolower); //conver the word to lower
 	return search_word;
 }
 
-void LookFor_Word(const std::string w, std::map<std::string, unsigned> m, std::map<unsigned, unsigned> l) //funciton for looking for the word
+void LookFor_Word(const std::string w, std::map<std::string, unsigned> m, std::map<unsigned, unsigned> l, std::map<unsigned, std::string> sen) //funciton for looking for the word
 {
 	if (m.find(w) == m.end()) //check if we find the target or not
 		std::cout << "We can not find this word in this chapter." << std::endl;
@@ -3849,6 +3854,7 @@ void LookFor_Word(const std::string w, std::map<std::string, unsigned> m, std::m
 	{
 		std::cout << "(Lines: " << (lines_beg->first) << ")" << " The word: " << ">>" << w << "<< "
 			<< "occurs " << lines_beg->second << " time(s)" << std::endl;
+		std::cout << sen[lines_beg->first] << std::endl; //print the sentence included the word
 		++lines_beg;
 	}
 	
@@ -3865,6 +3871,7 @@ int main()
 
 	return 0;
 }
+
 ```
 
 
