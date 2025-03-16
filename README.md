@@ -68,7 +68,7 @@
 >>#### ☁️[練習題22](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C22)
 >>#### ⭐⭐⭐[綜合練習](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B6%9C%E5%90%88%E7%B7%B4%E7%BF%92-3)
 
->#### ☁️[動態陣列]()
+>#### ☁️[動態陣列](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#23-%E5%8B%95%E6%85%8B%E8%A8%98%E6%86%B6%E9%AB%94dynamic-memory)
 
 >#### ☁️[動態記憶體]()
 >>#### ⭐⭐⭐⭐⭐[實作]()
