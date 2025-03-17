@@ -3784,7 +3784,7 @@ class Read_Passage
 {
 public:
 	//using line_Nos = std::vector<std::string>::size_type; //use vector to stroe the passage the line means vec[0],vec[1],vec[2]
-	inline Read_Passage(std::ifstream& input, const std::string search_word); //constructor
+	Read_Passage(std::ifstream& input, const std::string search_word); //constructor
 
 private:
 	std::vector<std::string> file; //a vector used to store each sentence
@@ -3794,7 +3794,7 @@ private:
 	//We need to notice that map is searched by key not idnex so we can start from 1 which means line 1
 };
 
-Read_Passage::Read_Passage(std::ifstream& input, const std::string search_word) //the details of the constructor
+inline Read_Passage::Read_Passage(std::ifstream& input, const std::string search_word) //the details of the constructor
 {
 	std::string text = "";
 
@@ -3823,7 +3823,7 @@ Read_Passage::Read_Passage(std::ifstream& input, const std::string search_word) 
 
 }
 
-const std::string User_Input() //function for user to input the word what they want to search and return it
+inline const std::string User_Input() //function for user to input the word what they want to search and return it
 {
 
 	std::cout << "Please enter the word you want to find in this chapter: " << std::flush;
@@ -3837,7 +3837,7 @@ const std::string User_Input() //function for user to input the word what they w
 	return search_word;
 }
 
-void LookFor_Word(const std::string w, std::map<std::string, unsigned> m, std::map<unsigned, unsigned> l, std::map<unsigned, std::string> sen) //funciton for looking for the word
+inline void LookFor_Word(const std::string w, std::map<std::string, unsigned> m, std::map<unsigned, unsigned> l, std::map<unsigned, std::string> sen) //funciton for looking for the word
 {
 	if (m.find(w) == m.end()) //check if we find the target or not
 		std::cout << "We can not find this word in this chapter." << std::endl;
@@ -3863,7 +3863,6 @@ void LookFor_Word(const std::string w, std::map<std::string, unsigned> m, std::m
 
 int main()
 {
-
 	const std::string serach_word = User_Input();
 	
 	std::ifstream input("Twilight.txt");
@@ -3871,7 +3870,6 @@ int main()
 
 	return 0;
 }
-
 ```
 
 
