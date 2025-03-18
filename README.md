@@ -71,7 +71,7 @@
 >#### ☁️[動態記憶體](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#23-%E5%8B%95%E6%85%8B%E8%A8%98%E6%86%B6%E9%AB%94dynamic-memory)
 
 >#### ☁️[動態陣列](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#24-%E5%8B%95%E6%85%8B%E9%99%A3%E5%88%97dynamic-array)
->>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-1)
+>>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-3)
 
 >#### ☁️[拷貝控制](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#25-%E6%8B%B7%E8%B2%9D%E6%8E%A7%E5%88%B6)
 >>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-4)
