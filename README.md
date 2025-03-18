@@ -76,8 +76,9 @@
 >#### ☁️[拷貝控制](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#25-%E6%8B%B7%E8%B2%9D%E6%8E%A7%E5%88%B6)
 >>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-4)
 >>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-5)
->>
->>
+
+>#### ☁️[移動物件]()
+
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -4496,7 +4497,19 @@ void strVec::reallocate()
 }
 ```
 
-
+## 26 移動物件:
+### 1. Rvalue Reference:只能綁到一個即將被摧毀的物件，也是因為這個原因，我才可以自由地將一個Rvalue Reference移動到另一個物件上。
+### 2. 我們無法一般的reference綁到需要轉換的運算式、字面值，或回回傳rvalue的運算式，只能綁到一個lvalue上面。
+### 3. Rvalue Reference卻與之相反，只能綁到需要轉換的運算式、字面值，或回回傳rvalue的運算式，但卻不能綁到lvalue，或者直白的說，rvalue reference只能綁到rvalue上面。
+### 4. rvalue與lvalue的區別在於:lvalue具有續存狀態而rvalue卻只是運算式過程中建立的暫存物件。
+### 5. 所以綜合第三點與第四點，我們得知:Rvalue Reference只能綁到暫時存在的東西，這也代表著:那個物件即將被摧毀、那個物件沒有其它使用者。
+### 6. 雖然我們沒辦法直接將Rvalue Reference綁到lvalue上面，但我們可以通過函式move做到這件事情，而這個函式存放於標頭utility中。
+```c++
+int rri = 42;
+int&& rr = std::move(rri);
+```
+### 7. 但要記得，因為使用Rvalue Reference就代表著被綁定的物件即將被摧毀了，所以哪怕被綁定的是lvalue我們也不能再使用它原本的"值"了(可以指定新的值給它)。
+###
 
 
 
@@ -4521,6 +4534,8 @@ void strVec::reallocate()
 ### 15. 只要是key就不能修改。
 ### 16. 一定要記得，任何const物件都必須被初始化。
 ### 17. 當我們有多個class要共用一個物件時，就可以使用shared_ptr。
+
+
 
 
 # LeetCode
