@@ -68,10 +68,12 @@
 >>#### ☁️[練習題22](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B7%B4%E7%BF%92%E9%A1%8C22)
 >>#### ⭐⭐⭐[綜合練習](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E7%B6%9C%E5%90%88%E7%B7%B4%E7%BF%92-3)
 
->#### ☁️[動態陣列](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#23-%E5%8B%95%E6%85%8B%E8%A8%98%E6%86%B6%E9%AB%94dynamic-memory)
+>#### ☁️[動態記憶體](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#23-%E5%8B%95%E6%85%8B%E8%A8%98%E6%86%B6%E9%AB%94dynamic-memory)
 
->#### ☁️[動態記憶體](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#24-%E5%8B%95%E6%85%8B%E9%99%A3%E5%88%97dynamic-array)
+>#### ☁️[動態陣列](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#24-%E5%8B%95%E6%85%8B%E9%99%A3%E5%88%97dynamic-array)
 >>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-1)
+
+>#### ☁️[拷貝控制]()
 
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
@@ -4017,10 +4019,75 @@ int main()
 	return 0;
 }
 ```
+### 12. 在寫指定運算子時，我們需要做的就是將右手邊的運算原先拷貝到一個暫存物件上，那麼我們就可以安心的摧毀物件了。
+### 13. 類指標拷貝:要讓一個類別表現的像指標，最簡單的方式就是使用智慧指標(shared_ptr)的管理系統。因為shared_ptr就是依靠追蹤到底有多少使用者共用所指的物件，來決定是否摧毀該物件。
+```c++
+//類指標拷貝
+class pointer_like
+{
+public:
+	pointer_like(const std::string& s = std::string()) : //initialize
+		ps(new std::string(s)), i(0), use(new std::size_t(1))
+	{
+		std::cout << "Initialized: " << *ps << " " << i << " Counter: " << *use << std::endl;
+	}; // ps need to be deleted
+
+	pointer_like(const pointer_like& val) : //copy 
+		ps(new std::string(*val.ps)), i(val.i), use(val.use)
+	{
+		++(*use);
+		std::cout << "Copy: " << *ps << " " << i << " Counter: " << *use << std::endl;
+	}; //in order to avoid double or more pointers point to the same object, we need to dereference to create a new object
+
+	pointer_like& operator=(const pointer_like&);
+	~pointer_like() //deconstructor
+	{
+		if (--(*use) == 0) //when there are no the other users point to the object we just can delete
+		{
+			delete ps;
+			delete use;
+		}
+		
+	};
+private:
+
+	std::string* ps;
+	int i;
+	std::size_t* use;
+
+};
+
+pointer_like& pointer_like::operator=(const pointer_like& rhs) // after we initialized we'll use assign
+{
+	++(*(rhs.use));
+	if (--(*use) == 0) // since this is assigning so the lavalue will be deleted and going to be assign
+	{
+		delete ps; //this->ps
+		delete use; //this->use
+		//delete i //auto delete
+	}
+
+	ps = rhs.ps; //dereference to access its value
+	i = rhs.i;
+	use = rhs.use;
+	std::cout << "Assigned: " << *(this->ps) << " " << this->i << " Counter: " << *(this->use) << std::endl;
+
+	return *this; // value_like* this = &value (value_like value)
+}
+
+int main()
+{
+	pointer_like test1("Hello"); //initialize
+	pointer_like test2(test1); //copy
+	pointer_like test3 = test1; //copy
 
 
+	pointer_like test4("Hi"); //initialize
+	test4 = test1; //assign
 
-
+	return 0;
+}
+```
 
 
 ## ⭐補充
