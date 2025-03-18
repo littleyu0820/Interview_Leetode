@@ -78,6 +78,8 @@
 >>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-5)
 
 >#### ☁️[移動物件](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#26-%E7%A7%BB%E5%8B%95%E7%89%A9%E4%BB%B6)
+>>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-5)
+
 
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
@@ -4578,8 +4580,227 @@ Foo& Foo::operator=(const Foo& rhs) &
 }
 ```
 ### 17. 如果我們定義了一個rvalue reference的函式，那就必須要定義另一個具有reference qualifier的函式。
+## ⭐⭐⭐實作:
+```c++
+#include <iostream>
+#include <memory>
+#include <utility>
+#include <string>
+//設計一個小型的vector
+//V2 優化
+class strVec
+{
+public:
+	strVec():
+		elements(nullptr), first_free(nullptr), cap(nullptr) {}
+	strVec(const strVec&);
+	strVec(strVec&&) noexcept; //使用noexcept的原因在於移動的過程中舊有資料(空間)可能就發生變化了，編譯器無法接受這種例外，認為有風險
+							   //但我們告訴編譯器沒有問題，所以才使用noexcept
+	strVec& operator=(const strVec&) &; //強制回傳左值
+	strVec& operator=(strVec&&) noexcept;
+
+	~strVec()
+	{
+		free();
+	}
+
+	void push_back(const std::string&); //拷貝
+	void push_back(std::string&&); //移動
+	size_t size() const
+	{
+		return first_free - elements;
+	}
+
+	size_t capacity() const
+	{
+		return cap - elements;
+	}
+
+	std::string* begin() const
+	{
+		return elements;
+	}
+
+	std::string* end() const
+	{
+		return first_free;
+	}
+private:
+
+	static std::allocator<std::string> alloc; //用來配置空記憶體
+	void check_alloc_size() //檢查容量
+	{
+		if (size() == capacity()) //如果儲存元素數量已經等於容量大小
+			reallocate(); //重新分配
+	}
+	std::pair<std::string*, std::string*> copy_alloc(const std::string*, const std::string*); //copy
+
+	void free();
+	void reallocate();
+
+	std::string* elements; //第一個元素
+	std::string* first_free; //最後一個元素的下一個空位置
+	std::string* cap; //最後一個空位置
+
+};
+
+std::allocator<std::string> strVec::alloc;
+
+void strVec::push_back(const std::string& s)
+{
+	check_alloc_size(); //只有增加元素時才有可能大小不足
+	alloc.construct(first_free++, s); //將s拷貝到first_free上然後移動first_free
+}
+
+void strVec::push_back(std::string&& s)
+{
+	check_alloc_size(); //只有增加元素時才有可能大小不足
+	alloc.construct(first_free++, std::move(s)); //將s移動到first_free然後移動first_free
+}
+
+std::pair<std::string*, std::string*> strVec::copy_alloc(const std::string* b, const std::string* e) //used to copy
+{
+	auto data = alloc.allocate(e - b); //分配一塊空間給目標物件
+	return { data, std::uninitialized_copy(b,e,data) }; //回傳目標物件的第一個元素跟尾後
+														//uninitialized_copy(b,e,data)把b到e複製到data裡面
+}
+
+void strVec::free()
+{
+	if (elements) // if there are elements in the vector means that begin is not null
+	{
+		for (auto p = first_free; p != elements;) //delete the element from the last element
+			alloc.destroy(--p);
+
+		alloc.deallocate(elements, cap - elements); //deallocate from element to cap (begin to end)
+	}
+}
 
 
+strVec::strVec(const strVec& v) //複製
+{
+	auto new_data = copy_alloc(v.begin(), v.end());
+	elements = new_data.first;
+	first_free = cap = new_data.second;
+}
+
+strVec::strVec(strVec&& v) noexcept: //移動
+	elements(v.elements), first_free(v.first_free), cap(v.cap)
+{
+	v.elements = v.first_free = v.cap = nullptr;
+}
+
+strVec& strVec::operator=(const strVec& rhs) &
+{
+	auto data = copy_alloc(rhs.begin(), rhs.end());
+	free();
+	elements = data.first;
+	first_free = cap = data.second;
+
+	return *this;
+}
+
+
+strVec& strVec::operator=(strVec&& rhs) noexcept 
+{
+	if (this != &rhs) //檢查this所指的位址與rhs是否相同
+	{
+		free(); //釋放左邊運算元的記憶體(this.free)
+		elements = rhs.elements;
+		first_free = rhs.first_free;
+		cap = rhs.cap;
+		rhs.elements = rhs.first_free = rhs.cap = nullptr;
+	}
+
+	return *this;
+}
+
+void strVec::reallocate()
+
+{
+	auto new_capacity = (size() == 0) ? 1 : size() * 2; //確認是否為新的vector
+	auto first = alloc.allocate(new_capacity); //分配新的空間 定義 回傳指標指向第一個元素(位址)
+	auto last = std::uninitialized_copy(std::make_move_iterator(begin()), std::make_move_iterator(end()), first); 
+	//移動資料回傳尾後 alloc.construct會使用移動建構器
+	
+	free(); //釋放舊空間
+	elements = first; //更新指標指向新空間
+	first_free = last;
+	cap = elements + new_capacity;
+
+}
+
+int main()
+{
+
+	strVec vec1, vec2, vec3;
+	std::string s = "The test";
+	vec1.push_back(s); //拷貝
+	vec1.push_back("The test"); //移動
+	vec2.push_back(s); //拷貝
+
+	std::cout << "Before assign Vec2..." << std::endl;
+	for (auto val : vec2)
+	{
+		std::cout << val << std::endl;
+	}
+
+	vec2 = vec1; ///normal assign since vec1 is lvalue
+
+	std::cout << "After assign..." << std::endl;
+	std::cout << "Vec2:" << std::endl;
+	for (auto val : vec2)
+	{
+		std::cout << val << std::endl;
+	}
+
+	std::cout << "Before move..." << std::endl;
+	std::cout << "Vec1:" << std::endl;
+	for (auto val : vec1)
+	{
+		std::cout << val << std::endl;
+	}
+
+	std::cout << "Vec3:" << std::endl;
+	for (auto val : vec3)
+	{
+		std::cout << val << std::endl;
+	}
+
+	vec3 = std::move(vec1);
+	std::cout << "After move..." << std::endl;
+	std::cout << "Vec1:" << std::endl;
+	if (vec1.size() == 0)
+	{
+		std::cout << "It's empty..." << std::endl;
+	}
+	else
+	{
+		for (auto val : vec1)
+		{
+			std::cout << val << std::endl;
+		}
+	}
+
+	std::cout << "Vec3:" << std::endl;
+
+	if (vec3.size() == 0)
+	{
+		std::cout << "It's empty..." << std::endl;
+	}
+	else
+	{
+		for (auto val : vec3)
+		{
+			std::cout << val << std::endl;
+		}
+	}
+
+
+	return 0;
+}
+
+```
 
 
 
