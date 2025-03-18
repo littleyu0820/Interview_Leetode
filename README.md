@@ -3871,7 +3871,152 @@ int main()
 	return 0;
 }
 ```
+## 25 拷貝控制:
+### 1. 拷貝建構器:
+```c++
+// 拷貝建構器
+class copy_constructor
+{
 
+public:
+
+	copy_constructor() { std::cout << "default constructor" << std::endl; }; //defualt
+	copy_constructor(const copy_constructor&) { std::cout << "copy constructor" << std::endl; }; //copy
+
+};
+
+int main()
+{
+
+	copy_constructor A;
+	copy_constructor B(A);
+	copy_constructor C = A; //等價於上述
+
+
+	return 0;
+}
+```
+### 2. 當我們使用直接初始化時，是在要求編譯器使用函式匹配，來選擇與提供參數相同的建構器。而拷貝初始化則是在將右手邊的運算元拷貝到正在建立的物件當中。
+```c++
+// 直接初始化 / 拷貝初始化
+void copy_initial(int val)
+{
+	std::cout << "copy" << std::endl;
+}
+
+int main()
+{
+	std::string s1(10, 's'); //直接初始化
+	std::string s2(s1); //直接初始化(拷貝建構器)
+	std::string s3 = s1; //拷貝初始化
+	std::string s4 = "ssssssssssssss"; //拷貝初始化
+	std::string s5 = std::string(10, 's'); //拷貝初始化
+
+	int value = 5;
+
+	copy_initial(value); // int val = value;
+	return 0;
+}
+```
+### 3. 拷貝初始化不只發生在我們使用"="時。
+### 傳遞一個物件作為非參考型的參數時。
+### 從一個非參考型別的函式回傳物件時。
+### 以大括號初始化一個陣列中的元素時。
+### 以上這些也都會做拷貝初始化。
+### 4. 拷貝指定運算子:重載的運算子是一種函式，其名稱為operator後面加上一個被定義的運算子符號，如下:
+```c++
+// 重載運算子
+class Foo
+{
+public:
+	Foo(const std::string s, const int i) : ss(s), ii(i) { std::cout << "Initialized" << std::endl; };
+	Foo& operator=(const Foo&);
+	
+
+private:
+	std::string ss;
+	int ii;
+};
+
+Foo& Foo::operator=(const Foo& F)
+{
+	ss = F.ss;
+	ii = F.ii;
+
+	return *this;
+}
+```
+### 5. 為了跟內建型別一致，指定運算子通常回傳一個參考指向左邊運算元。
+### 6. 解構器:解構器會將一個物件用到的資源進行釋放，並摧毀該物件非static的資料成員。
+### 7. 解構器沒有回傳值也不接受參數。而又因為不接受參數的原因，所以解構器沒有重載。
+```c++
+// 解構器
+class Foo
+{
+
+public:
+	~Foo() {};
+
+};
+```
+### 8. Three Rules:三個基本運算用來控制物件的拷貝:拷貝建構器、拷貝指定運算子，以及解構器。
+### 9. 一般來說，如果有解構器，那麼就需要拷貝建構器跟拷貝建構器。而如果有拷貝建構器也會需要拷貝指定運算子，反之亦然。
+### 10. 但要記得，有拷貝建構器跟拷貝建構器卻不一定需要解構器。
+### 11. 類值拷貝:
+```c++
+//類值拷貝
+class value_like
+{
+public:
+	value_like(const std::string& s = std::string()) : //initialize
+		ps(new std::string(s)), i(0) 
+	{
+		std::cout << "Initialized: " << *ps << " " << i << std::endl;
+	}; // ps need to be deleted
+
+	value_like(const value_like& val) : //copy 
+		ps(new std::string(*val.ps)), i(val.i) 
+	{
+		std::cout << "Copy: " << *ps << " " << i << std::endl;
+	}; //in order to avoid double or more pointers point to the same object, we need to dereference to create a new object
+												
+	value_like& operator=(const value_like&);
+	~value_like() //deconstructor
+	{
+		delete ps;
+	};
+private:
+
+	std::string* ps;
+	int i;
+
+};
+
+value_like& value_like::operator=(const value_like& rhs) // after we initialized we'll use assign
+{
+	auto temp = new std::string(*(rhs.ps)); //dereference to access its value
+	delete ps;
+	ps = temp;
+	i = rhs.i;
+	std::cout << "Assigned: " << *(this->ps) << " " << this->i << std::endl;
+
+	return *this; // value_like* this = &value (value_like value)
+}
+
+int main()
+{
+
+	value_like test1("Hello"); //initialize
+	value_like test2(test1); //copy
+	value_like test3 = test1; //copy
+
+
+	value_like test4("Hi"); //initialize
+	test4 = test1; //assign
+
+	return 0;
+}
+```
 
 
 
