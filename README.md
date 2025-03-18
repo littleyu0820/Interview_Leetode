@@ -77,7 +77,7 @@
 >>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-4)
 >>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-5)
 
->#### ☁️[移動物件]()
+>#### ☁️[移動物件](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#26-%E7%A7%BB%E5%8B%95%E7%89%A9%E4%BB%B6)
 
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
