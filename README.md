@@ -4060,7 +4060,7 @@ private:
 pointer_like& pointer_like::operator=(const pointer_like& rhs) // after we initialized we'll use assign
 {
 	++(*(rhs.use));
-	if (--(*use) == 0) // since this is assigning so the lavalue will be deleted and going to be assign
+	if (--(*use) == 0) // deconstructor:since this is assigning so the lavalue will be deleted and going to be assign
 	{
 		delete ps; //this->ps
 		delete use; //this->use
@@ -4088,6 +4088,82 @@ int main()
 	return 0;
 }
 ```
+### 14. 如果我們計畫將類別用於重新排列元素的演算法，那定義一個swap是個好主意。
+```c++
+//Swap function
+//copy and swap
+
+class value_like
+{
+public:
+	friend void swap(value_like&, value_like&);
+	value_like(const std::string& s = std::string()) : //initialize
+		ps(new std::string(s)), i(0)
+	{
+		std::cout << "Initialized: " << *ps << " " << i << std::endl;
+	}; // ps need to be deleted
+
+	value_like(const value_like& val) : //copy 
+		ps(new std::string(*val.ps)), i(val.i)
+	{
+		std::cout << "Copy: " << *ps << " " << i << std::endl;
+	}; //in order to avoid double or more pointers point to the same object, we need to dereference to create a new object
+
+	value_like& operator=(value_like);
+	~value_like() //deconstructor give each class a independent object so we can delete them each time
+	{
+		delete ps;
+	};
+private:
+
+	std::string* ps;
+	int i;
+
+};
+
+value_like& value_like::operator=(value_like rhs) // rememebr that rhs should not be a const
+{
+	swap(*this, rhs); //the swap we designed
+
+	return *this; // value_like* this = &value (value_like value)
+}
+
+inline void swap(value_like& v1, value_like& v2) //this is my own swap
+{
+	
+	std::swap(v1.ps, v2.ps); //this is the swap in standard library
+	std::swap(v1.i, v2.i);
+
+	std::cout << "left: " << *(v1.ps) << " " << v1.i << " right: " << *(v2.ps) << " " << v2.i << std::endl;
+}
+
+int main()
+{
+
+	value_like test1("Hello"); //initialize
+	value_like test2(test1); //copy
+	value_like test3 = test1; //copy
+
+
+	value_like test4("Hi"); //initialize
+	test4 = test1; //assign -> swap
+
+	value_like test5("Swap test");
+
+	swap(test1, test5);
+
+	return 0;
+}
+```
+
+
+
+
+
+
+
+
+
 
 
 ## ⭐補充
