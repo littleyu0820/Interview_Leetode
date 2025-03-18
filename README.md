@@ -75,6 +75,9 @@
 
 >#### ☁️[拷貝控制](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#25-%E6%8B%B7%E8%B2%9D%E6%8E%A7%E5%88%B6)
 >>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-3)
+>>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-3)
+>>
+>>
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -4371,8 +4374,127 @@ int main()
 	return 0;
 }
 ```
+### 15. 移動建構器(move constructor):將資源從所給的物件"移動"到正在建構的物件(拷貝指標，而非拷貝那些字元)。
+## ⭐⭐⭐實作:
+```c++
+//設計一個小型的vector
+
+class strVec
+{
+public:
+	strVec():
+		elements(nullptr), first_free(nullptr), cap(nullptr) {}
+	strVec(const strVec&);
+	strVec& operator=(const strVec&);
+
+	~strVec()
+	{
+		free();
+	}
+
+	void push_back(const std::string&);
+	size_t size() const
+	{
+		return first_free - elements;
+	}
+
+	size_t capacity() const
+	{
+		return cap - elements;
+	}
+
+	std::string* begin() const
+	{
+		return elements;
+	}
+
+	std::string* end() const
+	{
+		return first_free;
+	}
+private:
+	
+	static std::allocator<std::string> alloc; //用來配置空記憶體
+	void check_alloc_size() //檢查容量
+	{
+		if (size() == capacity()) //如果儲存元素數量已經等於容量大小
+			reallocate(); //重新分配
+	}
+	std::pair<std::string*, std::string*> copy_alloc(const std::string*, const std::string*); //copy
+
+	void free();
+	void reallocate();
+
+	std::string* elements; //第一個元素
+	std::string* first_free; //最後一個元素的下一個空位置
+	std::string* cap; //最後一個空位置
+
+};
+
+std::allocator<std::string> strVec::alloc;
+
+void strVec::push_back(const std::string& s)
+{
+	check_alloc_size(); //只有增加元素時才有可能大小不足
+	alloc.construct(first_free++, s); //從第一個空位置開始添加元素
+}
+
+std::pair<std::string*, std::string*> strVec::copy_alloc(const std::string* b, const std::string* e) //used to copy
+{
+	auto data = alloc.allocate(e - b); //分配一塊空間給目標物件
+	return { data, std::uninitialized_copy(b,e,data) }; //回傳目標物件的第一個元素跟尾後
+														//uninitialized_copy(b,e,data)把b到e複製到data裡面
+}
+
+void strVec::free()
+{
+	if (elements) // if there are elements in the vector means that begin is not null
+	{
+		for (auto p = first_free; p != elements;) //delete the element from the last element
+			alloc.destroy(--p);
+
+		alloc.deallocate(elements, cap - elements); //deallocate from element to cap (begin to end)
+	}
+}
 
 
+strVec::strVec(const strVec& v) //複製
+{
+	auto new_data = copy_alloc(v.begin(), v.end());
+	elements = new_data.first; // 取new_data的第一個元素 可以看71行
+	first_free = cap = new_data.second; //this is copy so cap will equal to end and first_free
+}
+
+
+strVec& strVec::operator=(const strVec& rhs)
+{
+	auto data = copy_alloc(rhs.begin(), rhs.end());
+	free();
+	elements = data.first;
+	first_free = cap = data.second;
+
+	return *this;
+}
+
+void strVec::reallocate()
+
+{
+	auto new_capacity = (size() == 0) ? 1 : size() * 2; //確認是否為新的vector
+	auto new_data = alloc.allocate(new_capacity); //分配新的空間
+
+	auto dest = new_data; //指向新空間的第一個元素
+	auto elem = elements; //指向舊空間的第一個元素
+	for (size_t i = 0; i != size(); ++i)
+	{
+		alloc.construct(dest++, std::move(*elem++)); //從舊空間移動元素到新空間
+	}
+	free(); //釋放舊空間
+	elements = new_data; //更新資料指向新空間
+	first_free = dest;
+	cap = elements + new_capacity;
+
+}
+```
 
 
 
