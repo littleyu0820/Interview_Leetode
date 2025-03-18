@@ -4446,7 +4446,7 @@ std::pair<std::string*, std::string*> strVec::copy_alloc(const std::string* b, c
 {
 	auto data = alloc.allocate(e - b); //分配一塊空間給目標物件
 	return { data, std::uninitialized_copy(b,e,data) }; //回傳目標物件的第一個元素跟尾後
-														//uninitialized_copy(b,e,data)把b到e複製到data裡面
+ 							    //uninitialized_copy(b,e,data)把b到e複製到data裡面
 }
 
 void strVec::free()
