@@ -4501,15 +4501,83 @@ void strVec::reallocate()
 ### 1. Rvalue Reference:只能綁到一個即將被摧毀的物件，也是因為這個原因，我才可以自由地將一個Rvalue Reference移動到另一個物件上。
 ### 2. 我們無法一般的reference綁到需要轉換的運算式、字面值，或回回傳rvalue的運算式，只能綁到一個lvalue上面。
 ### 3. Rvalue Reference卻與之相反，只能綁到需要轉換的運算式、字面值，或回回傳rvalue的運算式，但卻不能綁到lvalue，或者直白的說，rvalue reference只能綁到rvalue上面。
+### 例外:我們可以通過const&來將一般的reference綁到rvalue上面，因為const就是一個常量。
+```c++
+int i = 42;
+const int &r = i * 42;
+```
 ### 4. rvalue與lvalue的區別在於:lvalue具有續存狀態而rvalue卻只是運算式過程中建立的暫存物件。
 ### 5. 所以綜合第三點與第四點，我們得知:Rvalue Reference只能綁到暫時存在的東西，這也代表著:那個物件即將被摧毀、那個物件沒有其它使用者。
 ### 6. 雖然我們沒辦法直接將Rvalue Reference綁到lvalue上面，但我們可以通過函式move做到這件事情，而這個函式存放於標頭utility中。
 ```c++
 int rri = 42;
-int&& rr = std::move(rri);
+int&& rr = std::move(rri); //將rri當成rvalue來用進行移動(賦值)
 ```
 ### 7. 但要記得，因為使用Rvalue Reference就代表著被綁定的物件即將被摧毀了，所以哪怕被綁定的是lvalue我們也不能再使用它原本的"值"了(可以指定新的值給它)。
-###
+### 8. 移動建構器:
+```c++
+strVec(strVec&&) noexcept; //使用noexcept的原因在於移動的過程中舊有資料(空間)可能就發生變化了，編譯器無法接受這種例外，認為有風險
+strVec::strVec(strVec&& v) noexcept: //複製
+	elements(v.elements), first_free(v.first_free), cap(v.cap)
+{
+	v.elements = v.first_free = v.cap = nullptr;
+};
+```
+### 9. 移動指定:
+```c++
+strVec& operator=(strVec&&) noexcept;
+strVec& strVec::operator=(strVec&& rhs) noexcept
+{
+	if (this != &rhs) //檢查this所指的位址與rhs是否相同
+	{
+		free(); //釋放左邊運算元的記憶體(this.free)
+		elements = rhs.elements;
+		first_free = rhs.first_free;
+		cap = rhs.cap;
+		rhs.elements = rhs.first_free = rhs.cap = nullptr;
+	}
+
+	return *this;
+}
+```
+### 10. 要記得，被移動的物件(moved-from object)，也就是移動來源，在移動完後必須可以解構。
+### 11. 其實就可以把它想像成恢復到最一開始的模樣(nullptr)。
+### 註記:被解構前我們仍然可以對moved-from object做諸如size()又或者empty()的函式，但對於其中的值我們沒辦法假設，又或者說是沒有意義。
+### 12. 函式返回的也是rvalue，由下面範例可以看出:
+```c++
+int getnums()
+{
+	int nums = 50;
+	return nums;
+}
+int i = 0;
+i = getnums();
+```
+### 13. 如果一個類別沒有移動建構器，那麼就會由拷貝建構器代替移動建構器來"移動"，拷貝指定運算子跟移動指定也很相似。
+### 14. 跟任何指定運算子一樣，移動運算子也必須摧毀左邊運算元舊有的狀態。
+### 15. 移動跟拷貝建構器的重仔區別在於:
+```c++
+void push_back(const std::string&); //拷貝
+void push_back(std::string&&); //移動
+void strVec::push_back(const std::string& s)
+{
+	check_alloc_size(); //只有增加元素時才有可能大小不足
+	alloc.construct(first_free++, s); //將s拷貝到first_free上然後移動first_free
+}
+
+void strVec::push_back(std::string&& s)
+{
+	check_alloc_size(); //只有增加元素時才有可能大小不足
+	alloc.construct(first_free++, std::move(s)); //將s移動到first_free然後移動first_free
+}
+```
+### 16. 我們可以使用reference qualifier強制的把左運算元的物件轉換為rvalue:
+```c++
+Foo& Foo::operator=(const Foo& rhs) &
+{
+}
+```
+### 17. 如果我們定義了一個rvalue reference的函式，那就必須要定義另一個具有reference qualifier的函式。
 
 
 
@@ -4534,6 +4602,8 @@ int&& rr = std::move(rri);
 ### 15. 只要是key就不能修改。
 ### 16. 一定要記得，任何const物件都必須被初始化。
 ### 17. 當我們有多個class要共用一個物件時，就可以使用shared_ptr。
+### 18. 我們移動的永遠都是rvalue。
+### 19. 拷貝建構器在解構之前舊有資料是完全沒有改變的;但移動建構器卻是在移動過程中就發生了某些不為人知的變化了。
 
 
 
