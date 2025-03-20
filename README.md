@@ -79,6 +79,7 @@
 >#### ☁️[移動物件](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#26-%E7%A7%BB%E5%8B%95%E7%89%A9%E4%BB%B6)
 >>#### [⭐⭐⭐⭐⭐實作](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E5%AF%A6%E4%BD%9C-7)
 
+>#### ☁️[重載運算]()
 
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
@@ -4801,6 +4802,15 @@ int main()
 
 ```
 
+## 27 重載運算:
+### 1. 其定義方式為operator後面接著要定義的運算子符號:
+```c++
+operator=();
+```
+### 2. 當你設計一個類別時，你永遠都應該先思考要為這個類別提供甚麼運算。
+### 3. 我們在定義重載運算子，也應該思考是否要把它定義為成員函式，以下有幾個原則:
+### 指定、下標、呼叫，或成員存取(->)，都必須被綁定為成員函式。
+### 會改變物件狀態，又或者綁定到所給型別的運算子如:解參考、遞增以及遞減，通常也都應該是成員函式。
 
 
 ## ⭐補充
