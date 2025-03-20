@@ -4862,10 +4862,70 @@ Sales_data operator+(const Sales_data& lhsm const Sales_data& rhs)
 	return sum;
 }
 ```
+### 11. 相等性運算子:回傳bool，同時也要記得，如果我們定義了==就必須定義!=，反之亦然。
+### 12. 通常，如果定義了相等性運算子，那麼關係運算子也會一起被定義。
+### 13. 指定運算子:除了拷貝、移動之外，程式庫的vector還定義了第三個方式:
+```c++
+vector<string> v;
+v = {"a","b","c"};
+//這種情況的定義方式大致如下
+strvec& operator=(initializer_list<string> il)
+{
+	auto data = alloc_n_ccpy(il.begin(),il.end());
+	free();
+	elements = data.first;
+	first_free = cap = data.second;
+	return *this;
+}
+```
+### 14. 記得，回傳的是左邊運算元的參考。
+### 15. 這種方式並不需要自我檢查，因為參數是initializer_list<string> il。
+### 16. 下標運算子:能通過位置取得容器內的元素，回傳參考指向擷取之元素。
+### 17. 通常來說，下標運算子都應該定義兩個型別，一個const一個非const，如下:
+```c++
+T& operator[](size_t index) //a liitle type so we can just "by value"
+{
 
 
+	if (index < get_size())
+		return the_first[index];
+	else
+	{
+		std::cerr << "Error: in function " << __func__ << " at line " << __LINE__
+			<< " Compiled on " << __DATE__ << " at " << __TIME__ << std::endl
+			<< "The index " << index << " is too big." << std::endl;
+		exit(1);
+	}
 
 
+} 
+const T& operator[](size_t index) const //a liitle type so we can just "by value"
+{
+
+
+	if (index < get_size())
+		return the_first[index];
+	else
+	{
+		std::cerr << "Error: in function " << __func__ << " at line " << __LINE__
+			<< " Compiled on " << __DATE__ << " at " << __TIME__ << std::endl
+			<< "The index " << index << " is too big." << std::endl;
+		exit(1);
+	}
+
+
+}
+```
+### 18. 由於遞增與遞減又被區分成前綴跟後綴，所以我們會以以下方法區別:
+```c++
+operator++() //pre
+operator--() //pre
+operator++(int) //post
+operator--(int) //post
+```
+### 括號內的參數型別int並沒有功用，只是用來讓電腦做區分而已;真要說的話，其實它會回傳一個0。
+### 19. 同時當我們定義遞增與遞減運算子時，一定要記得檢查是否有超出邊界。
+### 20. 成員存取運算子:->必須是一個成員，但*沒有一定，但通常會是。
 
 
 
