@@ -4811,6 +4811,63 @@ operator=();
 ### 3. 我們在定義重載運算子，也應該思考是否要把它定義為成員函式，以下有幾個原則:
 ### 指定、下標、呼叫，或成員存取(->)，都必須被綁定為成員函式。
 ### 會改變物件狀態，又或者綁定到所給型別的運算子如:解參考、遞增以及遞減，通常也都應該是成員函式。
+### 4. 重載輸出運算子<<:一個輸出運算子的第一個參數會是對非const ostream物件的參考。
+### 非const的原因是因為"寫入資料流"到一個ostream物件上會改變其狀態，而是參考的原因則是因為ostream物件不能拷貝。
+### 5. 至於第二個參數通常都是該輸出物件的型別，是const的參考。const是因為打印並不會改變物件本身，而參考則是可以防止拷貝到該參數。
+### 6. 通常 重載輸出運算子是回傳ostream參數。
+### 7. 重載輸入運算子>>:一個輸出運算子的第一個參數會是一個參考，綁定在讀取來源的資料流上，而第二個參數則是指向作為存放位置的非const型別的參考，回傳來源資料流。
+### 8. 輸入運算子必須考慮到如果輸入失敗的話該如何處理，而輸出運算子並不用。
+### 範例程式:
+```c++
+#include <iostream>
+#include <string>
+#include <sstream>
+
+
+struct data
+{
+	data() :nos(""), price(0) {};
+	std::string nos;
+	double price;
+};
+
+std::istream& operator>>(std::istream& is/*lhs*/, data& item/*rhs*/)
+{
+	
+	is >> item.nos >> item.price;
+	if (is)
+		std::cout << item.nos << " " << item.price << std::endl;
+	else
+		item = data();
+
+	return is;/*lhs*/
+}
+
+int main()
+{
+	data data1;
+	std::cin >> data1;
+
+	return 0;
+}
+```
+### 9. 一般來說，對於算術和關係運算子時，我們都應該把它們定義為非成員函式，如此一來左右兩邊的運算元才能交換。
+### 同時，因為不會改變狀態，所這些參數也都應該是const型別的。
+### 10. 再來，這些運算所回傳的是一個拷貝，並非參考。
+```c++
+Sales_data operator+(const Sales_data& lhsm const Sales_data& rhs)
+{
+	Sales_data sum = lhs;
+	sum += rhs;
+	return sum;
+}
+```
+
+
+
+
+
+
 
 
 ## ⭐補充
