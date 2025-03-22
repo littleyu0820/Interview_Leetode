@@ -81,9 +81,11 @@
 
 >#### ☁️[重載運算](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#27-%E9%87%8D%E8%BC%89%E9%81%8B%E7%AE%97)
 
->#### ☁️[再探物件導向]()
+>#### ☁️[再探物件導向](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#28-%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91oop)
 
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
+
+
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
 >#### ☁️[搜索插入位置(Search Insert Position)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise%E6%87%89%E7%94%A8%E7%B7%B4%E7%BF%92)
