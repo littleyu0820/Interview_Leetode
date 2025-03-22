@@ -4939,6 +4939,96 @@ int i = -42;
 absint absfunc;
 int ui = absfunc(i);
 ```
+## 28 物件導向:
+### 1. 繼承:類似一棵樹，根部為基礎類別(base class)，而上面的樹枝則是衍生類別(derived class)，理所當然的，上面的樹枝也可以汲取來自根部的營養。
+### 換句話說，衍生類別也能使用基礎類別的成員。
+### 2. 衍生類別的定義:
+```c++
+class base_class
+{
+public:
+
+
+private:
+
+};
+
+class derived_class : public base_class
+{
+public:
+
+private:
+
+};
+```
+### 3. 動態繫結:使用相同的程式碼來處理基礎類別或衍生類別，由於是執行時才決定到底是引入哪個(參數)類別，所以又被稱為執行期繫結(run-time binding)
+### 4. 範例:
+```c++
+#include <iostream>
+
+
+class base_class //基礎類別
+{
+public:
+	base_class() = default; //建構器
+	base_class(const std::string& s) : //建構器
+		test(s) {}
+	virtual ~base_class() = default; //解構器
+
+	std::string print() //普通函式
+	{
+		std::cout << test << std::endl;
+	}
+
+	virtual int print_val(int v) const //衍生類別會再次定義(覆蓋)的函式
+	{
+		std::cout << "Basic: " << val << std::endl;
+		return v * v;
+	}
+
+private:
+	std::string test;
+
+protected: //外人無法存取，但衍生類別可以存取
+	int val = 10;
+
+};
+
+class derived_class : public base_class //衍生類別 通過pubic把derived_class當成base_class型別的物件
+{
+public:
+	derived_class() = default;
+	derived_class(const std::string& s) : //衍生類別覆蓋的函式
+		test(s){ }
+	int print_val(int v) const override
+	{
+		std::cout << "Derived: " << val << std::endl;
+		return v * v * v;
+	}
+private:
+	std::string test;
+};
+
+int print_(const base_class& c) //引用base_class的物件
+{
+	int total_v = c.print_val(10);
+	return total_v;
+}
+
+int main()
+{
+	base_class bc("TEST");
+	derived_class dc("test");
+
+	//會根據引入的參數決定要使用哪個函式 覆蓋又或者沒覆蓋版本的
+	int b = print_(bc);
+	int d = print_(dc);
+
+	std::cout << "Basic: " << b << std::endl;
+	std::cout << "Derived: " << d << std::endl;
+
+}
+```
 
 
 
