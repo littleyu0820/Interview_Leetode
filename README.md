@@ -5074,7 +5074,49 @@ public:
 };
 ```
 ### 17. 再來，friend是不能繼承的，就如同你爸媽的朋友，不代表它們也是你的朋友的意思。
+### 18. 建構器也能通過using的方式來繼承:
+```c++
+class derived_class : public base_class //衍生類別 通過pubic把derived_class當成base_class型別的物件
+{
+public:
+	using base_class:base_class;
+};
+```
+### 19. 但是預設、拷貝跟移動建構器卻是無法繼承的。
+### 20. 當我們要使用容器來儲存某個具有繼承架構的物件時，間接式的存取會是個好想法。
+### 何謂間接式的存取，這泛指以指標的方式來存取。
+### 範例:
+```c++
+vector<base_class> vec //容器vector裡面存放的是base_class物件
+vec.push_back(base_class("Hello"));
+vec.push_back(derived_class("Hello")); //等價於上式，都只是將base_class的基礎部分拷貝到容器裡面，衍生類別都被切掉了
+```
+### 21. 而通過指標的方式，我們可以避免這個問題:
+```c++
+vector<shared_ptr<base_class>> vec //容器vector裡面存放的是對base_class的指標
+vec.push_back(make_shared<base_class>("Hello"));
+vec.push_back(make_shared<derived_class>("Hello")); //不同於上式，指標是直接指向衍生類別，並且將其中的內容存進容器中。
+std::cout << vec.back()->print_(10);
+```
+### 範例:
+```c++
+//通過智慧指標間接存取
+std::vector<std::shared_ptr<base_class>> vec;
 
+vec.push_back(std::make_shared<base_class>("Test"));
+vec.push_back(std::make_shared<derived_class>("test"));
+
+std::cout << vec[0]->print_val(10) << std::endl;
+std::cout << vec[1]->print_val(10) << std::endl;
+
+//直接存入基礎物件，所以會導致衍生物件被切除(忽略)
+std::vector<base_class> vec2;
+vec2.push_back(base_class("Test"));
+vec2.push_back(derived_class("test"));
+
+std::cout << vec2[0].print_val(10) << std::endl;
+std::cout << vec2[1].print_val(10) << std::endl;
+```
 
 
 ## ⭐補充
