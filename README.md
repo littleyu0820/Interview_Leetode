@@ -81,6 +81,8 @@
 
 >#### ☁️[重載運算]()
 
+>#### ☁️[再探物件導向]()
+
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 ### Table of Contents(LeetCode)
 >#### ☁️[二分搜尋法(Binary Search)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#leetcode)
@@ -4939,7 +4941,7 @@ int i = -42;
 absint absfunc;
 int ui = absfunc(i);
 ```
-## 28 物件導向:
+## 28 物件導向(OOP):
 ### 1. 繼承:類似一棵樹，根部為基礎類別(base class)，而上面的樹枝則是衍生類別(derived class)，理所當然的，上面的樹枝也可以汲取來自根部的營養。
 ### 換句話說，衍生類別也能使用基礎類別的成員。
 ### 2. 衍生類別的定義:
@@ -4965,8 +4967,6 @@ private:
 ### 4. 範例:
 ```c++
 #include <iostream>
-
-
 class base_class //基礎類別
 {
 public:
@@ -5029,6 +5029,49 @@ int main()
 
 }
 ```
+### 5. 如果衍生類別沒有覆蓋函式，就會跟繼承成員一樣，同樣的繼承來自根部的函式。
+### 6. 衍生類別也必須有建構器來初始化它的成員。
+### 7. 要記得，衍生類別只能存取public跟proteced的成員，private同樣不能被其存取。
+### 8. 我們也可以通過防止繼承的方式，來讓其無法衍生:
+```c++
+class No_Derived final //表示No_Derived無法有衍生類別
+{
+};
+```
+### 9. 靜態型別:編譯時就知道了;動態型別:執行時才清楚。
+### 10. 有些時候對一個基礎類別的參考或指標，其靜態型別不一定與動態型別相同。
+### 就如同我們前面提到的函式覆蓋，我們在編譯時，就知道該參考會是一個基礎類別的物件，但卻必須在執行時，才能判定所引入的參數究竟是基礎類別還是衍生類別，以此來決定是否要使用覆蓋函式。
+### 11. 很重要的是，動態繫結只會發生在我們以參考或指標呼叫類別時才會發生。哪怕我們通過拷貝的方式，將一個基礎類別拷貝為衍生類別，仍然是只會存取未覆蓋的版本。
+### 原因在於，哪怕是衍生類別，其時它的整體輪廓仍然是基礎類別的物件，因此通過拷貝的方式，我們也只是將其放進基礎類別罷了，並非就是將初始類別轉為衍生類別。
+### 12. 有些時候我們可能不想要使用動態繫結，而是特別指定要使用哪個版本的vitrual函式，可以適用範疇運算子:
+```c++
+derived_class* pdc = &dc;
+std::cout << "Test: " << pdc->base_class::print_val(10) << std::endl;
+```
+### 13. 純粹的虛擬函式(Pure Virtual Function):
+```c++
+virtual int print_val(int v) const = 0; //通過=0的方式來表達該函式是純粹的虛擬函式
+```
+### 14. 還有一點是我們可以在類別外定義這些純粹的虛擬函式，但卻不能在類別內定義它們。
+### 這裡說的定義指的是為這些函式提供主體。
+### 15. 我們也可以在衍生類別重構基礎類別:
+```c++
+derived_class(const std::string& s) : //衍生類別覆蓋的函式
+	base_class(s) 
+{
+	std::cout << "Reconstructor" << std::endl;
+}
+```
+### 16. 一個衍生類別內的friend函式只能透過一個衍生物件來存取proteced的成員:
+```c++
+class derived_class : public base_class //衍生類別 通過pubic把derived_class當成base_class型別的物件
+{
+public:
+	friend void access(derived_class& c); //可以存取proteced
+	friend void access(Base& cc); //不行，只有c可以
+};
+```
+### 17. 再來，friend是不能繼承的，就如同你爸媽的朋友，不代表它們也是你的朋友的意思。
 
 
 
