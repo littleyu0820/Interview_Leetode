@@ -97,7 +97,6 @@
 
 # C++
 ## 1 輸入與輸出
-
 ```c++
 /*
 * 函式庫<iostream>的應用
@@ -5117,6 +5116,31 @@ vec2.push_back(derived_class("test"));
 std::cout << vec2[0].print_val(10) << std::endl;
 std::cout << vec2[1].print_val(10) << std::endl;
 ```
+## 29 模板與泛型設計(Template and Generic Programming)
+### 1. 一個模板的定義方式，是以關鍵template為開頭，後面接著模板參數列:
+```c++
+tmplate <typename T>
+T test_function(T& val)
+{
+	...
+}
+```
+### 2. 模板的編譯過程:
+### 當編譯器看到模板時，它並不會馬上產生代碼去執行;相反的，它只會在我們實體化一個模板時，才會去產生代碼執行。
+### 舉例來說，當我們有一個模板為:
+```c++
+T test_function(T& val)
+```
+### 這時，編譯器並不清楚T究竟為甚麼型別，只有當譯器判定T究竟為甚麼型別時，才會實體化一個模板，而後執行。
+
+
+
+
+
+
+
+
+
 
 
 ## ⭐補充
