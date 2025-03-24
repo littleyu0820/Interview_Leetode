@@ -83,7 +83,7 @@
 
 >#### ☁️[再探物件導向](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#28-%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91oop)
 
->#### ☁️[模板與泛型設計]()
+>#### ☁️[模板與泛型設計](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#29-%E6%A8%A1%E6%9D%BF%E8%88%87%E6%B3%9B%E5%9E%8B%E8%A8%AD%E8%A8%88template-and-generic-programming)
 
 
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
