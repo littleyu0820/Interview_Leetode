@@ -2368,7 +2368,7 @@ ostringstream:
 			os << entry.name << " " << formatted.str() << endl;
 		else
 			cerr << "input error: " << entry.name << "invalid number(s) " << badnums.str() << endl;
-
+	}
 ```
 
 ## 19 循序容器:
