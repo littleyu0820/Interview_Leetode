@@ -5192,7 +5192,7 @@ fcn(val); //發生摺疊，T&& -> int&
 fcn(10); //正常使用，T&& -> &&
 ```
 ### 12. 模板的重載:如果有一個非模板函式跟模板函式做匹配，那麼非模板的版本會被優先取用。
-### 13. 模板與函式參數包:
+### 13. 模板(args)與函式(rest)參數包:
 ```c++
 template<typename T, typename... Args>
 void foo(const T& t, const Args&... rest);
