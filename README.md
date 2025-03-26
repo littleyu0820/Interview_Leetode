@@ -5191,10 +5191,21 @@ void fcn(T&& a){}
 fcn(val); //發生摺疊，T&& -> int&
 fcn(10); //正常使用，T&& -> &&
 ```
-
-
-
-
+### 12. 模板的重載:如果有一個非模板函式跟模板函式做匹配，那麼非模板的版本會被優先取用。
+### 13. 模板與函式參數包:
+```c++
+template<typename T, typename... Args>
+void foo(const T& t, const Args&... rest);
+```
+### 14. 但也要注意，我們使用這些參數可變的定義時，也必然要定義一個不可變版本，否則參數可變版的函示會無限遞迴。
+### 15. 有些時候模板可能並不適用所有情況，因此我們可以實作一個特殊化的模板:
+```c++
+template<typename T>
+int compare(const T&, const T&);
+template<size_t N, size_t M>
+int compare(const char* (&)[N], const char* (&)[M]);
+```
+### 16. 特化也是在實體化一個模板，所以並不是重載，並沒有做函式匹配。
 
 
 
