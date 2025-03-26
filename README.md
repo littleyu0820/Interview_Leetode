@@ -2246,7 +2246,7 @@ int main()
 ### 1. 分別有三種:iostream、fstream，以及sstream。
 ### iostream:用來讀寫資料流。
 ### fstream:用來讀寫具檔名的型別。
-### iostream:用來讀寫記憶體內的string。
+### sstream:用來讀寫記憶體內的string。
 ### 2. 通常我們在使用程式碼之前，應該先檢查它的資料流是否有問題，如下:
 ```c++
 while(std::cin >> word) //檢查cin是否有正確回傳
