@@ -97,6 +97,8 @@
 >#### ☁️[長度最小的子陣列(Minimum Size Subarray Sum)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-4)
 >#### ☁️[螺旋矩陣(Spiral_Matrix)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-5)
 >#### ☁️[移除列表元素(Remove Linked List Elements)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-6)
+>#### ☁️[設計列表(Design Linked List)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-7)
+
 
 # C++
 ## 1 輸入與輸出
@@ -5617,4 +5619,4 @@ private:
 };
 ```
 ☁️[LeetCode連結](https://leetcode.com/problems/design-linked-list/)
-☁️[My_LeetCode_Sol]()
+☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Design_Linked_List.cpp)
