@@ -98,6 +98,7 @@
 >#### ☁️[螺旋矩陣(Spiral_Matrix)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-5)
 >#### ☁️[移除列表元素(Remove Linked List Elements)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-6)
 >#### ☁️[設計列表(Design Linked List)](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#exercise-7)
+>#### ☁️[反轉列表(Reverse Linked List)]()
 
 
 # C++
@@ -5620,3 +5621,41 @@ private:
 ```
 ☁️[LeetCode連結](https://leetcode.com/problems/design-linked-list/)
 ☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Design_Linked_List.cpp)
+### Exercise 8
+>Reverse Linked List(反轉列表):Given the head of a singly linked list, reverse the list, and return the reversed list.
+### 思考邏輯:通過類似於快慢指針的方式，來改變指針所指的方向。
+>Solution:
+```C++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) 
+    {
+        ListNode* cur = nullptr;
+        ListNode* fast_cur = head;
+        while(fast_cur)
+        {
+           auto tmp = fast_cur->next;
+           fast_cur->next = cur;
+           cur = fast_cur;
+           fast_cur = tmp;
+           
+        }
+
+        return cur;
+    }
+
+    
+};
+```
+☁️[LeetCode連結](https://leetcode.com/problems/reverse-linked-list/)
+☁️[My_LeetCode_Sol]()
