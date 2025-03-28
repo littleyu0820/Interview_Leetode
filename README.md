@@ -5525,3 +5525,96 @@ public:
 ```
 ☁️[LeetCode連結](https://leetcode.com/problems/remove-linked-list-elements/description/)
 ☁️[My_LeetCode_Sol](https://github.com/littleyu0820/Interview_Leetode/blob/main/Exercise/Remove%20Linked%20List%20Elements_V2.cpp)
+### Exercise 7
+>Design Linked List(設計列表):Design your implementation of the linked list. You can choose to use a singly or doubly linked list.
+>A node in a singly linked list should have two attributes: val and next. val is the value of the current node, and next is a pointer/reference to the next node.
+>If you want to use the doubly linked list, you will need one more attribute prev to indicate the previous node in the linked list. Assume all nodes in the linked list are 0-indexed.
+### 思考邏輯:依靠list是通過指針的方式來連接的想法，只要將next的目的地改向後一個就可以了，要習慣的以cur->next代表的就是第n個節點的思路來解題。
+>Solution:
+```C++
+class MyLinkedList {
+public:
+    struct ListNode
+    {
+        int val;
+        ListNode* next;
+        ListNode(int val):val(val), next(nullptr){}
+    };
+    
+    MyLinkedList() 
+    {
+        v_head = new ListNode(0);
+        _size = 0;
+    }
+    
+    int get(int index) 
+    {
+        if(index > (_size - 1) || index < 0)
+            return -1;
+        ListNode* cur = v_head->next;
+        while(index--)
+            cur = cur->next;
+        return cur->val;
+    }
+    
+    void addAtHead(int val) 
+    {
+        ListNode* new_head = new ListNode(val);
+        new_head->next = v_head->next;
+        v_head->next = new_head;
+        ++_size;
+    }
+    
+    void addAtTail(int val) 
+    {
+        ListNode* new_tail = new ListNode(val);
+        ListNode* cur = v_head;
+        while(cur->next != nullptr)
+        {
+            cur = cur->next;
+        }
+        cur->next = new_tail;
+        ++_size;
+    }
+    
+    void addAtIndex(int index, int val) 
+    {
+        if(index > _size)
+            return;
+        if(index < 0)
+            index = 0;
+        ListNode* new_node = new ListNode(val);
+        ListNode* cur = v_head;
+        while(index-- > 0)
+        {
+            cur = cur->next;
+        }
+        new_node->next = cur->next;
+        cur->next = new_node;
+        ++_size;
+    }
+    
+    void deleteAtIndex(int index) 
+    {
+        if(index >= _size || index < 0)
+            return;
+        ListNode* cur = v_head;
+        while(index-- > 0)
+        {
+            cur = cur->next;
+        }
+        ListNode* tmp = cur->next;
+        cur->next = cur->next->next;
+        delete tmp;
+        tmp = nullptr;
+        --_size;
+    }a
+
+private:
+    int _size;
+    ListNode* v_head;
+
+};
+```
+☁️[LeetCode連結](https://leetcode.com/problems/design-linked-list/)
+☁️[My_LeetCode_Sol]()
