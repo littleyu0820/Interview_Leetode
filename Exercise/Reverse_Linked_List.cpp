@@ -12,18 +12,18 @@ class Solution {
 public:
     ListNode* reverseList(ListNode* head) 
     {
-        ListNode* cur = nullptr;
+        ListNode* slow_cur = nullptr;
         ListNode* fast_cur = head;
         while(fast_cur)
         {
            auto tmp = fast_cur->next;
-           fast_cur->next = cur;
-           cur = fast_cur;
+           fast_cur->next = slow_cur;
+           slow_cur = fast_cur;
            fast_cur = tmp;
            
         }
 
-        return cur;
+        return slow_cur;
     }
 
     
