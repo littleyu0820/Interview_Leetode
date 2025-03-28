@@ -5624,7 +5624,7 @@ private:
 ### Exercise 8
 >Reverse Linked List(反轉列表):Given the head of a singly linked list, reverse the list, and return the reversed list.
 ### 思考邏輯:通過類似於快慢指針的方式，來改變指針所指的方向。
->Solution:
+>Solution(法一，快慢指針):
 ```C++
 /**
  * Definition for singly-linked list.
@@ -5654,6 +5654,37 @@ public:
         return slow_cur;
     }
 
+    
+};
+```
+>Solution(法二，遞迴):
+```C++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ListNode* reverse(ListNode* fast_cur, ListNode* slow_cur)
+{
+    if(fast_cur == nullptr)
+        return slow_cur;
+    auto tmp = fast_cur->next;
+    fast_cur->next = slow_cur;
+    return reverse(tmp, fast_cur);
+
+}
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) 
+    {
+       return reverse(head, nullptr);
+    }
     
 };
 ```
