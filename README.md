@@ -1,5 +1,4 @@
-# 《流雲》程式工程師求職前準備!
-## 本身是通訊系畢業的學生，之前使用的語言都是Python，但在求職前打算好好的學習C++以及刷LeetCode，在這裡記錄下學習過程。
+# 《流雲》C++學習心得
 ##  📹[流雲的程式筆記Programmer](https://www.youtube.com/@%E6%B5%81%E9%9B%B2%E7%9A%84%E7%A8%8B%E5%BC%8F%E7%AD%86%E8%A8%98)  📹[影片講解-C++學習心得(YouTube)](https://www.youtube.com/watch?v=nxY5JQDC97g)  
 ### Table of Contents(C++)
 >#### ☁️[輸入與輸出](https://github.com/littleyu0820/LeetCode_Exercises/blob/main/README.md#1-%E8%BC%B8%E5%85%A5%E8%88%87%E8%BC%B8%E5%87%BA)  
@@ -85,6 +84,7 @@
 
 >#### ☁️[模板與泛型設計](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#29-%E6%A8%A1%E6%9D%BF%E8%88%87%E6%B3%9B%E5%9E%8B%E8%A8%AD%E8%A8%88template-and-generic-programming)
 
+>#### ☁️[程式庫機能]()
 
 >#### ⭐[補充](https://github.com/littleyu0820/Interview_Leetode/blob/main/README.md#%E8%A3%9C%E5%85%85-1)
 
@@ -5210,7 +5210,8 @@ int compare(const char* (&)[N], const char* (&)[M]);
 ```
 ### 16. 特化也是在實體化一個模板，所以並不是重載，並沒有做函式匹配。
 
-
+## 30 程式庫機能(Library Facilities)
+### 1.
 
 
 
