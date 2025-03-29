@@ -5211,9 +5211,28 @@ int compare(const char* (&)[N], const char* (&)[M]);
 ### 16. 特化也是在實體化一個模板，所以並不是重載，並沒有做函式匹配。
 
 ## 30 程式庫機能(Library Facilities)
-### 1.
-
-
+### 1. 元組(tuple):類似於pair的一種模板，成員型別不同，但數量不侷限於兩個。
+適合用於想要將某些資料結合成單一物件，但卻不想定義資料結構時使用。
+### 2. 由於tuple的建構器是explicit的，所以只能用直接初始化的方式來定義。
+```c++
+tuple<size_t, size_t,  string> test(1,2,"a");
+```
+### 3. 如第一點所說，tuple類似於pair，所以它也有一個與make_pair相近的函式:
+```c++
+auto item = make_tuple(120,50,"hi");
+```
+### 4. 與pair不同的是，tuple成員數量不固定，所以沒辦法用first/second這樣子的關鍵字來存取元素。
+我們依靠的是函式get:
+```c++
+auto test = get<0>(item)//存取物件item中的第一個成員
+```
+### 5. bitset:用來讓位元運算更容易，定義於bitset的標頭檔中。
+與array相同，bitset必須事先定義大小。
+```c++
+bitset<32> bitvec(1u);
+```
+### 6. 與vector相同，bitset的每一個元素都是不具名的，所以我們使用編號0-31位元的方式來存取它們，這種方式近似於下標。
+從0開始的位元被稱為低序(low-order)，結束於31的位元被稱為高序(high-order)。
 
 
 
