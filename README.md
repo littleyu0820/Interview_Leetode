@@ -5235,9 +5235,27 @@ bitset<32> bitvec(1u);
 ```
 ### 6. 與vector相同，bitset的每一個元素都是不具名的，所以我們使用編號0-31位元的方式來存取它們，這種方式近似於下標。
 從0開始的位元被稱為低序(low-order)，結束於31的位元被稱為高序(high-order)。
-
-
-
+### 7. 隨機數:使用定義在random標頭中的default_random_engine
+```c++
+std::default_random_engine e;
+std::cout << e() << std::endl;
+std::uniform_int_distribution<unsigned> u(0, 9);
+std::cout << u(e) << std::endl;
+```
+### 8. 一個給定的隨機數產生器永遠都會產生相同的數字序列;同時，具有一個區域性的隨機數產生器也必然要是static的，否則也會產生相同的序列。
+### 9. 使用標頭ctime中的time來產生隨機:
+```c++
+std::default_random_engine e;
+e.seed(time(0));
+std::cout << e() << std::endl;
+std::uniform_int_distribution<unsigned> u(0, 9);
+std::cout << u(e) << std::endl;
+```
+### 註記:因為time回傳的是秒數，所以這個隨機也僅侷限在秒數層級，又或者是更長的時間間隔上。
+### 10. 產生隨機實數:
+```c++
+std::uniform_real_distribution<double> u(0, 9);
+```
 
 ## ⭐補充
 ### 1. 在ostream中其實還包含了另外兩個物件，cerr跟clog，我們統稱他們的標準錯誤(standard error):
